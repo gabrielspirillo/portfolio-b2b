@@ -38,12 +38,15 @@ export function ContactCTA() {
       ref={containerRef}
       className="py-32 outline-none relative z-10 overflow-hidden"
     >
-      {/* Background Image with GSAP Parallax Hook */}
-      <img
-        ref={imageRef}
-        src="https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775663519/IMG_4360_tb1fuj.jpg"
-        alt="Studio Environment"
-        className="absolute top-[-20%] left-0 w-full h-[140%] object-cover pointer-events-none opacity-[0.35]"
+      {/* Background Video with GSAP Parallax Hook */}
+      <video
+        ref={imageRef as any}
+        src="https://res.cloudinary.com/dcnik6ovx/video/upload/v1775678885/0602_1_2_2_hsv3lx.mov"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-[-20%] left-0 w-full h-[140%] object-cover pointer-events-none opacity-[0.4]"
       />
 
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-20">
@@ -77,7 +80,7 @@ export function ContactCTA() {
               onMouseEnter={playEarcon}
               className="text-silver-200/60 hover:text-white transition-colors text-sm font-light tracking-wide hover:underline underline-offset-4 decoration-carbon-500 drop-shadow-md"
             >
-              o escríbeme a gabriel.s.pirillo@gmail.com
+              {t("contact_email_cta")}
             </a>
           </div>
         </div>

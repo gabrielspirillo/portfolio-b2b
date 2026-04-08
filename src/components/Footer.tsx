@@ -56,7 +56,7 @@ export function Footer() {
                   Gabriel Pirillo
                 </Link>
                 <p className="text-silver-200/60 text-sm font-light leading-relaxed max-w-sm mt-2">
-                  Construyo ecosistemas digitales y piezas interactivas diseñadas para maximizar utilidades. La tecnología no solo funciona, actúa para ti.
+                  {t("footer_desc")}
                 </p>
                 <div className="flex items-center gap-5 mt-4">
                   <a href="https://www.linkedin.com/in/gabrielpirillo/" target="_blank" rel="noopener noreferrer" className="text-silver-200/80 hover:text-white transition-colors" onClick={playEarcon}>
@@ -76,25 +76,25 @@ export function Footer() {
               <div className="col-span-1 md:col-span-7 lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-8 pt-4 md:pt-0">
                 
                 <div className="flex flex-col gap-5">
-                  <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">¿Cómo te puedo ayudar?</h4>
+                  <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">{t("footer_help")}</h4>
                   <ul className="flex flex-col gap-4">
-                    <li><Link href="#services" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">Servicios</Link></li>
-                    <li><Link href="#projects" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">Proyectos</Link></li>
-                    <li><Link href="#tech-stack" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">Stack Técnico</Link></li>
+                    <li><Link href="#services" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_serv")}</Link></li>
+                    <li><Link href="#projects" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_proj")}</Link></li>
+                    <li><Link href="#tech-stack" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_stack")}</Link></li>
                   </ul>
                 </div>
 
                 <div className="flex flex-col gap-5">
-                  <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">Conóceme</h4>
+                  <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">{t("footer_know")}</h4>
                   <ul className="flex flex-col gap-4">
-                    <li><Link href="#about" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">Sobre Mí</Link></li>
-                    <li><Link href="#education" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">Estudios</Link></li>
-                    <li><Link href="#testimonials" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">Testimonios</Link></li>
+                    <li><Link href="#about" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_about")}</Link></li>
+                    <li><Link href="#education" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_edu")}</Link></li>
+                    <li><Link href="#testimonials" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_test")}</Link></li>
                   </ul>
                 </div>
 
                 <div className="flex flex-col gap-5">
-                  <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">Contáctame</h4>
+                  <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">{t("footer_contact")}</h4>
                   <ul className="flex flex-col gap-4">
                     <li><a href="https://w.app/e9lg2x" target="_blank" rel="noopener noreferrer" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">WhatsApp</a></li>
                     <li><a href="mailto:gabriel.s.pirillo@gmail.com" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light whitespace-nowrap">gabriel.s.pirillo@gmail.com</a></li>
@@ -108,7 +108,7 @@ export function Footer() {
             {/* Bottom Bar */}
             <div className="border-t border-carbon-800/60 mt-20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
               <p className="text-silver-200/50 text-xs font-light tracking-wide text-center md:text-left">
-                &copy; {new Date().getFullYear()} Gabriel Pirillo. Todos los derechos reservados.
+                &copy; {new Date().getFullYear()} Gabriel Pirillo. {t("footer_rights")}
               </p>
               <div className="flex gap-6 text-xs text-silver-200/50 font-light underline-offset-4 decoration-carbon-700/50">
                 {/* Legals Removed per request */}

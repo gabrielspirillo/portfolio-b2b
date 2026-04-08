@@ -146,7 +146,23 @@ const translations: Record<Language, Translations> = {
     
     // UI General
     close_button: "Cerrar",
-    read_more: "Ver más detalles"
+    read_more: "Ver más detalles",
+
+    // New Globals
+    edu_eyebrow: "Estudios y Reconocimientos.",
+    edu_relaciones: "Relaciones Comerciales Internacionales",
+    contact_email_cta: "o escríbeme a gabriel.s.pirillo@gmail.com",
+    footer_desc: "Construyo ecosistemas digitales y piezas interactivas diseñadas para maximizar utilidades. La tecnología no solo funciona, actúa para ti.",
+    footer_help: "¿Cómo te puedo ayudar?",
+    footer_serv: "Servicios",
+    footer_proj: "Proyectos",
+    footer_stack: "Stack Técnico",
+    footer_know: "Conóceme",
+    footer_about: "Sobre Mí",
+    footer_edu: "Estudios",
+    footer_test: "Testimonios",
+    footer_contact: "Contáctame",
+    footer_rights: "Todos los derechos reservados."
   },
   en: {
     // Nav
@@ -285,7 +301,23 @@ const translations: Record<Language, Translations> = {
 
     // UI General
     close_button: "Close",
-    read_more: "Read full details"
+    read_more: "Read full details",
+
+    // New Globals
+    edu_eyebrow: "Education and Recognitions.",
+    edu_relaciones: "International Business Relations",
+    contact_email_cta: "or email me at gabriel.s.pirillo@gmail.com",
+    footer_desc: "I build digital ecosystems and interactive pieces designed to maximize profits. Technology not only works, it acts for you.",
+    footer_help: "How can I help you?",
+    footer_serv: "Services",
+    footer_proj: "Projects",
+    footer_stack: "Tech Stack",
+    footer_know: "Get to know me",
+    footer_about: "About Me",
+    footer_edu: "Education",
+    footer_test: "Testimonials",
+    footer_contact: "Contact me",
+    footer_rights: "All rights reserved."
   }
 };
 
