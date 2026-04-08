@@ -49,7 +49,7 @@ export function ContactCTA() {
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-20">
         
         {/* Glassmorphic Box */}
-        <div className="bg-carbon-900/30 backdrop-blur-xl border border-carbon-700/50 p-12 md:p-16 relative overflow-hidden group shadow-2xl rounded-2xl">
+        <div className="bg-carbon-900/30 backdrop-blur-md border border-carbon-700/50 p-12 md:p-16 relative overflow-hidden group shadow-2xl rounded-2xl">
           
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-white mb-4 relative z-10 drop-shadow-lg">
             {t("contact_title_1")}
