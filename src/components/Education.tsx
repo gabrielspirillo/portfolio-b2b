@@ -9,7 +9,7 @@ export function Education() {
   const studies = [
     {
       institution: "Universidad Nacional de Tres de Febrero",
-      title: "Relaciones Comerciales Internacionales",
+      title: t("edu_relaciones"),
       logo: "https://i.ibb.co/4gw0Cdc6/Captura-de-pantalla-2026-04-07-a-la-s-15-24-04.png",
       skills: []
     },
@@ -49,7 +49,7 @@ export function Education() {
             Background
           </h2>
           <p className="text-3xl md:text-4xl font-semibold tracking-tight text-silver-100 mt-2">
-            Estudios y Reconocimientos.
+            {t("edu_eyebrow")}
           </p>
         </div>
 

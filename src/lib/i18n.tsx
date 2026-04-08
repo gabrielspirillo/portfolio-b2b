@@ -268,23 +268,23 @@ const translations: Record<Language, Translations> = {
     test_eyebrow: "5-Star Reviews",
     test_title: "Client Feedback.",
 
-    test_1_name: "Carina M.",
+    test_1_name: "Carina M. 🇦🇷",
     test_1_role: "Ecommerce Director",
     test_1_text: "Gabriel is a true find. He knew how to interpret what I wanted, but above all, what I needed. The template design was spectacular. He works with great detail. I recommend him 100%.",
 
-    test_2_name: "Alex Urmeneta",
+    test_2_name: "Alex U. 🇪🇸",
     test_2_role: "Commercial Manager",
     test_2_text: "Great worker. Attentive and compliant.",
 
-    test_3_name: "Gabriela Olazábal",
+    test_3_name: "Gabriela O. 🇪🇸",
     test_3_role: "Furniture & Decor Store",
     test_3_text: "I was looking for a web development expert and I hit the mark. He has designed my store and it turned out absolutely spectacular.",
 
-    test_4_name: "Dr. Alejandro Lessieur",
+    test_4_name: "Dr. Alejandro L. 🇲🇽",
     test_4_role: "Gastroenterologist",
     test_4_text: "The AI misses nothing and transcribes all the consultation info, allowing me to focus 100% on my patients without administrative burnout.",
 
-    test_5_name: "Sergio Jimenez",
+    test_5_name: "Sergio J. 🇪🇸",
     test_5_role: "Bracamonte Meals",
     test_5_text: "Implementing AI has been a turning point. Managing weekly orders and changes now flies seamlessly without human intervention. Great professional.",
 

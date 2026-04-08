@@ -38,15 +38,12 @@ export function ContactCTA() {
       ref={containerRef}
       className="py-32 outline-none relative z-10 overflow-hidden"
     >
-      {/* Background Video with GSAP Parallax Hook */}
-      <video
+      {/* Background Image with GSAP Parallax Hook */}
+      <img
         ref={imageRef as any}
-        src="https://res.cloudinary.com/dcnik6ovx/video/upload/v1775678885/0602_1_2_2_hsv3lx.mov"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-[-20%] left-0 w-full h-[140%] object-cover pointer-events-none opacity-[0.4]"
+        src="https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775663519/IMG_4360_tb1fuj.jpg"
+        alt="Studio Environment"
+        className="absolute top-[-20%] left-0 w-full h-[140%] object-cover pointer-events-none opacity-[0.35]"
       />
 
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-20">
