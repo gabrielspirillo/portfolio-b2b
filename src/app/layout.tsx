@@ -24,9 +24,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased overflow-x-clip`}
     >
-      <body className="min-h-full flex flex-col bg-carbon-900 text-silver-100 leading-snug tracking-tight">
+      <body className="min-h-full flex flex-col bg-carbon-900 text-silver-100 leading-snug tracking-tight overflow-x-clip">
         <LanguageProvider>
           <AudioProvider>
             <SmoothScrollProvider>

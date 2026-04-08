@@ -13,7 +13,7 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full max-w-full overflow-x-clip relative">
       <Header />
       <SocialSidebar />
       <main className="flex flex-col min-h-screen w-full">
