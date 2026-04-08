@@ -53,7 +53,7 @@ export function TechStack() {
     >
       {/* Subtle radial glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-white/[0.015] blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(800px,70vw)] h-[min(800px,70vw)] rounded-full bg-white/[0.015] blur-[120px]" />
       </div>
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">

@@ -221,6 +221,7 @@ export function CaseStudies() {
           </div>
         </div>
 
+        <div className="overflow-hidden w-full">
         <div 
           ref={scrollContainerRef}
           className="grid grid-rows-2 grid-flow-col gap-6 overflow-x-auto snap-x snap-mandatory pb-8 hide-scrollbar w-full"
@@ -281,6 +282,7 @@ export function CaseStudies() {
               </div>
             </article>
           ))}
+        </div>
         </div>
 
       </div>
