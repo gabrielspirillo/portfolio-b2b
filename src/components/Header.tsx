@@ -24,7 +24,7 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-carbon-900/95 backdrop-blur-md border-b border-carbon-700">
+    <header className="fixed top-0 left-0 w-full z-50 bg-carbon-900/95 backdrop-blur-sm border-b border-carbon-700">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
         <Link href="/" className="text-lg font-semibold tracking-tighter text-silver-100 hover:text-white transition-colors" onClick={playEarcon}>

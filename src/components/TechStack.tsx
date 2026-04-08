@@ -57,7 +57,7 @@ export function TechStack() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-        <div className="bg-carbon-900/40 border border-carbon-800/60 rounded-2xl overflow-hidden backdrop-blur-md p-8 md:p-12 lg:p-16 relative">
+        <div className="bg-carbon-900/40 border border-carbon-800/60 rounded-2xl overflow-hidden backdrop-blur-sm p-8 md:p-12 lg:p-16 relative">
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center relative z-10">
             {/* Left Side: Text and Button */}
