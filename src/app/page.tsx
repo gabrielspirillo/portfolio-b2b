@@ -16,7 +16,7 @@ export default function Home() {
     <div className="w-full overflow-x-hidden">
       <Header />
       <SocialSidebar />
-      <main className="flex flex-col min-h-screen w-full overflow-x-hidden">
+      <main className="flex flex-col min-h-screen w-full">
         <HeroSection />
         <AboutSection />
         <ServicesGrid />

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AudioProvider } from "@/lib/audio";
 import { LanguageProvider } from "@/lib/i18n";
+import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,12 +24,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} h-full antialiased scroll-smooth`}
+      className={`${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-carbon-900 text-silver-100 leading-snug tracking-tight">
         <LanguageProvider>
           <AudioProvider>
-            {children}
+            <SmoothScrollProvider>
+              {children}
+            </SmoothScrollProvider>
           </AudioProvider>
         </LanguageProvider>
       </body>

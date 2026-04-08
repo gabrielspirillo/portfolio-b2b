@@ -25,7 +25,7 @@ export function SocialSidebar() {
   ];
 
   return (
-    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-6 items-center mix-blend-difference">
+    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-6 items-center">
       <div className="w-[1px] h-24 bg-white/20" />
       
       {links.map((link, i) => (
