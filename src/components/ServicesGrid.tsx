@@ -243,9 +243,10 @@ export function ServicesGrid() {
                {services[activeService].title}
              </h3>
 
-             <div className="p-6 md:p-8 bg-[#f2f2f4] border border-[#e5e5e5] rounded-xl leading-relaxed text-carbon-700 text-sm md:text-base font-medium">
-                {services[activeService].detail}
-             </div>
+             <div 
+                className="p-8 md:p-10 bg-[#f2f2f4] border border-[#e5e5e5] rounded-xl leading-relaxed text-carbon-700 text-sm md:text-base font-medium"
+                dangerouslySetInnerHTML={{ __html: services[activeService].detail }}
+             />
           </div>
         </div>
       )}
