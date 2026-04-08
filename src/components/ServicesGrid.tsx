@@ -159,7 +159,7 @@ export function ServicesGrid() {
     >
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
-        <div className="mb-12">
+        <div className="mb-12 text-center md:text-left">
           <h2 className="text-xs font-mono tracking-[0.2em] text-silver-200 uppercase mb-4 border-b border-carbon-700 pb-4 inline-block">
             {t("services_eyebrow")}
           </h2>

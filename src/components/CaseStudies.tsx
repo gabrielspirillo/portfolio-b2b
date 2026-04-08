@@ -197,7 +197,10 @@ export function CaseStudies() {
             <button 
               onClick={() => {
                 playEarcon();
-                scrollContainerRef.current?.scrollBy({ left: -400, behavior: "smooth" });
+                if (scrollContainerRef.current) {
+                  const cardWidth = scrollContainerRef.current.children[0]?.clientWidth || 800;
+                  scrollContainerRef.current.scrollBy({ left: -(cardWidth + 24), behavior: "smooth" });
+                }
               }} 
               className="w-12 h-12 rounded-full border border-carbon-700 bg-carbon-900 flex items-center justify-center hover:bg-carbon-800 transition-colors text-silver-200 hover:text-white group shrink-0"
             >
@@ -206,7 +209,10 @@ export function CaseStudies() {
             <button 
               onClick={() => {
                 playEarcon();
-                scrollContainerRef.current?.scrollBy({ left: 400, behavior: "smooth" });
+                if (scrollContainerRef.current) {
+                  const cardWidth = scrollContainerRef.current.children[0]?.clientWidth || 800;
+                  scrollContainerRef.current.scrollBy({ left: cardWidth + 24, behavior: "smooth" });
+                }
               }} 
               className="w-12 h-12 rounded-full border border-carbon-700 bg-carbon-900 flex items-center justify-center hover:bg-carbon-800 transition-colors text-silver-200 hover:text-white group shrink-0"
             >
@@ -223,7 +229,7 @@ export function CaseStudies() {
           {caseStudies.map((study, i) => (
             <article 
               key={i} 
-              className="case-study-card group bg-carbon-900 border border-carbon-700 hover:border-carbon-200/50 pt-8 pb-8 pl-8 pr-4 rounded-2xl cursor-pointer relative overflow-hidden transition-colors w-[85vw] md:w-[700px] lg:w-[900px] snap-start flex flex-col min-h-[380px]"
+              className="case-study-card group bg-carbon-900 border border-carbon-700 hover:border-carbon-200/50 pt-8 pb-8 pl-8 pr-4 rounded-2xl cursor-pointer relative overflow-hidden transition-colors w-[85vw] md:w-[65vw] lg:w-[45vw] snap-center flex flex-col min-h-[380px]"
               onMouseEnter={playEarcon}
               onClick={() => {
                 playEarcon();

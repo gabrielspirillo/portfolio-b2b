@@ -69,7 +69,7 @@ export function CollaborationSection() {
           </div>
 
           {/* Right Column - Text & Button */}
-          <div ref={contentRef} className="flex flex-col items-start gap-8">
+          <div ref={contentRef} className="flex flex-col items-center lg:items-start text-center lg:text-left gap-8">
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
               {t("collab_title")}
             </h2>

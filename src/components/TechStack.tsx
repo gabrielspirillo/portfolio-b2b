@@ -61,7 +61,7 @@ export function TechStack() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center relative z-10">
             {/* Left Side: Text and Button */}
-            <div ref={textRef} className="flex flex-col items-start">
+            <div ref={textRef} className="flex flex-col items-center lg:items-start text-center lg:text-left">
               <h2 className="text-xs font-mono tracking-[0.2em] text-silver-200 uppercase mb-6 px-4 py-1.5 border border-carbon-700 rounded-full inline-block bg-carbon-900 bg-opacity-50">
                 {t("stack_eyebrow")}
               </h2>

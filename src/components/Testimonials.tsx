@@ -88,7 +88,10 @@ export function Testimonials() {
             <button 
               onClick={() => {
                 playEarcon();
-                scrollContainerRef.current?.scrollBy({ left: -340, behavior: "smooth" });
+                if (scrollContainerRef.current) {
+                  const cardWidth = scrollContainerRef.current.children[0]?.clientWidth || 340;
+                  scrollContainerRef.current.scrollBy({ left: -(cardWidth + 24), behavior: "smooth" });
+                }
               }} 
               className="w-12 h-12 rounded-full border border-carbon-700 bg-carbon-900 flex items-center justify-center hover:bg-carbon-800 transition-colors text-silver-200 hover:text-white group"
             >
@@ -97,7 +100,10 @@ export function Testimonials() {
             <button 
               onClick={() => {
                 playEarcon();
-                scrollContainerRef.current?.scrollBy({ left: 340, behavior: "smooth" });
+                if (scrollContainerRef.current) {
+                  const cardWidth = scrollContainerRef.current.children[0]?.clientWidth || 340;
+                  scrollContainerRef.current.scrollBy({ left: cardWidth + 24, behavior: "smooth" });
+                }
               }} 
               className="w-12 h-12 rounded-full border border-carbon-700 bg-carbon-900 flex items-center justify-center hover:bg-carbon-800 transition-colors text-silver-200 hover:text-white group"
             >
@@ -114,7 +120,7 @@ export function Testimonials() {
           {reviews.map((review, i) => (
             <div 
               key={i} 
-              className="testimonial-card relative bg-carbon-900 border border-carbon-700 p-8 rounded-2xl group hover:bg-carbon-800/40 transition-colors shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start"
+              className="testimonial-card relative bg-carbon-900 border border-carbon-700 p-8 rounded-2xl group hover:bg-carbon-800/40 transition-colors shrink-0 w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-center"
               onMouseEnter={playEarcon}
             >
               <div className="relative z-10 flex flex-col h-full">
