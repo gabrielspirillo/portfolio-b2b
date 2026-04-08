@@ -4,6 +4,7 @@ import { useLanguage } from "@/lib/i18n";
 import { useAudio } from "@/lib/audio";
 
 export function Education() {
+  const { t } = useLanguage();
   const { playEarcon } = useAudio();
 
   const studies = [
