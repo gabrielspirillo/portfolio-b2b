@@ -40,8 +40,8 @@ export function ContactCTA() {
     >
       {/* Background Image with GSAP Parallax Hook */}
       <img
-        ref={imageRef as any}
-        src="https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775663519/IMG_4360_tb1fuj.jpg"
+        ref={imageRef}
+        src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775663519/IMG_4360_tb1fuj.jpg"
         alt="Studio Environment"
         className="absolute top-[-20%] left-0 w-full h-[140%] object-cover pointer-events-none opacity-[0.35]"
       />
