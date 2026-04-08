@@ -33,9 +33,9 @@ export function HeroSection() {
     <section 
       id="about" 
       ref={containerRef}
-      className="relative px-6 pt-24 pb-20 md:pt-32 md:pb-32"
+      className="relative px-6 pt-24 pb-20 md:pt-32 md:pb-32 overflow-hidden w-full"
     >
-      <div className="max-w-5xl mx-auto w-full z-10 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8">
+      <div className="max-w-5xl mx-auto w-full z-10 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8 overflow-hidden">
         
         <div className="flex-1 flex flex-col items-center text-center md:items-start md:text-left">
           <div className="hero-element inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-silver-200 border border-carbon-700 px-3 py-1 bg-carbon-800/50 mb-8 font-mono">

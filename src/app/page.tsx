@@ -13,10 +13,10 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <Header />
       <SocialSidebar />
-      <main className="flex flex-col min-h-screen">
+      <main className="flex flex-col min-h-screen w-full overflow-x-hidden">
         <HeroSection />
         <AboutSection />
         <ServicesGrid />
@@ -28,6 +28,6 @@ export default function Home() {
         <ContactCTA />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

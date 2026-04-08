@@ -155,7 +155,7 @@ export function ServicesGrid() {
     <section 
       id="services" 
       ref={containerRef}
-      className="py-32 outline-none relative"
+      className="py-32 outline-none relative overflow-hidden w-full"
     >
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         

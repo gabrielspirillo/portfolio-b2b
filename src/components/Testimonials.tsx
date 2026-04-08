@@ -71,7 +71,7 @@ export function Testimonials() {
     <section 
       id="testimonials" 
       ref={containerRef}
-      className="py-32 outline-none relative z-10"
+      className="py-32 outline-none relative z-10 overflow-hidden w-full"
     >
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
@@ -112,6 +112,7 @@ export function Testimonials() {
           </div>
         </div>
 
+        <div className="overflow-hidden w-full">
         <div 
           ref={scrollContainerRef}
           className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar"
@@ -154,6 +155,7 @@ export function Testimonials() {
               </div>
             </div>
           ))}
+        </div>
         </div>
 
       </div>

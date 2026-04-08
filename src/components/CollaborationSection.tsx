@@ -54,7 +54,7 @@ export function CollaborationSection() {
     <section 
       id="collaboration" 
       ref={containerRef}
-      className="py-32 relative z-10 border-t border-carbon-800/50 bg-[#000]"
+      className="py-32 relative z-10 border-t border-carbon-800/50 bg-[#000] overflow-hidden w-full"
     >
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

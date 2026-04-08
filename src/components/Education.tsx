@@ -42,7 +42,7 @@ export function Education() {
   ];
 
   return (
-    <section id="education" className="py-32 outline-none relative z-10">
+    <section id="education" className="py-32 outline-none relative z-10 overflow-hidden w-full">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
         <div className="mb-12">

@@ -34,7 +34,7 @@ export function AboutSection() {
     <section 
       id="about-me" 
       ref={containerRef}
-      className="py-32 relative z-10 border-t border-carbon-800/50 bg-[#000]"
+      className="py-32 relative z-10 border-t border-carbon-800/50 bg-[#000] overflow-hidden w-full"
     >
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
