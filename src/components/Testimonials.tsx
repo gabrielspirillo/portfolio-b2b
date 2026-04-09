@@ -25,28 +25,34 @@ export function Testimonials() {
       name: t("test_1_name"),
       role: t("test_1_role"),
       text: t("test_1_text"),
-      image: "https://i.ibb.co/vvm1JQNS/IMG-4353.jpg"
+      image: "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775694117/IMG_3592_hsf7kc.webp"
     },
     {
       name: t("test_2_name"),
       role: t("test_2_role"),
       text: t("test_2_text"),
+      image: "https://i.ibb.co/vvm1JQNS/IMG-4353.jpg"
     },
     {
       name: t("test_3_name"),
       role: t("test_3_role"),
       text: t("test_3_text"),
-      image: "https://i.ibb.co/Mjfgzn9/IMG-4355.jpg"
     },
     {
       name: t("test_4_name"),
       role: t("test_4_role"),
-      text: t("test_4_text")
+      text: t("test_4_text"),
+      image: "https://i.ibb.co/Mjfgzn9/IMG-4355.jpg"
     },
     {
       name: t("test_5_name"),
       role: t("test_5_role"),
       text: t("test_5_text")
+    },
+    {
+      name: t("test_6_name"),
+      role: t("test_6_role"),
+      text: t("test_6_text")
     }
   ];
 

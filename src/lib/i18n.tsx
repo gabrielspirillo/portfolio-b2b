@@ -113,25 +113,29 @@ const translations: Record<Language, Translations> = {
     test_eyebrow: "Reseñas",
     test_title: "Opinión de mis clientes.",
 
-    test_1_name: "Carina M. 🇦🇷",
-    test_1_role: "Abogada y Escritora",
-    test_1_text: "Gabriel es un verdadero hallazgo. Supo interpretar lo que quería, pero sobre todo, lo que necesitaba. El diseño de las plantillas fue realmente espectacular. Trabaja con mucho detalle y escucha lo que quiere el cliente. Lo recomiendo al 100%. Sin dudas volvería a trabajar con él.",
+    test_1_name: "Diego Sorensen 🇦🇷",
+    test_1_role: "CEO & Fundador, Planet Zone",
+    test_1_text: "Trabajé con Gabriel en varios proyectos para mi tienda online y la experiencia fue excelente. Tiene muy buena predisposición, es rápido tanto en las respuestas como en la ejecución del trabajo, y demuestra una gran voluntad para entender lo que se le pide e incluso mejorarlo. Es atento, profesional y con muy buena onda. Se nota que es un talento que se va perfeccionando con el tiempo y tiene mucho por delante. Lo recomiendo especialmente para proyectos de ecommerce, landing pages y desarrollo web en general. Tuve una muy buena experiencia, tanto en lo humano como en lo profesional.",
 
-    test_2_name: "Alex U. 🇪🇸",
-    test_2_role: "Gestor Comercial",
-    test_2_text: "Gran trabajador. Atento y cumplidor.",
+    test_2_name: "Carina M. 🇦🇷",
+    test_2_role: "Abogada y Escritora",
+    test_2_text: "Gabriel es un verdadero hallazgo. Supo interpretar lo que quería, pero sobre todo, lo que necesitaba. El diseño de las plantillas fue realmente espectacular. Trabaja con mucho detalle y escucha lo que quiere el cliente. Lo recomiendo al 100%. Sin dudas volvería a trabajar con él.",
 
-    test_3_name: "Gabriela O. 🇪🇸",
-    test_3_role: "TIENDA MUEBLES/DECORACIÓN",
-    test_3_text: "Buscaba a un experto en desarrollo web y he dado en el clavo. Ha diseñado mi tienda y le ha quedado espectacular.",
+    test_3_name: "Alex U. 🇪🇸",
+    test_3_role: "Gestor Comercial",
+    test_3_text: "Gran trabajador. Atento y cumplidor.",
 
-    test_4_name: "Dr. Alejandro L. 🇲🇽",
-    test_4_role: "Gastroenterología",
-    test_4_text: "La IA no se pierde nada y transcribe toda la información de la consulta, permitiéndome enfocarme al 100% en mis pacientes sin agobios administrativos.",
+    test_4_name: "Gabriela O. 🇪🇸",
+    test_4_role: "TIENDA MUEBLES/DECORACIÓN",
+    test_4_text: "Buscaba a un experto en desarrollo web y he dado en el clavo. Ha diseñado mi tienda y le ha quedado espectacular.",
 
-    test_5_name: "Sergio J. 🇪🇸",
-    test_5_role: "Comidas Bracamonte",
-    test_5_text: "Implementar IA ha sido un antes y un después. La gestión de pedidos y cambios semanales vuela sin intervención humana y sin errores. Gran profesional.",
+    test_5_name: "Dr. Alejandro L. 🇲🇽",
+    test_5_role: "Gastroenterología",
+    test_5_text: "La IA no se pierde nada y transcribe toda la información de la consulta, permitiéndome enfocarme al 100% en mis pacientes sin agobios administrativos.",
+
+    test_6_name: "Sergio J. 🇪🇸",
+    test_6_role: "Comidas Bracamonte",
+    test_6_text: "Implementar IA ha sido un antes y un después. La gestión de pedidos y cambios semanales vuela sin intervención humana y sin errores. Gran profesional.",
 
     // Contact
     contact_title_1: "Demos el primer paso.",
@@ -268,25 +272,29 @@ const translations: Record<Language, Translations> = {
     test_eyebrow: "5-Star Reviews",
     test_title: "Client Feedback.",
 
-    test_1_name: "Carina M. 🇦🇷",
-    test_1_role: "Ecommerce Director",
-    test_1_text: "Gabriel is a true find. He knew how to interpret what I wanted, but above all, what I needed. The template design was spectacular. He works with great detail. I recommend him 100%.",
+    test_1_name: "Diego Sorensen 🇦🇷",
+    test_1_role: "CEO & Founder, Planet Zone",
+    test_1_text: "I worked with Gabriel on several projects for my online store and the experience was excellent. He has a great attitude, is fast in both responses and execution, and shows a strong will to understand what is requested and even improve it. He is attentive, professional, and has a great vibe. It's clear that he is a talent that improves over time and has a lot ahead of him. I especially recommend him for e-commerce projects, landing pages, and web development in general. I had a very good experience, both humanly and professionally.",
 
-    test_2_name: "Alex U. 🇪🇸",
-    test_2_role: "Commercial Manager",
-    test_2_text: "Great worker. Attentive and compliant.",
+    test_2_name: "Carina M. 🇦🇷",
+    test_2_role: "Ecommerce Director",
+    test_2_text: "Gabriel is a true find. He knew how to interpret what I wanted, but above all, what I needed. The template design was spectacular. He works with great detail. I recommend him 100%.",
 
-    test_3_name: "Gabriela O. 🇪🇸",
-    test_3_role: "Furniture & Decor Store",
-    test_3_text: "I was looking for a web development expert and I hit the mark. He has designed my store and it turned out absolutely spectacular.",
+    test_3_name: "Alex U. 🇪🇸",
+    test_3_role: "Commercial Manager",
+    test_3_text: "Great worker. Attentive and compliant.",
 
-    test_4_name: "Dr. Alejandro L. 🇲🇽",
-    test_4_role: "Gastroenterologist",
-    test_4_text: "The AI misses nothing and transcribes all the consultation info, allowing me to focus 100% on my patients without administrative burnout.",
+    test_4_name: "Gabriela O. 🇪🇸",
+    test_4_role: "Furniture & Decor Store",
+    test_4_text: "I was looking for a web development expert and I hit the mark. He has designed my store and it turned out absolutely spectacular.",
 
-    test_5_name: "Sergio J. 🇪🇸",
-    test_5_role: "Bracamonte Meals",
-    test_5_text: "Implementing AI has been a turning point. Managing weekly orders and changes now flies seamlessly without human intervention. Great professional.",
+    test_5_name: "Dr. Alejandro L. 🇲🇽",
+    test_5_role: "Gastroenterologist",
+    test_5_text: "The AI misses nothing and transcribes all the consultation info, allowing me to focus 100% on my patients without administrative burnout.",
+
+    test_6_name: "Sergio J. 🇪🇸",
+    test_6_role: "Bracamonte Meals",
+    test_6_text: "Implementing AI has been a turning point. Managing weekly orders and changes now flies seamlessly without human intervention. Great professional.",
 
     // Contact
     contact_title_1: "Let's take the first step.",
