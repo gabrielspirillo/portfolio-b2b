@@ -96,7 +96,7 @@ export function Footer() {
                 <div className="flex flex-col gap-5">
                   <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">{t("footer_contact")}</h4>
                   <ul className="flex flex-col gap-4">
-                    <li><a href="https://w.app/e9lg2x" target="_blank" rel="noopener noreferrer" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">WhatsApp</a></li>
+                    <li><a href="https://w.app/vjyqi6" target="_blank" rel="noopener noreferrer" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">WhatsApp</a></li>
                     <li><a href="mailto:gabriel.s.pirillo@gmail.com" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light whitespace-nowrap">gabriel.s.pirillo@gmail.com</a></li>
                   </ul>
                 </div>

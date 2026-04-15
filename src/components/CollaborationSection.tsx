@@ -81,7 +81,7 @@ export function CollaborationSection() {
             </p>
 
             <Button 
-              href="https://w.app/e9lg2x"
+              href="https://w.app/vjyqi6"
               target="_blank"
               rel="noopener noreferrer"
               icon={

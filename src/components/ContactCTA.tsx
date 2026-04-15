@@ -60,7 +60,7 @@ export function ContactCTA() {
 
           <div className="relative z-10 flex flex-col items-center justify-center gap-6">
             <Button 
-              href="https://w.app/e9lg2x"
+              href="https://w.app/vjyqi6"
               target="_blank"
               rel="noopener noreferrer"
               icon={
