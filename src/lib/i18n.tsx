@@ -17,6 +17,11 @@ const translations: Record<Language, Translations> = {
     fin_v_comprobantes_benefit: "Menos riesgo",
     fin_v_entradas_benefit: "Más tiempo libre",
     synex_eyebrow: "Caso propio",
+    synex_v_expediente_benefit: "Mejores decisiones",
+    synex_v_rangos_benefit: "Público que vuelve",
+    synex_v_juego_benefit: "Comunidad activa",
+    synex_v_noche_benefit: "Menos riesgo",
+    synex_v_recorrido_benefit: "Más fidelidad",
     fin_card_roi: "Gestión del equipo y de **cada ingreso y egreso** por evento. Con ella, el 2º evento volvió **rentable** el proyecto.",
     fin_tags: "Finanzas, IA, Gestión de equipo, Automatización",
     fin_title: "Cada peso, bajo control.",
@@ -107,7 +112,7 @@ const translations: Record<Language, Translations> = {
     about_l4_title: "Ingeniería de Sonido",
     about_l4_desc: "**Mezcla y mastering** profesional, y sonido para interfaces.",
     
-    about_conclusion: "Construyo herramientas diseñadas para que\ntu negocio funcione mejor y venda más.",
+    about_conclusion: "Construyo herramientas diseñadas para que tu negocio funcione mejor y venda más.",
 
     // Services
     services_eyebrow: "Capacidades",
@@ -239,6 +244,11 @@ const translations: Record<Language, Translations> = {
     fin_v_comprobantes_benefit: "Less risk",
     fin_v_entradas_benefit: "More free time",
     synex_eyebrow: "Own venture",
+    synex_v_expediente_benefit: "Better decisions",
+    synex_v_rangos_benefit: "Returning audience",
+    synex_v_juego_benefit: "Active community",
+    synex_v_noche_benefit: "Less risk",
+    synex_v_recorrido_benefit: "Stronger loyalty",
     fin_card_roi: "Team management and **every income and expense** per event. With it, the 2nd event made the project **profitable**.",
     fin_tags: "Finance, AI, Team management, Automation",
     fin_title: "Every peso, under control.",
@@ -329,7 +339,7 @@ const translations: Record<Language, Translations> = {
     about_l4_title: "Sound Engineering",
     about_l4_desc: "Professional **mixing and mastering**, plus sound for interfaces.",
     
-    about_conclusion: "I build tools designed to make\nyour business perform better and sell more.",
+    about_conclusion: "I build tools designed to make your business perform better and sell more.",
 
     // Services
     services_eyebrow: "Capabilities",

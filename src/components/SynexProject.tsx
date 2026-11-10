@@ -111,7 +111,7 @@ export function SynexDetail() {
 
       <ul className="mt-3 grid sm:grid-cols-2 gap-3">
         {VALUES.map(({ k, M }, i) => (
-          <ValueCard key={k} Motion={M} title={t(`synex_v_${k}_title`)} desc={t(`synex_v_${k}_desc`)} wide={i === VALUES.length - 1} />
+          <ValueCard key={k} Motion={M} title={t(`synex_v_${k}_title`)} desc={t(`synex_v_${k}_desc`)} benefit={t(`synex_v_${k}_benefit`)} wide={i === VALUES.length - 1} />
         ))}
       </ul>
 
