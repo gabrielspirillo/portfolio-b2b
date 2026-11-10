@@ -1,216 +1,106 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAudio } from "@/lib/audio";
 import { useLanguage } from "@/lib/i18n";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Modal } from "@/components/ui/Modal";
 import { WebMotion, MobileMotion, AutomationMotion, DesignMotion, SoundMotion } from "@/components/ServiceMotion";
 
-gsap.registerPlugin(ScrollTrigger);
+const ICONS: ReactNode[] = [
+  <path key="w" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />,
+  <path key="m" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />,
+  <path key="a" d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" />,
+  <path key="d" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />,
+  <path key="s" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />,
+];
+const GRAPHICS = [<WebMotion key="w" />, <MobileMotion key="m" />, <AutomationMotion key="a" />, <DesignMotion key="d" />, <SoundMotion key="s" />];
 
 export function ServicesGrid() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
   const { playEarcon } = useAudio();
   const { t } = useLanguage();
+  const [active, setActive] = useState<number | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  const [activeService, setActiveService] = useState<number | null>(null);
+  const services = [0, 1, 2, 3, 4].map((i) => ({
+    title: t(`serv_${i + 1}_title`),
+    desc: t(`serv_${i + 1}_desc`),
+    detail: t(`serv_${i + 1}_detail`),
+    span: i === 0 ? "md:col-span-2" : "",
+  }));
 
+  // Cursor-following specular highlight (CSS vars only, no re-render)
   useEffect(() => {
-    if (activeService !== null) {
-      document.documentElement.style.overflow = "hidden";
-      if (modalRef.current) {
-        gsap.fromTo(modalRef.current, 
-          { scale: 0.95, opacity: 0, y: 20 },
-          { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }
-        );
-      }
-    } else {
-      document.documentElement.style.overflow = "";
-    }
-    return () => { document.documentElement.style.overflow = ""; };
-  }, [activeService]);
-
-  const services = [
-    {
-      title: t("serv_1_title"),
-      desc: t("serv_1_desc"),
-      detail: t("serv_1_detail"),
-      colSpan: "md:col-span-2",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      ),
-      graphic: <WebMotion />
-    },
-    {
-      title: t("serv_2_title"),
-      desc: t("serv_2_desc"),
-      detail: t("serv_2_detail"),
-      colSpan: "md:col-span-1",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg>
-      ),
-      graphic: <MobileMotion />
-    },
-    {
-      title: t("serv_3_title"),
-      desc: t("serv_3_desc"),
-      detail: t("serv_3_detail"),
-      colSpan: "md:col-span-1",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-        </svg>
-      ),
-      graphic: <AutomationMotion />
-    },
-    {
-      title: t("serv_4_title"),
-      desc: t("serv_4_desc"),
-      detail: t("serv_4_detail"),
-      colSpan: "md:col-span-1",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      ),
-      graphic: <DesignMotion />
-    },
-    {
-      title: t("serv_5_title"),
-      desc: t("serv_5_desc"),
-      detail: t("serv_5_detail"),
-      colSpan: "md:col-span-1",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-        </svg>
-      ),
-      graphic: <SoundMotion />
-    }
-  ];
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".bento-card", {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-        },
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out"
-      });
-    }, containerRef);
-    return () => ctx.revert();
+    const grid = gridRef.current;
+    if (!grid) return;
+    const onMove = (e: PointerEvent) => {
+      const card = (e.target as HTMLElement).closest<HTMLElement>(".svc-card");
+      if (!card) return;
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      card.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    grid.addEventListener("pointermove", onMove);
+    return () => grid.removeEventListener("pointermove", onMove);
   }, []);
 
-  return (
-    <section 
-      id="services" 
-      ref={containerRef}
-      className="py-32 outline-none relative overflow-hidden w-full"
-    >
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        
-        <div className="mb-12 text-center md:text-left">
-          <h2 className="text-xs font-mono tracking-[0.2em] text-silver-200 uppercase mb-4 border-b border-carbon-700 pb-4 inline-block">
-            {t("services_eyebrow")}
-          </h2>
-          <p className="text-3xl md:text-4xl font-semibold tracking-tight text-white mt-2 drop-shadow-md">
-            {t("services_title")}
-          </p>
-        </div>
+  useEffect(() => {
+    if (active === null) return;
+    gsap.fromTo(".svc-modal", { y: 24, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" });
+  }, [active]);
 
-        {/* Bento Grid Architecture */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+  return (
+    <section id="services" className="relative w-full py-24 md:py-32 px-5">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader eyebrow={t("services_eyebrow")} title={t("services_title")} />
+
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {services.map((svc, i) => (
-            <div 
+            <button
               key={i}
-              className={`bento-card relative ${svc.colSpan} bg-carbon-900 border border-carbon-700 p-8 md:p-10 rounded-2xl overflow-hidden group cursor-pointer`}
+              type="button"
+              className={`svc-card reveal glass glass-hover group text-left rounded-[28px] p-6 md:p-8 flex flex-col overflow-hidden ${svc.span}`}
               onMouseEnter={playEarcon}
               onClick={() => {
                 playEarcon();
-                setActiveService(i);
+                setActive(i);
               }}
             >
-              {/* White Expand Hover Physical Background */}
-              <span className="absolute inset-[-1px] bg-white scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 rounded-2xl pointer-events-none" />
-
-              <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start h-full justify-between w-full">
-                <div className="flex-1 flex flex-col h-full justify-between w-full">
-                  <div>
-                    <div className="mb-8 opacity-80 group-hover:opacity-100 text-silver-200 group-hover:text-carbon-950 transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                      {svc.icon}
-                    </div>
-                    <h3 className="text-2xl font-semibold tracking-tight text-white group-hover:text-carbon-950 transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] mb-3 pr-12">
-                      {svc.title}
-                    </h3>
-                    <p className="text-silver-200 group-hover:text-carbon-800 font-light text-sm max-w-[85%] leading-relaxed transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                      {svc.desc}
-                    </p>
-                  </div>
-                  
-                  {svc.graphic}
-                </div>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: "radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(255,90,31,0.10), transparent 60%)" }}
+              />
+              <div className="relative z-10 flex items-start justify-between gap-4">
+                <span className="w-11 h-11 rounded-2xl flex items-center justify-center bg-white/[0.05] border border-white/10 text-white/80 group-hover:text-ember-400 transition-colors duration-500">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">{ICONS[i]}</svg>
+                </span>
+                <span className="w-10 h-10 rounded-full flex items-center justify-center border border-white/10 bg-white/[0.04] group-hover:bg-ember-500 group-hover:border-transparent transition-colors duration-500">
+                  <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 text-white transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-90">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  </svg>
+                </span>
               </div>
-              
-              {/* Animated Corner Plus Indicator */}
-              <div className="absolute z-10 w-11 h-11 rounded-full flex items-center justify-center bg-carbon-800/80 border border-carbon-700/50 top-8 right-8 group-hover:bg-carbon-950 group-hover:border-transparent transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shrink-0 shadow-lg md:shadow-none">
-                <svg 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  className="w-5 h-5 text-white transform transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180"
-                >
-                  <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-              </div>
-            </div>
+              <h3 className="relative z-10 mt-6 text-2xl font-semibold tracking-[-0.03em] text-white">{svc.title}</h3>
+              <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/55 max-w-md">{svc.desc}</p>
+              <div className="relative z-10 mt-auto w-full">{GRAPHICS[i]}</div>
+            </button>
           ))}
         </div>
       </div>
 
-      {/* Expansion Modal */}
-      {activeService !== null && (
-        <div data-lenis-prevent className="fixed inset-0 z-[100] flex items-center justify-center p-4 overscroll-contain">
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-md"
-            onClick={() => setActiveService(null)}
-          />
-          <div 
-            ref={modalRef} 
-            data-lenis-prevent="true"
-            className="relative z-[60] bg-white border border-black/5 p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto overscroll-contain rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
-          >
-             <button 
-                onClick={() => setActiveService(null)}
-                className="absolute top-6 right-6 w-10 h-10 border border-carbon-200/50 bg-[#f2f2f4] hover:bg-[#e5e5e5] flex items-center justify-center text-carbon-950 transition-colors rounded-full"
-             >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-             </button>
-             
-             <div className="flex items-center gap-4 text-xs font-mono mb-6 text-carbon-800 font-bold">
-               <span className="uppercase tracking-widest border-b border-carbon-800/20 pb-1">Contexto Conceptual</span>
-             </div>
-
-             <h3 className="text-3xl md:text-4xl font-semibold tracking-tighter text-black mb-8 pr-12">
-               {services[activeService].title}
-             </h3>
-
-             <div 
-                className="p-8 md:p-10 bg-[#f2f2f4] border border-[#e5e5e5] rounded-xl leading-relaxed text-carbon-700 text-sm md:text-base font-medium"
-                dangerouslySetInnerHTML={{ __html: services[activeService].detail }}
-             />
-          </div>
-        </div>
-      )}
+      <Modal open={active !== null} onClose={() => setActive(null)} className="svc-modal max-w-2xl">
+        {active !== null && (
+          <>
+            <span className="text-[13px] font-medium text-white/50">
+              <span className="text-ember-500 font-semibold">{"//"}</span> {t("services_eyebrow")}
+            </span>
+            <h3 className="mt-3 mb-8 pr-12 text-3xl md:text-4xl font-semibold tracking-[-0.035em] text-white">{services[active].title}</h3>
+            <div className="detail-dark text-sm md:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: services[active].detail }} />
+          </>
+        )}
+      </Modal>
     </section>
   );
 }

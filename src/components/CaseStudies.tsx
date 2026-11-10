@@ -2,367 +2,184 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAudio } from "@/lib/audio";
 import { useLanguage } from "@/lib/i18n";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Modal } from "@/components/ui/Modal";
+import { CarouselArrows } from "@/components/ui/CarouselArrows";
 
-gsap.registerPlugin(ScrollTrigger);
+const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
+
+type Study = {
+  key: number;
+  cover: { video?: string; image?: string };
+  images: string[];
+  video?: string;
+  isHtmlDetail?: boolean;
+  collab?: boolean;
+};
+
+const STUDIES: Study[] = [
+  {
+    key: 1,
+    cover: { video: "https://res.cloudinary.com/dcnik6ovx/video/upload/f_auto,q_auto/v1775593458/IMG_4031_zvzd41.mp4" },
+    video: "https://res.cloudinary.com/dcnik6ovx/video/upload/f_auto,q_auto/v1775593458/IMG_4031_zvzd41.mp4",
+    images: [
+      "https://i.ibb.co/XkK2N30W/IMG-3763-3.jpg",
+      "https://i.ibb.co/43jBPjL/IMG-3767-2.png",
+      "https://i.ibb.co/1JqF8Ttj/IMG-3769-3.jpg",
+      "https://i.ibb.co/k2LPrb7q/IMG-3770-3.jpg",
+      "https://i.ibb.co/TBbJTfzM/IMG-3771-3.jpg",
+      "https://i.ibb.co/HTqLdhLB/IMG-3772-2.jpg",
+    ],
+  },
+  {
+    key: 2,
+    cover: { image: "https://i.ibb.co/xSbL0RmY/Captura-de-pantalla-2026-04-07-a-la-s-12-58-22.png" },
+    images: [
+      "https://i.ibb.co/xSbL0RmY/Captura-de-pantalla-2026-04-07-a-la-s-12-58-22.png",
+      "https://i.ibb.co/bYyHrTn/Captura-de-pantalla-2026-04-07-a-la-s-12-58-42.png",
+      "https://i.ibb.co/NgSX5Qdz/Captura-de-pantalla-2026-04-07-a-la-s-12-59-11.png",
+    ],
+  },
+  {
+    key: 3,
+    isHtmlDetail: true,
+    collab: true,
+    cover: { image: "https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775668805/Captura_de_pantalla_2026-04-08_a_la_s_14.19.58_dadjzw.png" },
+    images: ["https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775668805/Captura_de_pantalla_2026-04-08_a_la_s_14.19.58_dadjzw.png"],
+  },
+  {
+    key: 4,
+    isHtmlDetail: true,
+    collab: true,
+    cover: { image: "https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775669196/photo-1555396273-367ea4eb4db5_otickk.avif" },
+    images: ["https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775669196/photo-1555396273-367ea4eb4db5_otickk.avif"],
+  },
+  {
+    key: 5,
+    isHtmlDetail: true,
+    collab: true,
+    cover: { image: "https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775669802/Captura-de-pantalla-2025-06-04-a-las-10.24.41-1_cw7chc.png" },
+    images: ["https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775669802/Captura-de-pantalla-2025-06-04-a-las-10.24.41-1_cw7chc.png"],
+  },
+];
+
+function Tag({ children }: { children: React.ReactNode }) {
+  return <span className="px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-medium text-white/60">{children}</span>;
+}
 
 export function CaseStudies() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { playEarcon } = useAudio();
   const { t } = useLanguage();
-  
-  const [activeStudy, setActiveStudy] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(null);
 
   useEffect(() => {
-    if (activeStudy !== null) {
-      document.documentElement.style.overflow = "hidden";
-      if (modalRef.current) {
-        gsap.fromTo(modalRef.current, 
-          { scale: 0.95, opacity: 0, y: 20 },
-          { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
-        );
-      }
-    } else {
-      document.documentElement.style.overflow = "";
-    }
-    return () => { document.documentElement.style.overflow = ""; };
-  }, [activeStudy]);
+    if (active === null) return;
+    gsap.fromTo(".case-modal", { y: 24, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" });
+  }, [active]);
 
-  const caseStudies = [
-    {
-      date: t("proj_1_date"),
-      readTime: "7m read",
-      tags: t("proj_1_tags").split(", "),
-      title: t("proj_1_title"),
-      roi: t("proj_1_roi"),
-      detail: t("proj_1_detail"),
-      media: {
-        video: "https://res.cloudinary.com/dcnik6ovx/video/upload/f_auto,q_auto/v1775593458/IMG_4031_zvzd41.mp4",
-        images: [
-          "https://i.ibb.co/XkK2N30W/IMG-3763-3.jpg",
-          "https://i.ibb.co/43jBPjL/IMG-3767-2.png",
-          "https://i.ibb.co/1JqF8Ttj/IMG-3769-3.jpg",
-          "https://i.ibb.co/k2LPrb7q/IMG-3770-3.jpg",
-          "https://i.ibb.co/TBbJTfzM/IMG-3771-3.jpg",
-          "https://i.ibb.co/HTqLdhLB/IMG-3772-2.jpg"
-        ]
-      },
-      graphic: (
-        <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <video 
-              src="https://res.cloudinary.com/dcnik6ovx/video/upload/f_auto,q_auto/v1775593458/IMG_4031_zvzd41.mp4" 
-              autoPlay loop muted playsInline
-              className="w-full h-full object-cover shrink-0 transition-all duration-500"
-           />
-        </div>
-      )
-    },
-    {
-      date: t("proj_2_date"),
-      readTime: "12m read",
-      tags: t("proj_2_tags").split(", "),
-      title: t("proj_2_title"),
-      roi: t("proj_2_roi"),
-      detail: t("proj_2_detail"),
-      media: {
-        images: [
-          "https://i.ibb.co/xSbL0RmY/Captura-de-pantalla-2026-04-07-a-la-s-12-58-22.png",
-          "https://i.ibb.co/bYyHrTn/Captura-de-pantalla-2026-04-07-a-la-s-12-58-42.png",
-          "https://i.ibb.co/NgSX5Qdz/Captura-de-pantalla-2026-04-07-a-la-s-12-59-11.png"
-        ]
-      },
-      graphic: (
-        <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img loading="lazy" decoding="async" 
-              src="https://i.ibb.co/xSbL0RmY/Captura-de-pantalla-2026-04-07-a-la-s-12-58-22.png" 
-              alt="Symetria Mockup" 
-              className="w-full h-full object-cover shrink-0 transition-all duration-500"
-           />
-        </div>
-      )
-    },
-    {
-      date: t("proj_3_date"),
-      readTime: "10m read",
-      tags: t("proj_3_tags").split(", "),
-      title: t("proj_3_title"),
-      roi: t("proj_3_roi"),
-      detail: t("proj_3_detail"),
-      isHtmlDetail: true,
-      collabLogo: "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png",
-      media: {
-        images: [
-          "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668805/Captura_de_pantalla_2026-04-08_a_la_s_14.19.58_dadjzw.png"
-        ]
-      },
-      graphic: (
-        <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img loading="lazy" decoding="async" 
-              src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668805/Captura_de_pantalla_2026-04-08_a_la_s_14.19.58_dadjzw.png" 
-              alt="Gastro San Jose UI" 
-              className="w-full h-full object-cover shrink-0 transition-all duration-500 rounded-lg filter drop-shadow-lg scale-110"
-           />
-        </div>
-      )
-    },
-    {
-      date: t("proj_4_date"),
-      readTime: "8m read",
-      tags: t("proj_4_tags").split(", "),
-      title: t("proj_4_title"),
-      roi: t("proj_4_roi"),
-      detail: t("proj_4_detail"),
-      isHtmlDetail: true,
-      collabLogo: "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png",
-      media: {
-        images: [
-          "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775669196/photo-1555396273-367ea4eb4db5_otickk.avif"
-        ]
-      },
-      graphic: (
-        <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img loading="lazy" decoding="async" 
-              src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775669196/photo-1555396273-367ea4eb4db5_otickk.avif" 
-              alt="Comidas Bracamonte Delivery" 
-              className="w-full h-full object-cover shrink-0 transition-all duration-500 rounded-lg filter drop-shadow-lg scale-110"
-           />
-        </div>
-      )
-    },
-    {
-      date: t("proj_5_date"),
-      readTime: "9m read",
-      tags: t("proj_5_tags").split(", "),
-      title: t("proj_5_title"),
-      roi: t("proj_5_roi"),
-      detail: t("proj_5_detail"),
-      isHtmlDetail: true,
-      collabLogo: "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png",
-      media: {
-        images: [
-          "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775669802/Captura-de-pantalla-2025-06-04-a-las-10.24.41-1_cw7chc.png"
-        ]
-      },
-      graphic: (
-        <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img loading="lazy" decoding="async" 
-              src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775669802/Captura-de-pantalla-2025-06-04-a-las-10.24.41-1_cw7chc.png" 
-              alt="Clinicas Nobel Dashboard" 
-              className="w-full h-full object-cover shrink-0 transition-all duration-500 rounded-lg filter drop-shadow-lg opacity-70"
-           />
-        </div>
-      )
-    }
-  ];
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".case-study-card", {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power2.out"
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
+  const data = STUDIES.map((s) => ({
+    ...s,
+    title: t(`proj_${s.key}_title`),
+    roi: t(`proj_${s.key}_roi`),
+    detail: t(`proj_${s.key}_detail`),
+    tags: t(`proj_${s.key}_tags`).split(", "),
+    date: t(`proj_${s.key}_date`),
+  }));
+  const current = active !== null ? data[active] : null;
 
   return (
-    <section 
-      id="projects" 
-      ref={containerRef}
-      className="py-32 outline-none relative"
-    >
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-6">
-          <div>
-            <h2 className="text-xs font-mono tracking-[0.2em] text-silver-200 uppercase mb-4 border-b border-carbon-700 pb-4 inline-block">
-              {t("projects_eyebrow")}
-            </h2>
-            <p className="text-3xl md:text-4xl font-semibold tracking-tight text-silver-100 mt-2">
-              {t("projects_title")}
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button 
-              onClick={() => {
-                playEarcon();
-                if (scrollContainerRef.current) {
-                  const cardWidth = scrollContainerRef.current.children[0]?.clientWidth || 800;
-                  scrollContainerRef.current.scrollBy({ left: -(cardWidth + 24), behavior: "smooth" });
-                }
-              }} 
-              className="w-12 h-12 rounded-full border border-carbon-700 bg-carbon-900 flex items-center justify-center hover:bg-carbon-800 transition-colors text-silver-200 hover:text-white group shrink-0"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-            </button>
-            <button 
-              onClick={() => {
-                playEarcon();
-                if (scrollContainerRef.current) {
-                  const cardWidth = scrollContainerRef.current.children[0]?.clientWidth || 800;
-                  scrollContainerRef.current.scrollBy({ left: cardWidth + 24, behavior: "smooth" });
-                }
-              }} 
-              className="w-12 h-12 rounded-full border border-carbon-700 bg-carbon-900 flex items-center justify-center hover:bg-carbon-800 transition-colors text-silver-200 hover:text-white group shrink-0"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-5 h-5 group-hover:translate-x-0.5 transition-transform"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-            </button>
-          </div>
-        </div>
+    <section id="projects" className="relative w-full py-24 md:py-32">
+      <div className="px-5"><div className="max-w-6xl mx-auto">
+        <SectionHeader eyebrow={t("projects_eyebrow")} title={t("projects_title")}>
+          <CarouselArrows target={scrollRef} />
+        </SectionHeader>
+      </div></div>
 
-        <div className="overflow-hidden w-full">
-        <div 
-          ref={scrollContainerRef}
-          className="grid grid-rows-2 grid-flow-col gap-6 overflow-x-auto snap-x snap-mandatory pb-8 hide-scrollbar w-full"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          {caseStudies.map((study, i) => (
-            <article 
-              key={i} 
-              className="case-study-card group bg-carbon-900 border border-carbon-700 hover:border-carbon-200/50 pt-8 pb-8 pl-8 pr-4 rounded-2xl cursor-pointer relative overflow-hidden transition-colors w-[85vw] md:w-[65vw] lg:w-[45vw] snap-center flex flex-col min-h-[380px]"
-              onMouseEnter={playEarcon}
-              onClick={() => {
-                playEarcon();
-                setActiveStudy(i);
-              }}
-            >
-              <div 
-                className="absolute inset-y-0 right-0 w-1/2 pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity z-0" 
-                style={{ background: 'linear-gradient(to right, transparent, #080808)' }} 
-              />
-              
-              <div className="z-0">
-                {study.graphic}
-              </div>
-              
-              <div className="relative z-10 md:w-2/3 flex flex-col flex-1">
-                <h3 className="text-2xl font-medium tracking-tight text-silver-100 mb-4 group-hover:text-white transition-colors flex items-center flex-wrap gap-3">
-                  <span>{study.title}</span>
-                  {study.collabLogo && (
-                    <>
-                      <span className="text-carbon-600 font-light text-xl">/</span>
-                      <img loading="lazy" decoding="async" 
-                        src={study.collabLogo} 
-                        alt="Collaboration Partner" 
-                        className="h-4 w-auto object-contain opacity-50 group-hover:opacity-100 transition-opacity" 
-                      />
-                    </>
-                  )}
-                </h3>
-                
-                <p className="text-silver-200 leading-relaxed font-light text-sm mb-8 max-w-sm flex-1">
-                  {study.roi}
-                </p>
+      <div
+        ref={scrollRef}
+        className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-5 px-5 pb-6 md:px-[max(1.25rem,calc((100vw-72rem)/2))] md:scroll-px-[max(1.25rem,calc((100vw-72rem)/2))]"
+        style={{ scrollbarWidth: "none" }}
+      >
+        {data.map((study, i) => (
+          <button
+            key={study.key}
+            type="button"
+            className="reveal glass glass-hover group text-left snap-start shrink-0 w-[84vw] sm:w-[60vw] lg:w-[400px] rounded-[28px] p-2 flex flex-col"
+            onMouseEnter={playEarcon}
+            onClick={() => {
+              playEarcon();
+              setActive(i);
+            }}
+          >
+            <div className="relative z-10 aspect-[16/10] rounded-[22px] overflow-hidden bg-carbon-800">
+              {study.cover.video ? (
+                <video src={study.cover.video} autoPlay loop muted playsInline preload="metadata" className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img loading="lazy" decoding="async" src={study.cover.image} alt={study.title} className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <span className="absolute left-3 top-3 px-2.5 py-1 rounded-full bg-black/50 border border-white/10 text-[11px] font-medium text-white/80 backdrop-blur-md">{study.date}</span>
+            </div>
 
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {study.tags.map((tag, tIndex) => (
-                    <div 
-                      key={tIndex}
-                      className="px-3 py-1 bg-carbon-800 border border-carbon-700 text-[11px] font-mono text-silver-200"
-                    >
-                      {tag}
-                    </div>
-                  ))}
-                </div>
+            <div className="relative z-10 flex-1 flex flex-col px-4 pt-5 pb-4">
+              <h3 className="text-xl font-semibold tracking-[-0.025em] text-white">{study.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/55 flex-1">{study.roi}</p>
+              <div className="mt-5 flex flex-wrap gap-1.5">
+                {study.tags.slice(0, 3).map((tag) => <Tag key={tag}>{tag}</Tag>)}
               </div>
-              
-              <div className="absolute bottom-8 right-8 text-[10px] font-mono uppercase tracking-widest text-silver-200 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                Ver Detalles <span className="ml-1">→</span>
-              </div>
-            </article>
-          ))}
-        </div>
-        </div>
-
+              <span className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-ember-400">
+                {t("read_more")}
+                <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </span>
+            </div>
+          </button>
+        ))}
       </div>
 
-      {activeStudy !== null && (
-        <div data-lenis-prevent className="fixed inset-0 z-[100] flex items-center justify-center p-4 overscroll-contain">
-          <div 
-            className="absolute inset-0 bg-black/90 backdrop-blur-md"
-            onClick={() => setActiveStudy(null)}
-          />
-          <div 
-            ref={modalRef}
-            data-lenis-prevent="true"
-            className="relative bg-carbon-900 border border-carbon-700 p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-2xl z-[60] overscroll-contain"
-          >
-             <button 
-                onClick={() => setActiveStudy(null)}
-                className="absolute top-6 right-6 w-8 h-8 rounded-full flex items-center justify-center text-silver-200 hover:text-white transition-colors border border-silver-200/20 bg-carbon-800"
-             >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-             </button>
+      <Modal open={current !== null} onClose={() => setActive(null)} className="case-modal max-w-3xl">
+        {current && (
+          <>
+            <span className="text-[13px] font-medium text-white/50">
+              <span className="text-ember-500 font-semibold">{"//"}</span> {current.date}
+            </span>
+            <h3 className="mt-3 pr-12 text-3xl md:text-4xl font-semibold tracking-[-0.035em] text-white">{current.title}</h3>
+            {current.collab && (
+              <div className="mt-4 flex items-center gap-3">
+                <span className="text-xs text-white/50">{t("proj_collab")}</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={BRANDBOOST_LOGO} alt="Brandboost AI" className="h-5 w-auto brightness-0 invert opacity-90" />
+              </div>
+            )}
+            <p className="mt-6 text-lg leading-relaxed text-white/70">{current.roi}</p>
 
-             <h3 className="text-3xl font-semibold tracking-tight text-silver-100 mb-2 pr-12 mt-4 flex flex-col md:flex-row md:items-center gap-4">
-               <span>{caseStudies[activeStudy].title}</span>
-             </h3>
-             {caseStudies[activeStudy].collabLogo && (
-                <div className="mb-6 flex items-center gap-3">
-                  <span className="text-xs font-mono text-silver-200 opacity-60">EN COLABORACIÓN CON:</span>
-                  <img loading="lazy" decoding="async" src={caseStudies[activeStudy].collabLogo} alt="Collaboration Partner" className="h-6 w-auto object-contain opacity-90" />
-                </div>
-             )}
+            {current.isHtmlDetail ? (
+              <div className="detail-dark mt-8" dangerouslySetInnerHTML={{ __html: current.detail }} />
+            ) : (
+              <p className="mt-8 glass rounded-2xl p-5 text-sm leading-relaxed text-white/75">
+                <span className="relative z-10">{current.detail}</span>
+              </p>
+            )}
 
-             <p className="text-lg text-silver-200 font-light leading-relaxed mb-8">
-                {caseStudies[activeStudy].roi}
-             </p>
-
-             {/* Dynamic Layout Check */}
-             {caseStudies[activeStudy].isHtmlDetail ? (
-                <div 
-                  className="mb-8 w-full"
-                  dangerouslySetInnerHTML={{ __html: caseStudies[activeStudy].detail }} 
-                />
-             ) : (
-                <div className="p-6 bg-carbon-800/30 border border-carbon-800 mb-8 leading-relaxed text-silver-100/90 text-sm font-light">
-                  {caseStudies[activeStudy].detail}
-                </div>
-             )}
-
-             {caseStudies[activeStudy].media && (
-                <div className="flex flex-col gap-4 mb-8">
-                   {caseStudies[activeStudy].media?.video && (
-                     <div className="relative w-full border border-carbon-700 bg-carbon-800/20 overflow-hidden flex items-center justify-center">
-                       <video 
-                         src={caseStudies[activeStudy].media.video}
-                         autoPlay loop muted playsInline
-                         className="w-full h-auto object-cover max-h-[70vh]"
-                       />
-                     </div>
-                   )}
-                   {caseStudies[activeStudy].media?.images?.map((img, idx) => (
-                     <img loading="lazy" decoding="async" 
-                       key={idx} 
-                       src={img} 
-                       alt={`${caseStudies[activeStudy].title} Component ${idx + 1}`} 
-                       className="w-full border border-carbon-700 bg-carbon-800/10" 
-                     />
-                   ))}
-                </div>
-             )}
-
-             <div className="flex flex-wrap gap-2 mt-auto">
-                {caseStudies[activeStudy].tags.map((tag, tIndex) => (
-                  <div key={tIndex} className="px-3 py-1 bg-carbon-800 border border-carbon-700 text-[11px] font-mono text-silver-200">
-                    {tag}
-                  </div>
-                ))}
+            <div className="mt-8 flex flex-col gap-3">
+              {current.video && (
+                <video src={current.video} autoPlay loop muted playsInline className="w-full max-h-[70vh] object-cover rounded-2xl border border-white/10" />
+              )}
+              {current.images.map((img, idx) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={img} loading="lazy" decoding="async" src={img} alt={`${current.title} ${idx + 1}`} className="w-full rounded-2xl border border-white/10" />
+              ))}
             </div>
-          </div>
-        </div>
-      )}
+
+            <div className="mt-8 flex flex-wrap gap-1.5">
+              {current.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+            </div>
+          </>
+        )}
+      </Modal>
     </section>
   );
 }

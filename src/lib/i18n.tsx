@@ -10,24 +10,34 @@ interface Translations {
 
 const translations: Record<Language, Translations> = {
   es: {
+    // Brand / hero
+    nav_cta: "Hablemos",
+    nav_language: "Idioma",
+    hero_title_1: "De la idea a la app,",
+    hero_title_2: "en producción.",
+    hero_sub: "Apps, plataformas web, mobile y automatización con IA para empresas.",
+    hero_secondary: "Ver proyectos",
+    card_synex_desc: "Primera productora de eventos de electrónica 100% automatizada",
+    card_bb_desc: "Agencia de IA y automatización",
+    card_cta_eyebrow: "Ahorrá tiempo y ganá más dinero",
+    card_cta_title: "Hablemos de tu proyecto",
+    proj_collab: "En colaboración con",
+    collab_eyebrow: "Trabajemos juntos",
+    edu_label: "Formación",
+    footer_tagline: "De la idea a la app, en producción.",
+
     // Nav
-    nav_about: "Sobre mí",
     nav_services: "Servicios",
     nav_projects: "Proyectos",
-    nav_education: "Reconocimientos",
     nav_testimonials: "Testimonios",
     nav_contact: "Contacto",
     
     // Hero
-    hero_badge: "Disponible para nuevos desafíos",
-    hero_title: "Ingeniero Polímata.",
-    hero_description: "Me especializo en crear soluciones digitales completas y piezas gráficas para hacer escalar tu negocio. Construyo páginas web y aplicaciones móviles a medida, te ayudo a ahorrar tiempo automatizando los procesos de tu empresa.",
     hero_cta: "Iniciemos un proyecto",
-    hero_agile: "Me aseguro de que tu tecnología no solo funcione a la perfección, sino que también destaque y trabaje para ti.",
 
     // About
-    about_eyebrow: "Perfil Personal",
-    about_title: "Ingeniería orientada a resultados comerciales.",
+    about_eyebrow: "Sobre mí",
+    about_title: "Ingeniería enfocada en resultados de negocio.",
     about_intro: "Lo que me diferencia del desarrollador tradicional es mi visión de negocio. Mi experiencia liderando equipos de ventas y optimizando CRMs me enseñó algo clave: la tecnología debe generar resultados rentables. Hoy traduzco esa visión comercial en soluciones digitales completas para empresas:",
     
     about_l1_title: "Desarrollo Web y Móvil",
@@ -47,27 +57,27 @@ const translations: Record<Language, Translations> = {
     
     serv_1_title: "Desarrollo Web",
     serv_1_desc: "Soluciones de alto rendimiento (React, Next.js, Astro, Tailwind, Node.js).",
-    serv_1_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Más que escribir código, construyo plataformas diseñadas para escalar tu negocio. Desarrollo ecosistemas web rápidos, seguros y optimizados para convertir visitantes en clientes.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Landing Pages de Alta Conversión</strong> Diseños enfocados en guiar al usuario hacia la acción (ventas o leads).</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Plataformas E-Commerce a Medida</strong> Tiendas online rápidas, seguras y sin las limitaciones de las plantillas tradicionales.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Aplicaciones Web (SaaS) y Portales B2B</strong> Sistemas complejos con bases de datos robustas y paneles de administración a medida.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>EL ENFOQUE POLÍMATA</h4><p class='font-normal leading-relaxed'>A diferencia del desarrollador tradicional, mi base en estrategia de ventas me permite alinear la arquitectura tecnológica con tus objetivos financieros. Cada línea de código está pensada para maximizar el SEO, reducir los tiempos de carga al milisegundo y garantizar una experiencia de usuario impecable.</p></section></div>",
+    serv_1_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Más que escribir código, construyo plataformas diseñadas para escalar tu negocio. Desarrollo ecosistemas web rápidos, seguros y optimizados para convertir visitantes en clientes.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Landing Pages de Alta Conversión</strong> Diseños enfocados en guiar al usuario hacia la acción (ventas o leads).</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Plataformas E-Commerce a Medida</strong> Tiendas online rápidas, seguras y sin las limitaciones de las plantillas tradicionales.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Aplicaciones Web (SaaS) y Portales B2B</strong> Sistemas complejos con bases de datos robustas y paneles de administración a medida.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MI ENFOQUE</h4><p class='font-normal leading-relaxed'>A diferencia del desarrollador tradicional, mi base en estrategia de ventas me permite alinear la arquitectura tecnológica con tus objetivos financieros. Cada decisión técnica apunta a mejorar el SEO, reducir los tiempos de carga y lograr una experiencia de usuario clara.</p></section></div>",
     
     serv_2_title: "Desarrollo Móvil",
     serv_2_desc: "Híbrido y Nativo para iOS / Android.",
-    serv_2_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Diseño y programo aplicaciones móviles a medida para <strong class='font-bold'>iOS (Apple) y Android</strong>. Te ayudo a llevar tu negocio directamente al bolsillo de tus clientes con apps rápidas, seguras y muy fáciles de usar.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Presencia en ambas tiendas</strong> Uso tecnologías como React Native, Swift y Kotlin para lograr que tu app funcione de forma impecable en App Store y Google Play.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Rendimiento y Fluidez</strong> Me enfoco en el manejo eficiente de los recursos. Me aseguro de que la experiencia sea instantánea para evitar el abandono del usuario.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Conexión con tu Negocio</strong> Integro la aplicación con tus bases de datos, pasarelas de pago o sistemas actuales (APIs y CRMs) de forma sincronizada.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>EL ENFOQUE POLÍMATA</h4><p class='font-normal leading-relaxed'>Entiendo que una aplicación no es solo código; es una herramienta clave de ventas y fidelización. Aplico mi experiencia comercial y en diseño visual (UI/UX) para asegurar que cada pantalla y cada botón guíen intuitivamente a tu usuario hacia la acción que tu negocio necesita.</p></section></div>",
+    serv_2_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Diseño y programo aplicaciones móviles a medida para <strong class='font-bold'>iOS (Apple) y Android</strong>. Te ayudo a llevar tu negocio directamente al bolsillo de tus clientes con apps rápidas, seguras y muy fáciles de usar.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Presencia en ambas tiendas</strong> Uso tecnologías como React Native, Swift y Kotlin para que tu app funcione bien en App Store y Google Play.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Rendimiento y Fluidez</strong> Me enfoco en el manejo eficiente de los recursos. Me aseguro de que la experiencia sea instantánea para evitar el abandono del usuario.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Conexión con tu Negocio</strong> Integro la aplicación con tus bases de datos, pasarelas de pago o sistemas actuales (APIs y CRMs) de forma sincronizada.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MI ENFOQUE</h4><p class='font-normal leading-relaxed'>Entiendo que una aplicación no es solo código; es una herramienta clave de ventas y fidelización. Aplico mi experiencia comercial y en diseño visual (UI/UX) para asegurar que cada pantalla y cada botón guíen intuitivamente a tu usuario hacia la acción que tu negocio necesita.</p></section></div>",
     
     serv_3_title: "Automatización & IA",
     serv_3_desc: "n8n, Orquestación de APIs y flujos de trabajo.",
-    serv_3_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Automatizo las tareas manuales y repetitivas de tu empresa utilizando Inteligencia Artificial y flujos de trabajo inteligentes. Conecto tus herramientas para reducir el trabajo manual en un 90%, permitiendo que tu equipo se enfoque en lo que realmente importa: vender y crecer.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Agentes Conversacionales con IA</strong> Asistentes inteligentes en WhatsApp y Redes que gestionan conversaciones reales, resuelven consultas y califican prospectos 24/7.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Orquestación de Sistemas</strong> Sincronización en piloto automático con n8n y Python de tus CRMs, bases de datos y pasarelas de pago.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Asistentes de Back-Office</strong> Agentes autónomos que procesan documentos, clasifican información o extraen datos estratégicos de la web sin error.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>EL ENFOQUE POLÍMATA</h4><p class='font-normal leading-relaxed'>Mi experiencia liderando equipos de ventas me enseñó que la IA no consiste solo en usar tecnología de moda, sino en generar rentabilidad. Diseño cada agente y cada flujo con un objetivo de negocio claro: acelerar tu ciclo de ventas, garantizar un soporte impecable y reducir drásticamente tus costos operativos.</p></section></div>",
+    serv_3_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Automatizo las tareas manuales y repetitivas de tu empresa utilizando Inteligencia Artificial y flujos de trabajo inteligentes. Conecto tus herramientas para reducir el trabajo manual en un 90%, permitiendo que tu equipo se enfoque en lo que realmente importa: vender y crecer.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Agentes Conversacionales con IA</strong> Asistentes inteligentes en WhatsApp y Redes que gestionan conversaciones reales, resuelven consultas y califican prospectos 24/7.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Orquestación de Sistemas</strong> Sincronización en piloto automático con n8n y Python de tus CRMs, bases de datos y pasarelas de pago.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Asistentes de Back-Office</strong> Agentes autónomos que procesan documentos, clasifican información o extraen datos estratégicos de la web sin error.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MI ENFOQUE</h4><p class='font-normal leading-relaxed'>Mi experiencia liderando equipos de ventas me enseñó que la IA no consiste solo en usar tecnología de moda, sino en generar rentabilidad. Diseño cada agente y cada flujo con un objetivo de negocio claro: acelerar tu ciclo de ventas, dar un soporte más rápido y bajar tus costos operativos.</p></section></div>",
     
     serv_4_title: "UI/UX & Diseño Gráfico",
     serv_4_desc: "Interfaces, branding y Piezas Gráficas.",
-    serv_4_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Diseño interfaces y piezas visuales que captan la atención y generan confianza instantánea. Traduzco la identidad de tu marca en experiencias estéticas de nivel premium, asegurando que cada detalle visual esté pensado para enamorar a tu cliente y facilitar la venta.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Diseño de Interfaces (UI/UX)</strong> Diseño pantallas limpias y lógicas que guían al usuario sin esfuerzo hacia la compra o el contacto, optimizando el recorrido visual.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Identidad Visual y Branding</strong> Creación del \"alma\" de tu empresa: logotipos, paletas de colores y tipografías que te posicionan como líder en tu sector.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Piezas Gráficas de Alto Impacto</strong> Contenido publicitario, flyers, carruseles y presentaciones corporativas que superan a tu competencia en cada punto de contacto.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>EL ENFOQUE POLÍMATA</h4><p class='font-normal leading-relaxed'>Un diseño visualmente increíble no sirve de nada si confunde al usuario o si los programadores no pueden construirlo. Como también soy desarrollador Full Stack y tengo experiencia en ventas, mis diseños no son simples dibujos; son ecosistemas visuales estratégicos, 100% listos para programarse y optimizados para la conversión comercial.</p></section></div>",
+    serv_4_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Diseño interfaces y piezas visuales que captan la atención y generan confianza instantánea. Traduzco la identidad de tu marca en experiencias estéticas de nivel premium, asegurando que cada detalle visual esté pensado para enamorar a tu cliente y facilitar la venta.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Diseño de Interfaces (UI/UX)</strong> Diseño pantallas limpias y lógicas que guían al usuario sin esfuerzo hacia la compra o el contacto, optimizando el recorrido visual.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Identidad Visual y Branding</strong> Creación del \"alma\" de tu empresa: logotipos, paletas de colores y tipografías que te posicionan como líder en tu sector.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Piezas Gráficas de Alto Impacto</strong> Contenido publicitario, flyers, carruseles y presentaciones corporativas que superan a tu competencia en cada punto de contacto.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MI ENFOQUE</h4><p class='font-normal leading-relaxed'>Un diseño visualmente increíble no sirve de nada si confunde al usuario o si los programadores no pueden construirlo. Como también soy desarrollador Full Stack y tengo experiencia en ventas, mis diseños no son simples dibujos; son ecosistemas visuales estratégicos, 100% listos para programarse y optimizados para la conversión comercial.</p></section></div>",
 
     serv_5_title: "Ingeniería de Sonido",
     serv_5_desc: "Mixing, Mastering y Audio UX.",
-    serv_5_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Elevo la calidad de tus proyectos musicales y audiovisuales con sonido de nivel estudio. Ya sea que necesites pulir una canción para plataformas de streaming o diseñar la experiencia sonora de una aplicación, aplico ingeniería de precisión para que todo suene impecable.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Mezcla y Mastering de Canciones</strong> Llevo tus pistas musicales al estándar de la industria utilizando Ableton Live. Sonido potente y balanceado para Spotify o la pista de baile.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Postproducción de Audio para Video</strong> Limpieza y optimización para publicidad, YouTube o corporativos. Voces nítidas e impacto sonoro profesional.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Audio UX para Sitios y Apps (Earcons)</strong> Diseño de micro-interacciones acústicas integradas en el código, sumando una capa táctil y premium a tu interfaz.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>EL ENFOQUE POLÍMATA</h4><p class='font-normal leading-relaxed'>Combino mi sensibilidad como productor musical activo con la lógica de un desarrollador de software. Esto me permite entender exactamente qué necesita un track para sonar enorme en un club, o cómo programar sonido en una web mediante la Web Audio API para que cargue rápido y sin latencia.</p></section></div>",
+    serv_5_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Elevo la calidad de tus proyectos musicales y audiovisuales con sonido de nivel estudio. Ya sea que necesites pulir una canción para plataformas de streaming o diseñar la experiencia sonora de una aplicación, cuido cada detalle para que suene profesional.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>SOLUCIONES CLAVE</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Mezcla y Mastering de Canciones</strong> Llevo tus pistas musicales al estándar de la industria utilizando Ableton Live. Sonido potente y balanceado para Spotify o la pista de baile.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Postproducción de Audio para Video</strong> Limpieza y optimización para publicidad, YouTube o corporativos. Voces nítidas e impacto sonoro profesional.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Audio UX para Sitios y Apps (Earcons)</strong> Diseño de micro-interacciones acústicas integradas en el código, sumando una capa táctil y premium a tu interfaz.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MI ENFOQUE</h4><p class='font-normal leading-relaxed'>Combino mi sensibilidad como productor musical activo con la lógica de un desarrollador de software. Esto me permite entender exactamente qué necesita un track para sonar enorme en un club, o cómo programar sonido en una web mediante la Web Audio API para que cargue rápido y sin latencia.</p></section></div>",
 
     // Projects (Case Studies)
-    projects_eyebrow: "Proof of Work",
-    projects_title: "Implementaciones Recientes.",
+    projects_eyebrow: "Proyectos",
+    projects_title: "Implementaciones recientes.",
 
     proj_1_title: "Shopify Premium: Estética Apple",
     proj_1_roi: "Aumento drástico en la tasa de conversión mediante reducción de fricción.",
@@ -100,18 +110,18 @@ const translations: Record<Language, Translations> = {
     proj_5_date: "2024",
 
     // Collaboration
-    collab_title: "¿Tienes un proyecto en mente? Hagámoslo realidad.",
-    collab_desc: "Ya sea que necesites desarrollar una plataforma web o móvil desde cero, automatizar los procesos de tu empresa, o llevar tu marca al siguiente nivel visual, estoy aquí para ejecutarlo.\n\n<strong class='text-white font-medium'>Si buscas un partner tecnológico estratégico, hablemos.</strong>",
-    collab_btn: "Hablemos por WhatsApp",
+    collab_title: "¿Tenés un proyecto en mente? Hagámoslo realidad.",
+    collab_desc: "Ya sea una plataforma web o una app desde cero, automatizar los procesos de tu empresa o llevar tu marca a otro nivel visual, me encargo de principio a fin.\n\n<strong class='text-white font-medium'>Si buscás un partner tecnológico, hablemos.</strong>",
+    collab_btn: "Escribime por WhatsApp",
 
     // Tech Stack
     stack_eyebrow: "Stack Tecnológico",
-    stack_title: "Todas las herramientas a tu disposición.",
-    stack_desc: "Domino un ecosistema completo de tecnologías modernas para entregar soluciones end-to-end:",
+    stack_title: "Las herramientas con las que construyo.",
+    stack_desc: "Un stack moderno para llevar cada proyecto de la idea a producción.",
 
     // Testimonials
     test_eyebrow: "Reseñas",
-    test_title: "Opinión de mis clientes.",
+    test_title: "Lo que dicen mis clientes.",
 
     test_1_name: "Diego Sorensen 🇦🇷",
     test_1_role: "CEO & Fundador, Planet Zone",
@@ -139,24 +149,19 @@ const translations: Record<Language, Translations> = {
 
     // Contact
     contact_title_1: "Demos el primer paso.",
-    contact_desc: "Toda gran solución tecnológica empieza con una simple charla. Escríbeme y analicemos cómo puedo sumar valor a tu idea, totalmente sin compromiso.",
-    contact_placeholder: "Tu email (ej: hola@startup.com)",
-    contact_button_idle: "Ejecutar",
-    contact_button_submitting: "Procesando...",
-    contact_button_success: "Recibido",
+    contact_desc: "Contame qué necesitás y te respondo con una propuesta concreta. Sin compromiso.",
 
     // Footer
-    footer_text: "Gabriel Pirillo. Arquitectura web y optimización de ventas.",
     
     // UI General
     close_button: "Cerrar",
-    read_more: "Ver más detalles",
+    read_more: "Ver caso",
 
     // New Globals
-    edu_eyebrow: "Estudios y Reconocimientos.",
+    edu_eyebrow: "Estudios y certificaciones.",
     edu_relaciones: "Relaciones Comerciales Internacionales",
-    contact_email_cta: "o escríbeme a gabriel.s.pirillo@gmail.com",
-    footer_desc: "Construyo ecosistemas digitales y piezas interactivas diseñadas para maximizar utilidades. La tecnología no solo funciona, actúa para ti.",
+    contact_email_cta: "o escribime a gabriel.s.pirillo@gmail.com",
+    footer_desc: "Apps, plataformas web, mobile y automatización con IA para empresas.",
     footer_help: "¿Cómo te puedo ayudar?",
     footer_serv: "Servicios",
     footer_proj: "Proyectos",
@@ -165,28 +170,38 @@ const translations: Record<Language, Translations> = {
     footer_about: "Sobre Mí",
     footer_edu: "Estudios",
     footer_test: "Testimonios",
-    footer_contact: "Contáctame",
+    footer_contact: "Contacto",
     footer_rights: "Todos los derechos reservados."
   },
   en: {
+    // Brand / hero
+    nav_cta: "Let's talk",
+    nav_language: "Language",
+    hero_title_1: "From idea to app,",
+    hero_title_2: "in production.",
+    hero_sub: "Apps, web platforms, mobile and AI automation for businesses.",
+    hero_secondary: "See projects",
+    card_synex_desc: "The first 100% automated electronic music events company",
+    card_bb_desc: "AI & automation agency",
+    card_cta_eyebrow: "Save time, make more money",
+    card_cta_title: "Let's talk about your project",
+    proj_collab: "In collaboration with",
+    collab_eyebrow: "Work together",
+    edu_label: "Education",
+    footer_tagline: "From idea to app, in production.",
+
     // Nav
-    nav_about: "About",
     nav_services: "Services",
     nav_projects: "Projects",
-    nav_education: "Credentials",
     nav_testimonials: "Testimonials",
     nav_contact: "Contact",
     
     // Hero
-    hero_badge: "Available for new projects",
-    hero_title: "Polymath Engineer.",
-    hero_description: "I specialize in creating comprehensive digital and graphic solutions to scale your business. I build custom websites and mobile applications, helping you save time by automating your company's processes.",
-    hero_cta: "Initialize Protocol",
-    hero_agile: "I ensure your technology not only functions flawlessly but also stands out and works for you.",
+    hero_cta: "Start a project",
 
     // About
-    about_eyebrow: "Personal Profile",
-    about_title: "Engineering oriented towards commercial output.",
+    about_eyebrow: "About me",
+    about_title: "Engineering focused on business results.",
     about_intro: "What sets me apart from the traditional developer is my business vision. My experience leading sales teams and optimizing CRMs taught me a key principle: technology must generate profitable results. Today, I translate that commercial vision into comprehensive digital solutions for companies:",
     
     about_l1_title: "Web and Mobile Development",
@@ -202,31 +217,31 @@ const translations: Record<Language, Translations> = {
 
     // Services
     services_eyebrow: "Capabilities",
-    services_title: "Architecting the Modern Stack.",
+    services_title: "Every skill, at your disposal.",
 
     serv_1_title: "Web & B2B Solutions",
     serv_1_desc: "High performance systems (React, Next.js, Astro, Node.js).",
-    serv_1_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Beyond writing code, I build platforms designed to scale your business. I develop fast, secure, and optimized web ecosystems to convert visitors into clients.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>High-Conversion Landing Pages</strong> Designs focused on guiding users toward action (sales or leads).</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Custom E-Commerce Platforms</strong> Fast, secure online stores without the limitations of traditional templates.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Web Applications (SaaS) & B2B Portals</strong> Complex systems with robust databases and custom administration panels.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>THE POLYMATH APPROACH</h4><p class='font-normal leading-relaxed'>Unlike the traditional developer, my background in sales strategy allows me to align tech architecture with your financial goals. Every line of code is designed to maximize SEO, reduce load times to the millisecond, and guarantee a flawless user experience.</p></section></div>",
+    serv_1_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>Beyond writing code, I build platforms designed to scale your business. I develop fast, secure, and optimized web ecosystems to convert visitors into clients.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>High-Conversion Landing Pages</strong> Designs focused on guiding users toward action (sales or leads).</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Custom E-Commerce Platforms</strong> Fast, secure online stores without the limitations of traditional templates.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Web Applications (SaaS) & B2B Portals</strong> Complex systems with robust databases and custom administration panels.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MY APPROACH</h4><p class='font-normal leading-relaxed'>Unlike the traditional developer, my background in sales strategy allows me to align tech architecture with your financial goals. Every technical decision aims to improve SEO, cut load times and deliver a clear user experience.</p></section></div>",
     
     serv_2_title: "Mobile Native / Hybrid",
     serv_2_desc: "iOS & Android (Swift, Kotlin, React Native).",
-    serv_2_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I design and program custom mobile applications for <strong class='font-bold'>iOS (Apple) and Android</strong>. I help you take your business directly to your customers' pockets with fast, secure, and easy-to-use apps.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Presence in both stores</strong> I use technologies like React Native, Swift, and Kotlin to ensure your app works flawlessly on the App Store and Google Play.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Performance and Fluidity</strong> I focus on efficient resource management. I ensure the experience is instantaneous to prevent user churn.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Business Connection</strong> I integrate the application with your databases, payment gateways, or current systems (APIs and CRMs) synchronously.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>THE POLYMATH APPROACH</h4><p class='font-normal leading-relaxed'>I understand that an application is not just code; it is a key tool for sales and loyalty. I apply my commercial and visual design (UI/UX) experience to ensure that every screen and every button intuitively guides your user toward the action your business needs.</p></section></div>",
+    serv_2_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I design and program custom mobile applications for <strong class='font-bold'>iOS (Apple) and Android</strong>. I help you take your business directly to your customers' pockets with fast, secure, and easy-to-use apps.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Presence in both stores</strong> I use technologies like React Native, Swift, and Kotlin so your app works well on the App Store and Google Play.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Performance and Fluidity</strong> I focus on efficient resource management. I ensure the experience is instantaneous to prevent user churn.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Business Connection</strong> I integrate the application with your databases, payment gateways, or current systems (APIs and CRMs) synchronously.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MY APPROACH</h4><p class='font-normal leading-relaxed'>I understand that an application is not just code; it is a key tool for sales and loyalty. I apply my commercial and visual design (UI/UX) experience to ensure that every screen and every button intuitively guides your user toward the action your business needs.</p></section></div>",
     
     serv_3_title: "Automation & AI Flows",
     serv_3_desc: "Orchestration, APIs and AI agents using n8n.",
-    serv_3_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I automate manual and repetitive tasks for your company using Artificial Intelligence and intelligent workflows. I connect your tools to reduce manual work by 90%, allowing your team to focus on what really matters: selling and growing.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Conversational AI Agents</strong> Intelligent assistants on WhatsApp and Social Media that manage real conversations, resolve inquiries, and qualify leads 24/7.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Systems Orchestration</strong> Autopilot synchronization with n8n and Python of your CRMs, databases, and payment gateways.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Back-Office Assistants</strong> Autonomous agents that process documents, classify information, or extract strategic data from the web error-free.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>THE POLYMATH APPROACH</h4><p class='font-normal leading-relaxed'>My experience leading sales teams taught me that AI is not just about using trendy technology, but about generating profitability. I design every agent and every flow with a clear business goal: accelerate your sales cycle, guarantee impeccable support, and drastically reduce your operating costs.</p></section></div>",
+    serv_3_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I automate manual and repetitive tasks for your company using Artificial Intelligence and intelligent workflows. I connect your tools to reduce manual work by 90%, allowing your team to focus on what really matters: selling and growing.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Conversational AI Agents</strong> Intelligent assistants on WhatsApp and Social Media that manage real conversations, resolve inquiries, and qualify leads 24/7.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Systems Orchestration</strong> Autopilot synchronization with n8n and Python of your CRMs, databases, and payment gateways.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Back-Office Assistants</strong> Autonomous agents that process documents, classify information, or extract strategic data from the web error-free.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MY APPROACH</h4><p class='font-normal leading-relaxed'>My experience leading sales teams taught me that AI is not just about using trendy technology, but about generating profitability. I design every agent and every flow with a clear business goal: accelerate your sales cycle, guarantee impeccable support, and drastically reduce your operating costs.</p></section></div>",
     
     serv_4_title: "UI/UX & Graphic Design",
     serv_4_desc: "Branding, components, and user interfaces.",
-    serv_4_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I design interfaces and visual pieces that capture attention and build instant trust. I translate your brand identity into premium aesthetic experiences, ensuring every visual detail is designed to engage your customers and facilitate sales.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Interface Design (UI/UX)</strong> I design clean and logical screens that effortlessly guide the user toward purchase or contact, optimizing the visual journey.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Visual Identity & Branding</strong> Creating the \"soul\" of your company: logos, color palettes, and typography that position you as a leader in your sector.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>High-Impact Graphic Collateral</strong> Advertising content, flyers, carousels, and corporate presentations that outperform your competition at every touchpoint.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>THE POLYMATH APPROACH</h4><p class='font-normal leading-relaxed'>Visual design alone is useless if it confuses the user or if developers can't build it. As a Full Stack developer with sales experience, my designs are not just drawings; they are strategic visual ecosystems, 100% ready for code and optimized for commercial conversion.</p></section></div>",
+    serv_4_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I design interfaces and visual pieces that capture attention and build instant trust. I translate your brand identity into premium aesthetic experiences, ensuring every visual detail is designed to engage your customers and facilitate sales.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Interface Design (UI/UX)</strong> I design clean and logical screens that effortlessly guide the user toward purchase or contact, optimizing the visual journey.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Visual Identity & Branding</strong> Creating the \"soul\" of your company: logos, color palettes, and typography that position you as a leader in your sector.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>High-Impact Graphic Collateral</strong> Advertising content, flyers, carousels, and corporate presentations that outperform your competition at every touchpoint.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MY APPROACH</h4><p class='font-normal leading-relaxed'>Visual design alone is useless if it confuses the user or if developers can't build it. As a Full Stack developer with sales experience, my designs are not just drawings; they are strategic visual ecosystems, 100% ready for code and optimized for commercial conversion.</p></section></div>",
 
     serv_5_title: "Sound Engineering",
     serv_5_desc: "Mixing, Mastering and Audio UX.",
-    serv_5_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I elevate the quality of your musical and audiovisual projects with studio-level sound. Whether you need to polish a song for streaming platforms or design the sound experience of an app, I apply precision engineering so everything sounds flawless.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Song Mixing & Mastering</strong> I bring your musical tracks to industry standards using Ableton Live. Powerful, balanced sound for Spotify or the dance floor.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Audio Post-production for Video</strong> Cleaning and optimization for ads, YouTube, or corporate videos. Sharp voices and professional sonic impact.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Audio UX for Sites & Apps (Earcons)</strong> Designing acoustic micro-interactions integrated into the code, adding a tactile and premium layer to your interface.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>THE POLYMATH APPROACH</h4><p class='font-normal leading-relaxed'>I combine my sensitivity as an active music producer with the logic of a software developer. This allows me to understand exactly what a track needs to sound massive in a club, or how to program sound in a web environment using the Web Audio API for fast loading and zero latency.</p></section></div>",
+    serv_5_detail: "<div class='space-y-10 text-carbon-700'><p class='text-lg md:text-xl font-medium text-black leading-tight'>I elevate the quality of your musical and audiovisual projects with studio-level sound. Whether you need to polish a song for streaming platforms or design the sound experience of an app, I take care of every detail so it sounds professional.</p><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-6 border-b border-carbon-200 pb-2 inline-block'>KEY SOLUTIONS</h4><div class='grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6'><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Song Mixing & Mastering</strong> I bring your musical tracks to industry standards using Ableton Live. Powerful, balanced sound for Spotify or the dance floor.</p></div><div class='flex gap-3'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Audio Post-production for Video</strong> Cleaning and optimization for ads, YouTube, or corporate videos. Sharp voices and professional sonic impact.</p></div><div class='flex gap-3 md:col-span-2'><span class='text-carbon-400 mt-1.5'>—</span><p><strong class='text-carbon-950 font-semibold block mb-1'>Audio UX for Sites & Apps (Earcons)</strong> Designing acoustic micro-interactions integrated into the code, adding a tactile and premium layer to your interface.</p></div></div></section><section><h4 class='text-[10px] tracking-[0.2em] uppercase text-carbon-400 font-bold mb-4 border-b border-carbon-200 pb-2 inline-block'>MY APPROACH</h4><p class='font-normal leading-relaxed'>I combine my sensitivity as an active music producer with the logic of a software developer. This allows me to understand exactly what a track needs to sound massive in a club, or how to program sound in a web environment using the Web Audio API for fast loading and zero latency.</p></section></div>",
 
     // Projects
-    projects_eyebrow: "Proof of Work",
-    projects_title: "Recent Deployments.",
+    projects_eyebrow: "Projects",
+    projects_title: "Recent work.",
 
     proj_1_title: "Premium Shopify: Apple Aesthetics",
     proj_1_roi: "Drastic conversion rate surge via friction reduction.",
@@ -260,17 +275,17 @@ const translations: Record<Language, Translations> = {
 
     // Collaboration
     collab_title: "Have a project in mind? Let's make it reality.",
-    collab_desc: "Whether you need to develop a web or mobile platform from scratch, automate your company's processes with n8n to save time, or take your brand to the next visual and sonic level, I'm here to execute it.\n\nIf you are looking for a strategic tech partner, let's talk.",
-    collab_btn: "Connect via WhatsApp",
+    collab_desc: "Whether it's a web platform or an app from scratch, automating your company's processes or taking your brand to the next visual level, I handle it end to end.\n\n<strong class='text-white font-medium'>Looking for a tech partner? Let's talk.</strong>",
+    collab_btn: "Message me on WhatsApp",
 
     // Tech Stack
     stack_eyebrow: "Tech Stack",
-    stack_title: "Every tool at your disposal.",
-    stack_desc: "I command a complete ecosystem of modern technologies to deliver end-to-end solutions:",
+    stack_title: "The tools I build with.",
+    stack_desc: "A modern stack to take every project from idea to production.",
 
     // Testimonials
-    test_eyebrow: "5-Star Reviews",
-    test_title: "Client Feedback.",
+    test_eyebrow: "Reviews",
+    test_title: "What clients say.",
 
     test_1_name: "Diego Sorensen 🇦🇷",
     test_1_role: "CEO & Founder, Planet Zone",
@@ -298,24 +313,19 @@ const translations: Record<Language, Translations> = {
 
     // Contact
     contact_title_1: "Let's take the first step.",
-    contact_desc: "Every great technical solution starts with a simple chat. Drop me a line and let's explore how I can add value to your idea, with absolutely no commitment.",
-    contact_placeholder: "Your email (e.g. hello@startup.com)",
-    contact_button_idle: "Execute",
-    contact_button_submitting: "Syncing...",
-    contact_button_success: "Received",
+    contact_desc: "Tell me what you need and I'll get back to you with a concrete proposal. No commitment.",
 
     // Footer
-    footer_text: "Gabriel Pirillo. Web architecture and sales optimization.",
 
     // UI General
     close_button: "Close",
-    read_more: "Read full details",
+    read_more: "View case",
 
     // New Globals
-    edu_eyebrow: "Education and Recognitions.",
+    edu_eyebrow: "Education and certifications.",
     edu_relaciones: "International Business Relations",
     contact_email_cta: "or email me at gabriel.s.pirillo@gmail.com",
-    footer_desc: "I build digital ecosystems and interactive pieces designed to maximize profits. Technology not only works, it acts for you.",
+    footer_desc: "Apps, web platforms, mobile and AI automation for businesses.",
     footer_help: "How can I help you?",
     footer_serv: "Services",
     footer_proj: "Projects",

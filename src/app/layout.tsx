@@ -8,12 +8,12 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Gabriel | Full Stack & Automation Engineer",
-  description: "B2B Portfolio of Gabriel, offering Full Stack Development, n8n Business Automation, UI/UX Design, and Audio UX.",
+  title: "Gabriel Pirillo | Full Stack Developer",
+  description: "De la idea a la app, en producción. Apps, plataformas web, mobile y automatización con IA para empresas.",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} h-full antialiased overflow-x-clip`}
     >
-      <body className="min-h-full flex flex-col bg-carbon-900 text-silver-100 leading-snug tracking-tight overflow-x-clip">
+      <body className="min-h-full flex flex-col bg-[#050505] text-silver-100 leading-snug tracking-tight overflow-x-clip">
         <LanguageProvider>
           <AudioProvider>
             <SmoothScrollProvider>

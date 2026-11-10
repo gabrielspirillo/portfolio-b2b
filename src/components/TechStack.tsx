@@ -1,93 +1,45 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/lib/i18n";
-import { useAudio } from "@/lib/audio";
 import { Button } from "@/components/ui/Button";
+import { Eyebrow } from "@/components/ui/SectionHeader";
 
-gsap.registerPlugin(ScrollTrigger);
+const ROW_1 = ["React", "Next.js", "Astro", "Tailwind CSS", "Node.js", "TypeScript", "React Native", "Swift", "Kotlin", "Shopify", "Liquid"];
+const ROW_2 = ["n8n", "OpenAI", "Whisper", "Python", "PostgreSQL", "MongoDB", "Docker", "AWS", "Socket.io", "GoHighLevel", "Alpine.js"];
+
+function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
+  return (
+    <div className="marquee relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
+      <div className={`marquee-track flex w-max ${reverse ? "marquee-reverse" : ""}`}>
+        {[...items, ...items].map((item, i) => (
+          <span key={i} className="glass shrink-0 mr-3 rounded-full px-5 py-2.5 text-sm font-medium text-white/80">
+            <span className="relative z-10">{item}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function TechStack() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
-  const { playEarcon } = useAudio();
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(textRef.current, {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 85%",
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-
-      gsap.from(imageRef.current, {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 85%",
-        },
-        x: 50,
-        scale: 0.95,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: 0.2,
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
-    <section
-      id="tech-stack"
-      ref={containerRef}
-      className="py-16 md:py-32 relative z-10 border-t border-carbon-800/50 bg-[#000] overflow-hidden"
-    >
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(800px,70vw)] h-[min(800px,70vw)] rounded-full bg-white/[0.015] blur-[120px]" />
-      </div>
+    <section id="tech-stack" className="relative w-full py-24 md:py-32 px-5">
+      <div className="max-w-6xl mx-auto">
+        <div className="reveal flex flex-col items-center text-center">
+          <Eyebrow>{t("stack_eyebrow")}</Eyebrow>
+          <h2 className="mt-4 text-[2rem] leading-[1.05] md:text-5xl font-semibold tracking-[-0.035em] text-white max-w-2xl">{t("stack_title")}</h2>
+          <p className="mt-5 text-base md:text-lg text-white/55 max-w-xl">{t("stack_desc")}</p>
+        </div>
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-        <div className="bg-carbon-900/40 border border-carbon-800/60 rounded-2xl overflow-hidden backdrop-blur-sm p-8 md:p-12 lg:p-16 relative">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center relative z-10">
-            {/* Left Side: Text and Button */}
-            <div ref={textRef} className="flex flex-col items-center lg:items-start text-center lg:text-left">
-              <h2 className="text-xs font-mono tracking-[0.2em] text-silver-200 uppercase mb-6 px-4 py-1.5 border border-carbon-700 rounded-full inline-block bg-carbon-900 bg-opacity-50">
-                {t("stack_eyebrow")}
-              </h2>
-              <h3 className="text-3xl md:text-5xl font-semibold tracking-tight text-white mt-2 leading-tight mb-6 max-w-lg">
-                {t("stack_title")}
-              </h3>
-              <p className="text-silver-200/80 font-light leading-relaxed md:text-lg mb-10 max-w-md">
-                {t("stack_desc")}
-              </p>
-              
-              <Button
-                href="#contact"
-              >
-                {t("collab_btn")}
-              </Button>
-            </div>
-            
-            {/* Right Side: Image */}
-            <div ref={imageRef} className="relative w-full flex justify-center lg:justify-end mt-8 lg:mt-0">
-              <img loading="lazy" decoding="async" 
-                src="https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775654516/Generated_Image_April_07_2026_-_8_42PM_eu6thm.png" 
-                alt="Tech Stack Showcase" 
-                className="w-full max-w-[600px] h-auto object-contain rounded-2xl drop-shadow-2xl"
-              />
-            </div>
-          </div>
+        <div className="reveal mt-12 flex flex-col gap-3">
+          <Marquee items={ROW_1} />
+          <Marquee items={ROW_2} reverse />
+        </div>
+
+        <div className="reveal mt-12 flex justify-center">
+          <Button href="#contact" variant="glass">{t("nav_cta")}</Button>
         </div>
       </div>
     </section>

@@ -28,10 +28,10 @@ function Stage({ children, glow }: { children: ReactNode; glow: [string, string]
       ref={ref}
       data-paused="true"
       aria-hidden="true"
-      className="sm-stage mt-8 h-40 md:h-48 w-full shrink-0 rounded-2xl border border-white/[0.07] group-hover:border-black/10 transition-[border-color,box-shadow] duration-500 group-hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.45)]"
+      className="sm-stage mt-8 h-40 md:h-48 w-full shrink-0 rounded-2xl border border-white/[0.07] group-hover:border-ember-500/25 transition-[border-color] duration-500"
     >
-      <div className="sm-orb" style={{ background: glow[0], left: "-10%", top: "-30%" }} />
-      <div className="sm-orb" style={{ background: glow[1], right: "-10%", bottom: "-40%", ...v({ "--d": "-6s" }) }} />
+      <div className="sm-orb" style={{ background: `radial-gradient(closest-side, ${glow[0]}, transparent)`, left: "-10%", top: "-30%" }} />
+      <div className="sm-orb" style={{ background: `radial-gradient(closest-side, ${glow[1]}, transparent)`, right: "-10%", bottom: "-40%", ...v({ "--d": "-6s" }) }} />
       <div className="relative z-10 w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]">
         {children}
       </div>
@@ -41,18 +41,18 @@ function Stage({ children, glow }: { children: ReactNode; glow: [string, string]
 
 /* ------------------------------ 1. Web ------------------------------ */
 const CODE_LINES = [
-  { w: "38%", c: "#BF5AF2", i: 0 },
-  { w: "62%", c: "#0A84FF", i: 1 },
+  { w: "38%", c: "#FF7A45", i: 0 },
+  { w: "62%", c: "#FFA27A", i: 1 },
   { w: "48%", c: "#ffffff55", i: 2 },
-  { w: "70%", c: "#64D2FF", i: 2 },
+  { w: "70%", c: "#FFD3BC", i: 2 },
   { w: "40%", c: "#ffffff55", i: 1 },
-  { w: "56%", c: "#30D158", i: 1 },
-  { w: "30%", c: "#BF5AF2", i: 0 },
+  { w: "56%", c: "#FF5A1F", i: 1 },
+  { w: "30%", c: "#FF7A45", i: 0 },
 ];
 
 export function WebMotion() {
   return (
-    <Stage glow={["#0A84FF", "#BF5AF2"]}>
+    <Stage glow={["#FF5A1F", "#7A2A10"]}>
       <div className="absolute inset-x-[6%] top-[12%] -bottom-4 rounded-t-xl bg-[#111114] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden">
         {/* Window chrome */}
         <div className="h-6 flex items-center gap-1.5 px-3 border-b border-white/[0.06] bg-white/[0.02]">
@@ -60,7 +60,7 @@ export function WebMotion() {
           <span className="w-2 h-2 rounded-full bg-[#febc2e]" />
           <span className="w-2 h-2 rounded-full bg-[#28c840]" />
           <div className="ml-3 flex-1 max-w-[220px] h-3 rounded-full bg-white/[0.06] relative overflow-hidden">
-            <span className="sm-anim sm-load absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[#0A84FF] to-[#64D2FF]" />
+            <span className="sm-anim sm-load absolute inset-y-0 left-0 w-full bg-gradient-to-r from-ember-600 to-ember-300" />
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export function WebMotion() {
           {/* Live preview */}
           <div className="flex-1 p-3 flex flex-col gap-2 relative">
             <div
-              className="sm-anim sm-rise h-9 rounded-lg bg-gradient-to-br from-[#0A84FF] via-[#5E5CE6] to-[#BF5AF2] relative overflow-hidden"
+              className="sm-anim sm-rise h-9 rounded-lg bg-gradient-to-br from-[#FF8A55] via-[#FF5A1F] to-[#B83210] relative overflow-hidden"
               style={v({ "--d": "1.4s" })}
             >
               <span className="absolute left-2.5 top-2 h-1.5 w-[40%] rounded-full bg-white/80" />
@@ -95,7 +95,7 @@ export function WebMotion() {
                   className="sm-anim sm-pop h-11 rounded-lg bg-white/[0.06] border border-white/[0.06] p-1.5 flex flex-col gap-1"
                   style={v({ "--d": `${1.8 + n * 0.15}s` })}
                 >
-                  <span className="w-3 h-3 rounded-[4px]" style={{ background: ["#30D158", "#FF9F0A", "#FF375F"][n] }} />
+                  <span className="w-3 h-3 rounded-[4px]" style={{ background: ["#FF7A45", "#FFB020", "#F2F2F2"][n] }} />
                   <span className="h-1 w-[70%] rounded-full bg-white/25" />
                   <span className="h-1 w-[45%] rounded-full bg-white/15" />
                 </div>
@@ -127,16 +127,16 @@ export function WebMotion() {
 
 /* ----------------------------- 2. Mobile ----------------------------- */
 const APP_ROWS = [
-  { c: "linear-gradient(135deg,#0A84FF,#64D2FF)", w: "64%" },
-  { c: "linear-gradient(135deg,#FF375F,#FF9F0A)", w: "48%" },
-  { c: "linear-gradient(135deg,#30D158,#64D2FF)", w: "72%" },
-  { c: "linear-gradient(135deg,#BF5AF2,#5E5CE6)", w: "54%" },
-  { c: "linear-gradient(135deg,#FF9F0A,#FFD60A)", w: "60%" },
+  { c: "linear-gradient(135deg,#FF8A55,#E5410F)", w: "64%" },
+  { c: "linear-gradient(135deg,#F5F5F5,#8A8A8A)", w: "48%" },
+  { c: "linear-gradient(135deg,#FFB020,#FF5A1F)", w: "72%" },
+  { c: "linear-gradient(135deg,#3A3A3C,#1C1C1E)", w: "54%" },
+  { c: "linear-gradient(135deg,#FFA27A,#FF5A1F)", w: "60%" },
 ];
 
 export function MobileMotion() {
   return (
-    <Stage glow={["#5E5CE6", "#64D2FF"]}>
+    <Stage glow={["#FF5A1F", "#B83210"]}>
       {/* Phone */}
       <div className="absolute left-1/2 -translate-x-1/2 top-4 w-[96px] h-[200px] rounded-[22px] border-[3px] border-[#2c2c30] bg-[#050507] shadow-[0_24px_50px_rgba(0,0,0,0.7),inset_0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden">
         {/* Dynamic island */}
@@ -167,10 +167,10 @@ export function MobileMotion() {
 
       {/* Floating platform chips */}
       <div className="sm-float absolute left-[8%] top-[30%] rounded-full bg-white/[0.08] border border-white/10 px-2.5 py-1 text-[9px] font-medium text-white/80 flex items-center gap-1.5 shadow-lg">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF]" /> iOS
+        <span className="w-1.5 h-1.5 rounded-full bg-white" /> iOS
       </div>
       <div className="sm-float absolute right-[8%] top-[55%] rounded-full bg-white/[0.08] border border-white/10 px-2.5 py-1 text-[9px] font-medium text-white/80 flex items-center gap-1.5 shadow-lg" style={v({ "--d": "-2s" })}>
-        <span className="w-1.5 h-1.5 rounded-full bg-[#30D158]" /> Android
+        <span className="w-1.5 h-1.5 rounded-full bg-ember-500" /> Android
       </div>
     </Stage>
   );
@@ -180,7 +180,7 @@ export function MobileMotion() {
 const FLOWS = [
   { d: "M58 80 C 90 80, 100 80, 128 80", cls: "sm-flow-a", color: "#FF9F0A" },
   { d: "M172 80 C 205 80, 205 42, 238 42", cls: "sm-flow-b", color: "#30D158" },
-  { d: "M172 80 C 205 80, 205 118, 238 118", cls: "sm-flow-b", color: "#0A84FF" },
+  { d: "M172 80 C 205 80, 205 118, 238 118", cls: "sm-flow-b", color: "#FFA27A" },
 ];
 
 function Node({ x, y, size = 34, color, glowCls, children }: { x: number; y: number; size?: number; color: string; glowCls: string; children: ReactNode }) {
@@ -198,12 +198,12 @@ function Node({ x, y, size = 34, color, glowCls, children }: { x: number; y: num
 
 export function AutomationMotion() {
   return (
-    <Stage glow={["#FF9F0A", "#BF5AF2"]}>
+    <Stage glow={["#FF5A1F", "#7A2A10"]}>
       <svg viewBox="0 0 300 160" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="sm-ai" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#BF5AF2" />
-            <stop offset="100%" stopColor="#0A84FF" />
+            <stop offset="0%" stopColor="#FFB020" />
+            <stop offset="100%" stopColor="#FF5A1F" />
           </linearGradient>
         </defs>
 
@@ -225,7 +225,7 @@ export function AutomationMotion() {
         </Node>
 
         {/* AI core */}
-        <Node x={150} y={80} size={42} color="#BF5AF2" glowCls="sm-glow-b">
+        <Node x={150} y={80} size={42} color="#FF5A1F" glowCls="sm-glow-b">
           <circle r="13" fill="none" stroke="url(#sm-ai)" strokeWidth="2" strokeDasharray="20 62" strokeLinecap="round" className="sm-spin" />
           <path d="M0 -7 C1 -2, 2 -1, 7 0 C2 1, 1 2, 0 7 C-1 2, -2 1, -7 0 C-2 -1, -1 -2, 0 -7 Z" fill="url(#sm-ai)" />
         </Node>
@@ -234,9 +234,9 @@ export function AutomationMotion() {
         <Node x={256} y={42} size={30} color="#30D158" glowCls="sm-glow-c">
           <path d="M-5 0 L-1.5 3.5 L5 -3.5" fill="none" stroke="#30D158" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
         </Node>
-        <Node x={256} y={118} size={30} color="#0A84FF" glowCls="sm-glow-c">
-          <rect x="-6" y="-4.5" width="12" height="9" rx="2" fill="none" stroke="#0A84FF" strokeWidth="1.8" />
-          <path d="M-5.5 -3.5 L0 0.5 L5.5 -3.5" fill="none" stroke="#0A84FF" strokeWidth="1.6" strokeLinejoin="round" />
+        <Node x={256} y={118} size={30} color="#FFA27A" glowCls="sm-glow-c">
+          <rect x="-6" y="-4.5" width="12" height="9" rx="2" fill="none" stroke="#FFA27A" strokeWidth="1.8" />
+          <path d="M-5.5 -3.5 L0 0.5 L5.5 -3.5" fill="none" stroke="#FFA27A" strokeWidth="1.6" strokeLinejoin="round" />
         </Node>
 
         <text x="40" y="112" textAnchor="middle" className="fill-white/40" fontSize="7" fontFamily="inherit">Trigger</text>
@@ -247,11 +247,11 @@ export function AutomationMotion() {
 }
 
 /* ----------------------------- 4. UI / UX ----------------------------- */
-const SWATCHES = ["#0A84FF", "#BF5AF2", "#30D158", "#FF375F", "#FF9F0A"];
+const SWATCHES = ["#F2F2F2", "#FFA27A", "#FF7A45", "#FF5A1F", "#B83210"];
 
 export function DesignMotion() {
   return (
-    <Stage glow={["#FF375F", "#0A84FF"]}>
+    <Stage glow={["#FF5A1F", "#3A1206"]}>
       <div className="sm-grid absolute inset-0 opacity-60" />
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[150px]">
         <div className="absolute left-2 top-1 rounded-md bg-white/[0.06] border border-white/10 px-1.5 py-0.5 text-[8px] text-white/60 font-medium"># Frame 01</div>
@@ -260,12 +260,12 @@ export function DesignMotion() {
         {/* Object being edited */}
         <div className="sm-anim sm-resize absolute left-[80px] top-[32px] w-[60px] h-[60px]" style={v({ "--dur": "6s" })}>
           <div className="sm-anim sm-morph absolute inset-0 overflow-hidden" style={v({ "--dur": "6s" })}>
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0A84FF] to-[#BF5AF2]" />
-            <div className="sm-anim sm-recolor absolute inset-0 bg-gradient-to-br from-[#FF375F] to-[#FF9F0A]" style={v({ "--dur": "6s" })} />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#F5F5F5] to-[#7A7A7A]" />
+            <div className="sm-anim sm-recolor absolute inset-0 bg-gradient-to-br from-[#FF8A55] to-[#E5410F]" style={v({ "--dur": "6s" })} />
           </div>
-          <div className="absolute -inset-[5px] border border-[#0A84FF]">
+          <div className="absolute -inset-[5px] border border-ember-400">
             {["-left-[3px] -top-[3px]", "-right-[3px] -top-[3px]", "-left-[3px] -bottom-[3px]", "-right-[3px] -bottom-[3px]"].map((pos) => (
-              <span key={pos} className={`absolute ${pos} w-[6px] h-[6px] bg-white border border-[#0A84FF]`} />
+              <span key={pos} className={`absolute ${pos} w-[6px] h-[6px] bg-white border border-ember-400`} />
             ))}
           </div>
         </div>
@@ -299,9 +299,9 @@ const BARS = Array.from({ length: 36 }, (_, i) => {
 
 export function SoundMotion() {
   return (
-    <Stage glow={["#FF375F", "#FF9F0A"]}>
+    <Stage glow={["#FF5A1F", "#B83210"]}>
       <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-white/[0.06] border border-white/10 px-2 py-0.5">
-        <span className="sm-pulse w-1.5 h-1.5 rounded-full bg-[#FF375F]" />
+        <span className="sm-pulse w-1.5 h-1.5 rounded-full bg-ember-500" />
         <span className="text-[8px] font-medium text-white/70 tracking-wide">Master · −14 LUFS</span>
       </div>
 
@@ -309,7 +309,7 @@ export function SoundMotion() {
         {BARS.map((b, i) => (
           <span
             key={i}
-            className="sm-eq w-[3px] h-full rounded-full bg-gradient-to-t from-[#FF375F] via-[#FF6B4A] to-[#FF9F0A]"
+            className="sm-eq w-[3px] h-full rounded-full bg-gradient-to-t from-[#E5410F] via-[#FF5A1F] to-[#FFB27F]"
             style={v({ "--h": b.h, "--dur": `${b.dur}s`, "--d": `${b.delay}s`, transformOrigin: "center" })}
           />
         ))}

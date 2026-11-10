@@ -22,7 +22,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     // Lazily created on first use to avoid the autoplay-policy warning on load
     if (!audioCtxRef.current) {
       const AudioContextClass =
-        window.AudioContext || (window as any).webkitAudioContext;
+        window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!AudioContextClass) return;
       audioCtxRef.current = new AudioContextClass();
     }

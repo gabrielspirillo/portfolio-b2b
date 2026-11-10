@@ -1,147 +1,121 @@
 "use client";
 
-import Link from "next/link";
-import { Menu } from "lucide-react";
 import { useState } from "react";
 import { useAudio } from "@/lib/audio";
 import { useLanguage } from "@/lib/i18n";
 
+const WHATSAPP = "https://wa.link/bdi66k";
+
+function LangToggle() {
+  const { language, toggleLanguage } = useLanguage();
+  const { playEarcon } = useAudio();
+  return (
+    <div className="relative flex items-center rounded-full p-0.5 bg-white/[0.06] border border-white/10 w-[76px]">
+      <span
+        className="absolute top-0.5 bottom-0.5 w-9 rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        style={{ transform: language === "es" ? "translateX(0)" : "translateX(100%)" }}
+      />
+      {(["es", "en"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => {
+            if (language !== l) {
+              playEarcon();
+              toggleLanguage();
+            }
+          }}
+          className={`relative z-10 flex-1 py-1 text-[11px] font-semibold uppercase tracking-wide transition-colors duration-300 ${language === l ? "text-black" : "text-white/60 hover:text-white"}`}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { playEarcon } = useAudio();
-  const { t, language, toggleLanguage } = useLanguage();
-
-  const handleNavClick = () => {
-    playEarcon();
-    setIsOpen(false);
-  };
+  const { t } = useLanguage();
 
   const navItems = [
     { key: "nav_services", href: "#services" },
     { key: "nav_projects", href: "#projects" },
     { key: "nav_testimonials", href: "#testimonials" },
-    { key: "nav_contact", href: "#contact" }
+    { key: "nav_contact", href: "#contact" },
   ];
 
+  const close = () => {
+    playEarcon();
+    setIsOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-carbon-900/95 backdrop-blur-sm border-b border-carbon-700">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="fixed top-3 md:top-4 inset-x-0 z-50 px-3 md:px-6">
+      <div className="glass-blur mx-auto max-w-5xl h-14 rounded-full pl-5 pr-2 flex items-center justify-between">
+        <a href="#about" onClick={playEarcon} className="relative z-10 flex items-center gap-2 text-[15px] font-semibold tracking-tight text-white">
+          <span className="text-ember-500">{"//"}</span> Gabriel Pirillo
+        </a>
 
-        <Link href="/" className="text-lg font-semibold tracking-tighter text-silver-100 hover:text-white transition-colors" onClick={playEarcon}>
-           Gabriel Pirillo
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="relative z-10 hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <a
               key={item.key}
               href={item.href}
-              className="text-xs font-mono text-silver-200 hover:text-silver-100 transition-colors uppercase tracking-widest"
-              onClick={handleNavClick}
+              onClick={playEarcon}
+              className="px-3.5 py-2 rounded-full text-[13px] font-medium text-white/65 hover:text-white hover:bg-white/[0.06] transition-colors"
             >
               {t(item.key)}
             </a>
           ))}
-          
-          <div className="w-px h-4 bg-carbon-700 mx-2" />
-
-          {/* Language Toggle (Segmented Apple Style) */}
-          <div className="relative flex items-center bg-carbon-800/80 rounded-full p-1 shadow-inner border border-carbon-700/50 w-24">
-            {/* Sliding Drop Highlight */}
-            <div 
-              className="absolute top-1 bottom-1 w-11 bg-white rounded-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_8px_rgba(0,0,0,0.2)] z-0"
-              style={{
-                transform: language === 'en' ? 'translateX(0)' : 'translateX(100%)'
-              }}
-            />
-            <button
-              onClick={() => {
-                if (language !== 'en') {
-                  playEarcon();
-                  toggleLanguage();
-                }
-              }}
-              className={`relative z-10 flex-1 text-center py-1 text-[10px] uppercase font-mono font-bold tracking-widest transition-colors duration-300 ${language === 'en' ? 'text-black' : 'text-silver-200 hover:text-white'}`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => {
-                if (language !== 'es') {
-                  playEarcon();
-                  toggleLanguage();
-                }
-              }}
-              className={`relative z-10 flex-1 text-center py-1 text-[10px] uppercase font-mono font-bold tracking-widest transition-colors duration-300 ${language === 'es' ? 'text-black' : 'text-silver-200 hover:text-white'}`}
-            >
-              ES
-            </button>
-          </div>
         </nav>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden p-2 text-silver-200 hover:text-silver-100 transition-colors"
-          onClick={() => {
-            playEarcon();
-            setIsOpen(!isOpen);
-          }}
-          aria-label="Toggle Navigation"
-        >
-          <Menu size={20} />
-        </button>
+        <div className="relative z-10 flex items-center gap-2">
+          <div className="hidden md:block">
+            <LangToggle />
+          </div>
+          <a
+            href={WHATSAPP}
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={playEarcon}
+            className="glass-ember hidden sm:inline-flex items-center gap-2 h-10 pl-4 pr-3 rounded-full text-[13px] font-semibold"
+          >
+            <span className="relative z-10">{t("nav_cta")}</span>
+            <svg viewBox="0 0 24 24" fill="none" className="relative z-10 w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </a>
+          <button
+            className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-white/80 hover:bg-white/[0.06]"
+            onClick={() => {
+              playEarcon();
+              setIsOpen((o) => !o);
+            }}
+            aria-label="Menu"
+            aria-expanded={isOpen}
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+              <path d={isOpen ? "M6 6l12 12M18 6L6 18" : "M4 8h16M4 16h16"} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Nav */}
-      {isOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-carbon-900 border-b border-carbon-700 flex flex-col p-6 gap-6">
+      {/* Mobile sheet */}
+      <div
+        className={`md:hidden glass-blur mx-auto max-w-5xl mt-2 rounded-3xl p-3 origin-top transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+      >
+        <div className="relative z-10 flex flex-col">
           {navItems.map((item) => (
-            <a
-              key={item.key}
-              href={item.href}
-              className="text-sm uppercase tracking-widest font-mono text-silver-200 hover:text-silver-100"
-              onClick={handleNavClick}
-            >
+            <a key={item.key} href={item.href} onClick={close} className="px-4 py-3 rounded-2xl text-base font-medium text-white/80 hover:bg-white/[0.06]">
               {t(item.key)}
             </a>
           ))}
-          <div className="w-full h-px bg-carbon-800" />
-          <div className="w-full flex items-center justify-between mt-2">
-            <span className="text-sm uppercase tracking-widest font-mono text-silver-200">Idioma</span>
-            <div className="relative flex items-center bg-carbon-800/80 rounded-full p-1 shadow-inner border border-carbon-700/50 w-24">
-              <div 
-                className="absolute top-1 bottom-1 w-11 bg-white rounded-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_8px_rgba(0,0,0,0.2)] z-0"
-                style={{
-                  transform: language === 'en' ? 'translateX(0)' : 'translateX(100%)'
-                }}
-              />
-              <button
-                onClick={() => {
-                  if (language !== 'en') {
-                    playEarcon();
-                    toggleLanguage();
-                  }
-                }}
-                className={`relative z-10 flex-1 text-center py-1.5 text-[10px] uppercase font-mono font-bold tracking-widest transition-colors duration-300 ${language === 'en' ? 'text-black' : 'text-silver-200 hover:text-white'}`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => {
-                  if (language !== 'es') {
-                    playEarcon();
-                    toggleLanguage();
-                  }
-                }}
-                className={`relative z-10 flex-1 text-center py-1.5 text-[10px] uppercase font-mono font-bold tracking-widest transition-colors duration-300 ${language === 'es' ? 'text-black' : 'text-silver-200 hover:text-white'}`}
-              >
-                ES
-              </button>
-            </div>
+          <div className="flex items-center justify-between px-4 pt-3 mt-2 border-t border-white/10">
+            <span className="text-sm text-white/50">{t("nav_language")}</span>
+            <LangToggle />
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
