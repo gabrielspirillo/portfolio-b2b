@@ -31,7 +31,7 @@ export function Footer() {
         <div className="relative z-10 grid md:grid-cols-12 gap-12">
           <div className="md:col-span-6 flex flex-col gap-5">
             <a href="#about" onClick={playEarcon} className="w-max text-xl font-semibold tracking-tight text-white">
-              <span className="text-ember-500">{"//"}</span> Gabriel Salvador Pirillo
+              <span className="text-ember-500">{"//"}</span> Gabriel Pirillo
             </a>
             <p className="text-sm leading-relaxed text-white/50 max-w-sm">{t("footer_desc")}</p>
             <div className="flex gap-2">
@@ -75,7 +75,7 @@ export function Footer() {
         </div>
 
         <div className="relative z-10 mt-14 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row justify-between gap-3 text-xs text-white/35">
-          <p>&copy; {new Date().getFullYear()} Gabriel Salvador Pirillo. {t("footer_rights")}</p>
+          <p>&copy; {new Date().getFullYear()} Gabriel Pirillo. {t("footer_rights")}</p>
           <p>{t("footer_tagline")}</p>
         </div>
       </div>

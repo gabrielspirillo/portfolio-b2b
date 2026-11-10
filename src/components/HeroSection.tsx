@@ -46,7 +46,7 @@ export function HeroSection() {
         <div className="flex flex-col items-start">
           <div className="hero-element glass-blur inline-flex items-center gap-3 rounded-full px-4 py-2 text-sm md:text-[15px]">
             <span className="relative z-10 text-ember-500 font-semibold">{"//"}</span>
-            <span className="relative z-10 font-semibold text-white">Gabriel Salvador Pirillo</span>
+            <span className="relative z-10 font-semibold text-white">Gabriel Pirillo</span>
             <span className="relative z-10 w-px h-4 bg-white/20" />
             <span className="relative z-10 text-white/70">Full Stack Developer</span>
           </div>

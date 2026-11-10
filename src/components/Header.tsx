@@ -54,7 +54,7 @@ export function Header() {
     <header className="fixed top-3 md:top-4 inset-x-0 z-50 px-3 md:px-6">
       <div className="glass-blur mx-auto max-w-5xl h-14 rounded-full pl-5 pr-2 flex items-center justify-between">
         <a href="#about" onClick={playEarcon} className="relative z-10 flex items-center gap-2 text-[15px] font-semibold tracking-tight text-white">
-          <span className="text-ember-500">{"//"}</span> Gabriel Salvador Pirillo
+          <span className="text-ember-500">{"//"}</span> Gabriel Pirillo
         </a>
 
         <nav className="relative z-10 hidden md:flex items-center gap-1">

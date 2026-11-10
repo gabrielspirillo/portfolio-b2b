@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Gabriel Salvador Pirillo | Full Stack Developer",
+  title: "Gabriel Pirillo | Full Stack Developer",
   description: "De la idea a la app, en producción. Apps, plataformas web, mobile y automatización con IA para empresas.",
 };
 

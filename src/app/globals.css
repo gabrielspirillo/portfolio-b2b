@@ -55,7 +55,7 @@ body {
    .glass-flat   no backdrop-filter, for many small or moving elements
    .glass-ember  orange glass (static gradient)
    All share a luminous 1px edge drawn with a masked gradient (::before).
-   html.lite (phones / low-power devices) swaps blur for an opaque tint. */
+   html.lite (phones / low-power devices) uses a lighter blur. */
 .glass,
 .glass-blur,
 .glass-flat,
@@ -64,27 +64,48 @@ body {
   isolation: isolate;
 }
 .glass {
-  background: linear-gradient(180deg, rgba(30, 30, 32, 0.5) 0%, rgba(14, 14, 15, 0.42) 100%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  backdrop-filter: blur(18px) saturate(140%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  /* Liquid glass: light tint, strong blur + saturation so the background
+     lines glow through, specular rim on top, soft inner depth. */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 40%, rgba(255, 255, 255, 0.03) 100%),
+    rgba(12, 12, 13, 0.3);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 24px rgba(255, 255, 255, 0.035),
+    0 18px 40px -24px rgba(0, 0, 0, 0.9);
+}
+/* Specular highlight (static), shared by the frosted variants */
+.glass::after,
+.glass-blur::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(120% 60% at 15% 0%, rgba(255, 255, 255, 0.09), transparent 55%);
 }
 .glass-flat {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.018) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 .glass-blur {
-  background: linear-gradient(180deg, rgba(28, 28, 30, 0.66) 0%, rgba(14, 14, 15, 0.58) 100%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  backdrop-filter: blur(16px) saturate(150%);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(255, 255, 255, 0.03) 100%),
+    rgba(14, 14, 15, 0.55);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    0 10px 30px -14px rgba(0, 0, 0, 0.8);
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 12px 32px -14px rgba(0, 0, 0, 0.8);
 }
 html.lite .glass {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  background: linear-gradient(180deg, rgba(24, 24, 26, 0.92) 0%, rgba(13, 13, 14, 0.9) 100%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(170%);
 }
 .glass-ember {
   background:
@@ -415,29 +436,16 @@ html.lite .glass {
 .ticker-track { animation: marquee 32s linear infinite; will-change: transform; }
 
 /* Moving hairlines (background + contact block), compositor-only.
-   .comet       light travelling along a background line (CSS offset-path)
+   .line-flow   light pulse travelling along a background line (pathLength=100)
    .line-drift  slow drift of the whole background line layer
    .ring-spin   rotation of a whole ring SVG (contact block) */
-.comet {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 120px;
-  height: 2px;
-  border-radius: 9999px;
-  offset-rotate: auto;
-  offset-anchor: 100% 50%;
-  background: linear-gradient(90deg, rgba(255, 90, 31, 0) 0%, rgba(255, 90, 31, 0.85) 70%, #ffd2bc 100%);
-  box-shadow: 0 0 14px 2px rgba(255, 90, 31, 0.45);
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: comet var(--dur, 10s) cubic-bezier(0.45, 0, 0.25, 1) infinite var(--d, 0s);
+.line-flow {
+  stroke-dasharray: 12 188;
+  animation: line-flow var(--dur, 9s) cubic-bezier(0.45, 0, 0.25, 1) infinite var(--d, 0s);
 }
-@keyframes comet {
-  0% { offset-distance: 0%; opacity: 0; }
-  12% { opacity: 1; }
-  85% { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
+@keyframes line-flow {
+  0% { stroke-dashoffset: 12; }
+  100% { stroke-dashoffset: -100; }
 }
 .line-drift { animation: line-drift var(--dur, 24s) ease-in-out infinite alternate var(--d, 0s); will-change: transform; }
 @keyframes line-drift {
@@ -461,13 +469,13 @@ html.lite .glass {
   animation-play-state: paused !important;
 }
 
-/* Lite mode (phones, low-power devices): fewer comets, no layer drift */
-html.lite .comet:nth-of-type(n + 4) { display: none; }
+/* Lite mode (phones, low-power devices): fewer light pulses, no layer drift */
+html.lite g:nth-of-type(n + 4) > .line-flow { animation: none; opacity: 0; }
 html.lite .line-drift { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .levitate, .ticker-track, .comet, .line-drift, .ring-spin { animation: none !important; }
-  .comet { display: none; }
+  .levitate, .ticker-track, .line-flow, .line-drift, .ring-spin { animation: none !important; }
+  .line-flow { opacity: 0; }
 }
 
 /* Rich-text details (service + project modals) on dark glass.
