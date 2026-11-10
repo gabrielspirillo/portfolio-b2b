@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import { useRef, useState } from "react";
 import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
@@ -76,10 +75,6 @@ export function CaseStudies() {
   const { t } = useLanguage();
   const [active, setActive] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (active === null) return;
-    gsap.fromTo(".case-modal", { y: 24, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" });
-  }, [active]);
 
   const data = STUDIES.map((s) => ({
     ...s,
@@ -101,7 +96,7 @@ export function CaseStudies() {
 
       <div
         ref={scrollRef}
-        className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-5 px-5 pb-6 md:px-[max(1.25rem,calc((100vw-72rem)/2))] md:scroll-px-[max(1.25rem,calc((100vw-72rem)/2))]"
+        className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-5 px-5 pt-6 pb-14 -mt-6 md:px-[max(1.25rem,calc((100vw-72rem)/2))] md:scroll-px-[max(1.25rem,calc((100vw-72rem)/2))]"
         style={{ scrollbarWidth: "none" }}
       >
         {data.map((study, i) => (
@@ -141,7 +136,7 @@ export function CaseStudies() {
         ))}
       </div>
 
-      <Modal open={current !== null} onClose={() => setActive(null)} className="case-modal max-w-3xl">
+      <Modal open={current !== null} onClose={() => setActive(null)} className="max-w-3xl">
         {current && (
           <>
             <span className="text-[13px] font-medium text-white/50">

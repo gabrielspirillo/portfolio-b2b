@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
@@ -46,10 +45,6 @@ export function ServicesGrid() {
     return () => grid.removeEventListener("pointermove", onMove);
   }, []);
 
-  useEffect(() => {
-    if (active === null) return;
-    gsap.fromTo(".svc-modal", { y: 24, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" });
-  }, [active]);
 
   return (
     <section id="services" className="relative w-full py-24 md:py-32 px-5">
@@ -91,7 +86,7 @@ export function ServicesGrid() {
         </div>
       </div>
 
-      <Modal open={active !== null} onClose={() => setActive(null)} className="svc-modal max-w-2xl">
+      <Modal open={active !== null} onClose={() => setActive(null)} className="max-w-2xl">
         {active !== null && (
           <>
             <span className="text-[13px] font-medium text-white/50">

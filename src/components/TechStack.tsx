@@ -13,7 +13,7 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
     <div className="marquee relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
       <div className={`marquee-track flex w-max ${reverse ? "marquee-reverse" : ""}`}>
         {[...items, ...items].map((item, i) => (
-          <span key={i} className="glass shrink-0 mr-3 rounded-full px-5 py-2.5 text-sm font-medium text-white/80">
+          <span key={i} className="glass-flat shrink-0 mr-3 rounded-full px-5 py-2.5 text-sm font-medium text-white/80">
             <span className="relative z-10">{item}</span>
           </span>
         ))}
@@ -26,7 +26,7 @@ export function TechStack() {
   const { t } = useLanguage();
 
   return (
-    <section id="tech-stack" className="relative w-full py-24 md:py-32 px-5">
+    <section id="tech-stack" data-anim className="relative w-full py-24 md:py-32 px-5">
       <div className="max-w-6xl mx-auto">
         <div className="reveal flex flex-col items-center text-center">
           <Eyebrow>{t("stack_eyebrow")}</Eyebrow>

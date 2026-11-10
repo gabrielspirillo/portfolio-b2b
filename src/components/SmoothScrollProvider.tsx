@@ -36,12 +36,21 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         }
       });
     scan();
+
+    // Pause decorative CSS motion of sections that are off-screen
+    const animIo = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.target.setAttribute("data-paused", String(!e.isIntersecting))),
+      { rootMargin: "100px" }
+    );
+    document.querySelectorAll("[data-anim]").forEach((el) => animIo.observe(el));
+
     const mo = new MutationObserver(scan);
     mo.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       root.style.scrollBehavior = "";
       io.disconnect();
+      animIo.disconnect();
       mo.disconnect();
     };
   }, []);

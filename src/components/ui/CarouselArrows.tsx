@@ -21,7 +21,7 @@ export function CarouselArrows({ target }: { target: RefObject<HTMLDivElement | 
           key={dir}
           onClick={() => scroll(dir)}
           aria-label={dir === -1 ? "Previous" : "Next"}
-          className="glass glass-hover w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white"
+          className="glass-flat glass-hover w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white"
         >
           <svg viewBox="0 0 24 24" fill="none" className="relative z-10 w-5 h-5">
             <path d={dir === -1 ? "M15 19l-7-7 7-7" : "M9 5l7 7-7 7"} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />

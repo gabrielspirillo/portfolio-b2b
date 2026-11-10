@@ -17,7 +17,7 @@ export function CollaborationSection() {
               loading="lazy"
               decoding="async"
               src="https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775600764/IMG_6420_2_vcauh7.jpg"
-              alt="Gabriel Pirillo"
+              alt="Gabriel Salvador Pirillo"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />

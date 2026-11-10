@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Gabriel Pirillo | Full Stack Developer",
+  title: "Gabriel Salvador Pirillo | Full Stack Developer",
   description: "De la idea a la app, en producción. Apps, plataformas web, mobile y automatización con IA para empresas.",
 };
 
@@ -23,9 +23,19 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
+      suppressHydrationWarning
       className={`${inter.variable} h-full antialiased overflow-x-clip`}
     >
+      <head>
+        {/* Lite mode before first paint: phones and low-power devices get the
+            same design with cheaper effects (no card blur, fewer comets). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var n=navigator,c=matchMedia("(pointer: coarse)").matches;if(c||(n.hardwareConcurrency||8)<4||(n.deviceMemory||8)<4)document.documentElement.classList.add("lite")}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-[#050505] text-silver-100 leading-snug tracking-tight overflow-x-clip">
         <LanguageProvider>
           <AudioProvider>

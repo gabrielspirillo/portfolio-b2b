@@ -6,7 +6,6 @@ import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Button } from "@/components/ui/Button";
-import { Liquid } from "@/components/ui/Liquid";
 
 const WHATSAPP = "https://wa.link/bdi66k";
 const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
@@ -23,8 +22,6 @@ export function HeroSection() {
   const { t } = useLanguage();
   const { playEarcon } = useAudio();
   const containerRef = useRef<HTMLDivElement>(null);
-  const stackRef = useRef<HTMLDivElement>(null);
-  const tiltRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -39,44 +36,17 @@ export function HeroSection() {
         );
     }, containerRef);
 
-    // Subtle 3D tilt toward the cursor (desktop only)
-    const stack = stackRef.current;
-    const tilt = tiltRef.current;
-    let cleanup = () => {};
-    if (stack && tilt && window.matchMedia("(pointer: fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const rx = gsap.quickTo(tilt, "rotationX", { duration: 0.8, ease: "power3.out" });
-      const ry = gsap.quickTo(tilt, "rotationY", { duration: 0.8, ease: "power3.out" });
-      const onMove = (e: PointerEvent) => {
-        const r = stack.getBoundingClientRect();
-        ry(((e.clientX - r.left) / r.width - 0.5) * 10);
-        rx(-((e.clientY - r.top) / r.height - 0.5) * 8);
-      };
-      const onLeave = () => {
-        rx(0);
-        ry(0);
-      };
-      stack.addEventListener("pointermove", onMove);
-      stack.addEventListener("pointerleave", onLeave);
-      cleanup = () => {
-        stack.removeEventListener("pointermove", onMove);
-        stack.removeEventListener("pointerleave", onLeave);
-      };
-    }
-
-    return () => {
-      cleanup();
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" ref={containerRef} className="relative w-full px-5 pt-32 pb-24 md:pt-40 md:pb-32 lg:min-h-[100svh] lg:flex lg:items-center">
+    <section id="about" data-anim ref={containerRef} className="relative w-full px-5 pt-32 pb-24 md:pt-40 md:pb-32 lg:min-h-[100svh] lg:flex lg:items-center">
       <div className="w-full max-w-6xl mx-auto grid lg:grid-cols-[1.15fr_0.85fr] gap-16 lg:gap-10 items-center">
         {/* Copy */}
         <div className="flex flex-col items-start">
           <div className="hero-element glass-blur inline-flex items-center gap-3 rounded-full px-4 py-2 text-sm md:text-[15px]">
             <span className="relative z-10 text-ember-500 font-semibold">{"//"}</span>
-            <span className="relative z-10 font-semibold text-white">Gabriel Pirillo</span>
+            <span className="relative z-10 font-semibold text-white">Gabriel Salvador Pirillo</span>
             <span className="relative z-10 w-px h-4 bg-white/20" />
             <span className="relative z-10 text-white/70">Full Stack Developer</span>
           </div>
@@ -111,12 +81,11 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Stacked glass cards (from the brand banner): levitate + follow the cursor */}
-        <div ref={stackRef} className="relative flex flex-col lg:pl-6 [perspective:1400px]">
-          <div ref={tiltRef} className="flex flex-col gap-6 [transform-style:preserve-3d]">
+        {/* Stacked glass cards (from the brand banner), levitating on offset rhythms */}
+        <div className="relative flex flex-col lg:pl-6">
+          <div className="flex flex-col gap-7 lg:gap-9">
             <div className="levitate relative z-10 lg:mr-10" style={{ ["--lev-dur" as string]: "6.5s" }}>
               <div className="hero-card glass-ember rounded-[28px] p-6 md:p-7 overflow-hidden">
-                <Liquid />
                 <div className="relative z-10 flex items-center justify-between gap-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/synex-logo.png" alt="Synex" className="h-3 md:h-3.5 w-auto" />
@@ -128,7 +97,6 @@ export function HeroSection() {
 
             <div className="levitate relative z-20 lg:ml-8" style={{ ["--lev-dur" as string]: "7.5s", ["--lev-delay" as string]: "-2.5s" }}>
               <div className="hero-card glass-ember rounded-[28px] p-6 md:p-7 overflow-hidden">
-                <Liquid />
                 <div className="relative z-10 flex items-center justify-between gap-4">
                   <span className="flex items-center gap-2.5">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -149,7 +117,6 @@ export function HeroSection() {
                 onMouseEnter={playEarcon}
                 className="hero-card group glass-ember rounded-[28px] p-6 md:p-7 flex items-center justify-between gap-4 overflow-hidden"
               >
-                <Liquid />
                 <span className="relative z-10">
                   <span className="block text-sm text-white/85"><span className="opacity-80">{"//"}</span> {t("card_cta_eyebrow")}</span>
                   <span className="block mt-1 text-xl font-bold tracking-[-0.03em] text-white lg:whitespace-nowrap">{t("card_cta_title")}</span>

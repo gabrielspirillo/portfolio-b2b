@@ -4,38 +4,35 @@ import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Button } from "@/components/ui/Button";
-import { Liquid } from "@/components/ui/Liquid";
 
 export function ContactCTA() {
   const { playEarcon } = useAudio();
   const { t } = useLanguage();
 
   return (
-    <section id="contact" className="relative w-full py-24 md:py-32 px-5">
+    <section id="contact" data-anim className="relative w-full py-24 md:py-32 px-5">
       <div className="reveal glass-ember max-w-6xl mx-auto rounded-[40px] px-6 py-16 md:px-16 md:py-24 overflow-hidden">
-        <Liquid />
-        {/* Circular hairlines (brand banner): slow rotation + light pulses */}
-        <svg aria-hidden="true" className="absolute inset-0 w-full h-full" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" fill="none">
-          <g className="line-spin" style={{ ["--ox" as string]: "1000px", ["--oy" as string]: "560px", ["--dur" as string]: "90s" }}>
+        {/* Circular hairlines from the banner. Each ring set is its own SVG
+            rotated as a whole (compositor-only): dashed rings drift and short
+            dashes read as light running around the circles. */}
+        <div aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-[inherit] pointer-events-none">
+          <svg className="ring-spin absolute left-full top-[112%] w-[140%] aspect-square" style={{ ["--dur" as string]: "90s" }} viewBox="-700 -700 1400 1400" fill="none">
             {[260, 380, 520, 680].map((r, i) => (
-              <circle key={r} cx="1000" cy="560" r={r} stroke="white" strokeOpacity={i % 2 ? 0.22 : 0.14} strokeWidth="1" strokeDasharray={i % 2 ? "2 9" : undefined} vectorEffect="non-scaling-stroke" />
+              <circle key={r} r={r} stroke="white" strokeOpacity={i % 2 ? 0.22 : 0.14} strokeWidth="1" strokeDasharray={i % 2 ? "2 9" : undefined} vectorEffect="non-scaling-stroke" />
             ))}
-          </g>
-          <g className="line-spin" style={{ ["--ox" as string]: "1000px", ["--oy" as string]: "560px", ["--dur" as string]: "50s" }}>
-            {[380, 680].map((r, i) => (
-              <circle
-                key={r} cx="1000" cy="560" r={r} pathLength={100}
-                className="line-flow" stroke="white" strokeOpacity="0.7" strokeWidth="1.5" strokeLinecap="round" vectorEffect="non-scaling-stroke"
-                style={{ ["--dur" as string]: i ? "12s" : "9s", ["--d" as string]: i ? "-5s" : "0s" }}
-              />
-            ))}
-          </g>
-          <g className="line-spin" style={{ ["--ox" as string]: "-60px", ["--oy" as string]: "620px", ["--dur" as string]: "120s" }}>
+          </svg>
+          <svg className="ring-spin absolute left-full top-[112%] w-[140%] aspect-square" style={{ ["--dur" as string]: "16s" }} viewBox="-700 -700 1400 1400" fill="none">
+            <circle r="380" pathLength={100} strokeDasharray="7 93" stroke="white" strokeOpacity="0.75" strokeWidth="1.5" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+          </svg>
+          <svg className="ring-spin ring-reverse absolute left-full top-[112%] w-[140%] aspect-square" style={{ ["--dur" as string]: "24s" }} viewBox="-700 -700 1400 1400" fill="none">
+            <circle r="680" pathLength={100} strokeDasharray="5 95" stroke="white" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+          </svg>
+          <svg className="ring-spin absolute left-[-6%] top-[124%] w-[88%] aspect-square" style={{ ["--dur" as string]: "120s" }} viewBox="-440 -440 880 880" fill="none">
             {[300, 440].map((r, i) => (
-              <circle key={r} cx="-60" cy="620" r={r} stroke="white" strokeOpacity="0.14" strokeWidth="1" strokeDasharray={i ? "2 9" : undefined} vectorEffect="non-scaling-stroke" />
+              <circle key={r} r={r} stroke="white" strokeOpacity="0.14" strokeWidth="1" strokeDasharray={i ? "2 9" : undefined} vectorEffect="non-scaling-stroke" />
             ))}
-          </g>
-        </svg>
+          </svg>
+        </div>
 
         <div className="relative z-10 flex flex-col items-center text-center">
           <span className="text-sm font-medium text-white/85">

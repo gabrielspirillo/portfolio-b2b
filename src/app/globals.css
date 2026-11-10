@@ -25,6 +25,7 @@
 html {
   overflow-x: clip;
   max-width: 100vw;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -48,27 +49,42 @@ body {
 
 @layer components {
 /* ---------------- Liquid glass ----------------
-   .glass        static glass (no backdrop-filter: cheap, used for most cards)
-   .glass-blur   real frosted glass (header, modals, hero cards)
-   .glass-ember  orange glass
-   All share a luminous 1px edge drawn with a masked gradient (::before). */
+   .glass        frosted glass for cards: the moving background lines glow
+                 through it, softened, without hurting legibility
+   .glass-blur   stronger frosted glass (header, modals)
+   .glass-flat   no backdrop-filter, for many small or moving elements
+   .glass-ember  orange glass (static gradient)
+   All share a luminous 1px edge drawn with a masked gradient (::before).
+   html.lite (phones / low-power devices) swaps blur for an opaque tint. */
 .glass,
 .glass-blur,
+.glass-flat,
 .glass-ember {
   position: relative;
   isolation: isolate;
 }
 .glass {
+  background: linear-gradient(180deg, rgba(30, 30, 32, 0.5) 0%, rgba(14, 14, 15, 0.42) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.glass-flat {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.018) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 .glass-blur {
-  background: linear-gradient(180deg, rgba(28, 28, 30, 0.62) 0%, rgba(14, 14, 15, 0.52) 100%);
+  background: linear-gradient(180deg, rgba(28, 28, 30, 0.66) 0%, rgba(14, 14, 15, 0.58) 100%);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   backdrop-filter: blur(16px) saturate(150%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.09),
     0 10px 30px -14px rgba(0, 0, 0, 0.8);
+}
+html.lite .glass {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: linear-gradient(180deg, rgba(24, 24, 26, 0.92) 0%, rgba(13, 13, 14, 0.9) 100%);
 }
 .glass-ember {
   background:
@@ -82,6 +98,7 @@ body {
 }
 .glass::before,
 .glass-blur::before,
+.glass-flat::before,
 .glass-ember::before {
   content: "";
   position: absolute;
@@ -382,106 +399,75 @@ body {
   .marquee-track { animation: none; }
 }
 
-/* ---------------- Liquid ember motion ----------------
-   Transform-only animations (compositor thread): no repaint while running. */
-.liquid {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: inherit;
-  pointer-events: none;
-}
-.liquid-blob {
-  position: absolute;
-  aspect-ratio: 1;
-  border-radius: 9999px;
-  will-change: transform;
-}
-.liquid-blob.b1 {
-  width: 75%;
-  left: -20%;
-  top: -55%;
-  background: radial-gradient(closest-side, rgba(255, 205, 165, 0.55), rgba(255, 205, 165, 0));
-  animation: liquid-a 13s ease-in-out infinite alternate;
-}
-.liquid-blob.b2 {
-  width: 85%;
-  right: -25%;
-  bottom: -70%;
-  background: radial-gradient(closest-side, rgba(110, 22, 2, 0.6), rgba(110, 22, 2, 0));
-  animation: liquid-b 17s ease-in-out infinite alternate;
-}
-.liquid-blob.b3 {
-  width: 55%;
-  left: 30%;
-  top: 5%;
-  background: radial-gradient(closest-side, rgba(255, 128, 64, 0.65), rgba(255, 128, 64, 0));
-  animation: liquid-c 11s ease-in-out infinite alternate;
-}
-.liquid-sheen {
-  position: absolute;
-  inset: -20% -60%;
-  background: linear-gradient(110deg, transparent 42%, rgba(255, 255, 255, 0.16) 50%, transparent 58%);
-  transform: translateX(-60%);
-  animation: liquid-sheen 7s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-  will-change: transform;
-}
-@keyframes liquid-a {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  100% { transform: translate3d(45%, 35%, 0) scale(1.25); }
-}
-@keyframes liquid-b {
-  0% { transform: translate3d(0, 0, 0) scale(1.1); }
-  100% { transform: translate3d(-40%, -30%, 0) scale(0.9); }
-}
-@keyframes liquid-c {
-  0% { transform: translate3d(-30%, 10%, 0) scale(0.9); }
-  100% { transform: translate3d(35%, -15%, 0) scale(1.2); }
-}
-@keyframes liquid-sheen {
-  0%, 55% { transform: translateX(-60%); }
-  100% { transform: translateX(60%); }
-}
-
 /* Hero card levitation (wrapper), GSAP owns the inner card transform */
 .levitate {
   animation: levitate var(--lev-dur, 6s) ease-in-out infinite var(--lev-delay, 0s);
-  will-change: transform;
 }
 @keyframes levitate {
   0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, var(--lev-amp, -7px), 0); }
+  50% { transform: translate3d(0, var(--lev-amp, -12px), 0); }
 }
 @media (max-width: 1023px) {
-  .levitate { --lev-amp: -4px; }
+  .levitate { --lev-amp: -8px; }
 }
 
 /* Ember ticker band */
 .ticker-track { animation: marquee 32s linear infinite; will-change: transform; }
 
-/* Moving hairlines (background + contact block).
-   .line-flow: a light pulse travelling along the path (pathLength=100).
-   .line-drift / .line-spin: slow transform-only motion of whole line groups. */
-.line-flow {
-  stroke-dasharray: 12 188;
-  animation: line-flow var(--dur, 9s) cubic-bezier(0.45, 0, 0.25, 1) infinite var(--d, 0s);
+/* Moving hairlines (background + contact block), compositor-only.
+   .comet       light travelling along a background line (CSS offset-path)
+   .line-drift  slow drift of the whole background line layer
+   .ring-spin   rotation of a whole ring SVG (contact block) */
+.comet {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 2px;
+  border-radius: 9999px;
+  offset-rotate: auto;
+  offset-anchor: 100% 50%;
+  background: linear-gradient(90deg, rgba(255, 90, 31, 0) 0%, rgba(255, 90, 31, 0.85) 70%, #ffd2bc 100%);
+  box-shadow: 0 0 14px 2px rgba(255, 90, 31, 0.45);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: comet var(--dur, 10s) cubic-bezier(0.45, 0, 0.25, 1) infinite var(--d, 0s);
+}
+@keyframes comet {
+  0% { offset-distance: 0%; opacity: 0; }
+  12% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
 }
 .line-drift { animation: line-drift var(--dur, 24s) ease-in-out infinite alternate var(--d, 0s); will-change: transform; }
-.line-spin { transform-box: view-box; transform-origin: var(--ox, 50%) var(--oy, 50%); animation: line-spin var(--dur, 60s) linear infinite; will-change: transform; }
-@keyframes line-flow {
-  0% { stroke-dashoffset: 12; }
-  100% { stroke-dashoffset: -100; }
-}
 @keyframes line-drift {
   0% { transform: translate3d(0, 0, 0) rotate(0deg); }
   100% { transform: translate3d(-2.5%, 2%, 0) rotate(-2deg); }
 }
-@keyframes line-spin {
-  to { transform: rotate(360deg); }
+.ring-spin {
+  transform: translate(-50%, -50%);
+  animation: ring-spin var(--dur, 60s) linear infinite;
+  will-change: transform;
+}
+.ring-reverse { animation-direction: reverse; }
+@keyframes ring-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* Pause decorative motion while its section is off-screen ([data-anim]) */
+[data-anim][data-paused="true"] *,
+[data-anim][data-paused="true"] {
+  animation-play-state: paused !important;
+}
+
+/* Lite mode (phones, low-power devices): fewer comets, no layer drift */
+html.lite .comet:nth-of-type(n + 4) { display: none; }
+html.lite .line-drift { animation: none; }
+
 @media (prefers-reduced-motion: reduce) {
-  .liquid-blob, .liquid-sheen, .levitate, .ticker-track, .line-flow, .line-drift, .line-spin { animation: none !important; }
+  .levitate, .ticker-track, .comet, .line-drift, .ring-spin { animation: none !important; }
+  .comet { display: none; }
 }
 
 /* Rich-text details (service + project modals) on dark glass.
