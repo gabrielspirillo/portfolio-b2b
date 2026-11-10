@@ -19,17 +19,17 @@ export function CaseStudies() {
 
   useEffect(() => {
     if (activeStudy !== null) {
-      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       if (modalRef.current) {
         gsap.fromTo(modalRef.current, 
           { scale: 0.95, opacity: 0, y: 20 },
-          { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "cubic-bezier(0.16, 1, 0.3, 1)" }
+          { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
         );
       }
     } else {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
     }
-    return () => { document.body.style.overflow = "unset"; };
+    return () => { document.documentElement.style.overflow = ""; };
   }, [activeStudy]);
 
   const caseStudies = [
@@ -77,7 +77,7 @@ export function CaseStudies() {
       },
       graphic: (
         <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img 
+           <img loading="lazy" decoding="async" 
               src="https://i.ibb.co/xSbL0RmY/Captura-de-pantalla-2026-04-07-a-la-s-12-58-22.png" 
               alt="Symetria Mockup" 
               className="w-full h-full object-cover shrink-0 transition-all duration-500"
@@ -101,7 +101,7 @@ export function CaseStudies() {
       },
       graphic: (
         <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img 
+           <img loading="lazy" decoding="async" 
               src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668805/Captura_de_pantalla_2026-04-08_a_la_s_14.19.58_dadjzw.png" 
               alt="Gastro San Jose UI" 
               className="w-full h-full object-cover shrink-0 transition-all duration-500 rounded-lg filter drop-shadow-lg scale-110"
@@ -125,7 +125,7 @@ export function CaseStudies() {
       },
       graphic: (
         <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img 
+           <img loading="lazy" decoding="async" 
               src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775669196/photo-1555396273-367ea4eb4db5_otickk.avif" 
               alt="Comidas Bracamonte Delivery" 
               className="w-full h-full object-cover shrink-0 transition-all duration-500 rounded-lg filter drop-shadow-lg scale-110"
@@ -149,7 +149,7 @@ export function CaseStudies() {
       },
       graphic: (
         <div className="absolute top-0 right-0 w-1/2 md:w-2/5 h-full pointer-events-none flex items-center justify-end overflow-hidden mask-image-linear-left opacity-30 group-hover:opacity-60 transition-opacity">
-           <img 
+           <img loading="lazy" decoding="async" 
               src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775669802/Captura-de-pantalla-2025-06-04-a-las-10.24.41-1_cw7chc.png" 
               alt="Clinicas Nobel Dashboard" 
               className="w-full h-full object-cover shrink-0 transition-all duration-500 rounded-lg filter drop-shadow-lg opacity-70"
@@ -252,7 +252,7 @@ export function CaseStudies() {
                   {study.collabLogo && (
                     <>
                       <span className="text-carbon-600 font-light text-xl">/</span>
-                      <img 
+                      <img loading="lazy" decoding="async" 
                         src={study.collabLogo} 
                         alt="Collaboration Partner" 
                         className="h-4 w-auto object-contain opacity-50 group-hover:opacity-100 transition-opacity" 
@@ -288,7 +288,7 @@ export function CaseStudies() {
       </div>
 
       {activeStudy !== null && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overscroll-contain">
+        <div data-lenis-prevent className="fixed inset-0 z-[100] flex items-center justify-center p-4 overscroll-contain">
           <div 
             className="absolute inset-0 bg-black/90 backdrop-blur-md"
             onClick={() => setActiveStudy(null)}
@@ -311,7 +311,7 @@ export function CaseStudies() {
              {caseStudies[activeStudy].collabLogo && (
                 <div className="mb-6 flex items-center gap-3">
                   <span className="text-xs font-mono text-silver-200 opacity-60">EN COLABORACIÓN CON:</span>
-                  <img src={caseStudies[activeStudy].collabLogo} alt="Collaboration Partner" className="h-6 w-auto object-contain opacity-90" />
+                  <img loading="lazy" decoding="async" src={caseStudies[activeStudy].collabLogo} alt="Collaboration Partner" className="h-6 w-auto object-contain opacity-90" />
                 </div>
              )}
 
@@ -343,7 +343,7 @@ export function CaseStudies() {
                      </div>
                    )}
                    {caseStudies[activeStudy].media?.images?.map((img, idx) => (
-                     <img 
+                     <img loading="lazy" decoding="async" 
                        key={idx} 
                        src={img} 
                        alt={`${caseStudies[activeStudy].title} Component ${idx + 1}`} 

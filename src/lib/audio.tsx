@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, ReactNode } from "react";
 
 interface AudioContextType {
   playEarcon: () => void;
@@ -12,21 +12,21 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const audioCtxRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
-    // Only initialize AudioContext on user interaction if needed, or lazily.
-    const AudioContextClass =
-      window.AudioContext || (window as any).webkitAudioContext;
-    if (AudioContextClass && !audioCtxRef.current) {
-      audioCtxRef.current = new AudioContextClass();
-    }
-
     return () => {
       audioCtxRef.current?.close();
+      audioCtxRef.current = null;
     };
   }, []);
 
-  const playEarcon = () => {
-    if (!audioCtxRef.current) return;
-    
+  const playEarcon = useCallback(() => {
+    // Lazily created on first use to avoid the autoplay-policy warning on load
+    if (!audioCtxRef.current) {
+      const AudioContextClass =
+        window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) return;
+      audioCtxRef.current = new AudioContextClass();
+    }
+
     // Very simple synth earcon (organic click/pop)
     const ctx = audioCtxRef.current;
     
@@ -54,10 +54,12 @@ export function AudioProvider({ children }: { children: ReactNode }) {
 
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.1);
-  };
+  }, []);
+
+  const value = useMemo(() => ({ playEarcon }), [playEarcon]);
 
   return (
-    <AudioContext.Provider value={{ playEarcon }}>
+    <AudioContext.Provider value={value}>
       {children}
     </AudioContext.Provider>
   );

@@ -34,14 +34,14 @@ export function Header() {
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
-            <Link
+            <a
               key={item.key}
               href={item.href}
               className="text-xs font-mono text-silver-200 hover:text-silver-100 transition-colors uppercase tracking-widest"
               onClick={handleNavClick}
             >
               {t(item.key)}
-            </Link>
+            </a>
           ))}
           
           <div className="w-px h-4 bg-carbon-700 mx-2" />
@@ -97,14 +97,14 @@ export function Header() {
       {isOpen && (
         <div className="md:hidden absolute top-16 left-0 w-full bg-carbon-900 border-b border-carbon-700 flex flex-col p-6 gap-6">
           {navItems.map((item) => (
-            <Link
+            <a
               key={item.key}
               href={item.href}
               className="text-sm uppercase tracking-widest font-mono text-silver-200 hover:text-silver-100"
               onClick={handleNavClick}
             >
               {t(item.key)}
-            </Link>
+            </a>
           ))}
           <div className="w-full h-px bg-carbon-800" />
           <div className="w-full flex items-center justify-between mt-2">

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAudio } from "@/lib/audio";
 import { useLanguage } from "@/lib/i18n";
+import { WebMotion, MobileMotion, AutomationMotion, DesignMotion, SoundMotion } from "@/components/ServiceMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +19,7 @@ export function ServicesGrid() {
 
   useEffect(() => {
     if (activeService !== null) {
-      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       if (modalRef.current) {
         gsap.fromTo(modalRef.current, 
           { scale: 0.95, opacity: 0, y: 20 },
@@ -26,9 +27,9 @@ export function ServicesGrid() {
         );
       }
     } else {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
     }
-    return () => { document.body.style.overflow = "unset"; };
+    return () => { document.documentElement.style.overflow = ""; };
   }, [activeService]);
 
   const services = [
@@ -42,15 +43,7 @@ export function ServicesGrid() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         </svg>
       ),
-      graphic: (
-        <div className="mt-8 h-40 md:h-48 w-full rounded-2xl border border-carbon-700 bg-carbon-800/20 relative overflow-hidden group-hover:border-black/10 group-hover:bg-black/5 transition-colors duration-400">
-          <img 
-            src="https://i.ibb.co/6LqX5D5/1-Desarrollo-Web.jpg" 
-            alt="Desarrollo Web B2B" 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-        </div>
-      )
+      graphic: <WebMotion />
     },
     {
       title: t("serv_2_title"),
@@ -62,15 +55,7 @@ export function ServicesGrid() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
         </svg>
       ),
-      graphic: (
-        <div className="mt-8 h-40 md:h-48 w-full rounded-2xl border border-carbon-700 bg-carbon-800/20 relative overflow-hidden group-hover:border-black/10 group-hover:bg-black/5 transition-colors duration-400 flex items-center justify-center">
-          <img 
-            src="https://i.ibb.co/F4ZPryQ1/Mobile-app-ios-android.jpg" 
-            alt="Desarrollo Móvil" 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-        </div>
-      )
+      graphic: <MobileMotion />
     },
     {
       title: t("serv_3_title"),
@@ -82,15 +67,7 @@ export function ServicesGrid() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
         </svg>
       ),
-      graphic: (
-        <div className="mt-8 h-40 md:h-48 w-full rounded-2xl border border-carbon-700 bg-carbon-800/20 relative overflow-hidden group-hover:border-black/10 group-hover:bg-black/5 transition-colors duration-400">
-          <img 
-            src="https://i.ibb.co/21Skx37z/3-Automatizaciones-con-IA-Workflows.jpg" 
-            alt="Automatización IA y n8n" 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-          />
-        </div>
-      )
+      graphic: <AutomationMotion />
     },
     {
       title: t("serv_4_title"),
@@ -102,15 +79,7 @@ export function ServicesGrid() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
-      graphic: (
-        <div className="mt-8 h-40 md:h-48 w-full shrink-0 rounded-2xl border border-carbon-700 bg-carbon-800/20 flex items-center justify-center relative overflow-hidden group-hover:border-black/10 group-hover:bg-black/5 transition-colors duration-400">
-          <img 
-            src="https://i.ibb.co/4wrnn2C7/UI-UX-Graphic-Design.jpg" 
-            alt="UI UX Branding" 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-        </div>
-      )
+      graphic: <DesignMotion />
     },
     {
       title: t("serv_5_title"),
@@ -122,15 +91,7 @@ export function ServicesGrid() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
         </svg>
       ),
-      graphic: (
-        <div className="mt-8 h-40 md:h-48 w-full shrink-0 rounded-2xl border border-carbon-700 bg-carbon-800/20 flex items-center justify-center relative overflow-hidden group-hover:border-black/10 group-hover:bg-black/5 transition-colors duration-400">
-          <img 
-            src="https://i.ibb.co/tTQT1gBN/5-Ingenieri-a-de-Sonido.jpg" 
-            alt="Sound Engineering" 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-        </div>
-      )
+      graphic: <SoundMotion />
     }
   ];
 
@@ -218,7 +179,7 @@ export function ServicesGrid() {
 
       {/* Expansion Modal */}
       {activeService !== null && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overscroll-contain">
+        <div data-lenis-prevent className="fixed inset-0 z-[100] flex items-center justify-center p-4 overscroll-contain">
           <div 
             className="absolute inset-0 bg-black/60 backdrop-blur-md"
             onClick={() => setActiveService(null)}

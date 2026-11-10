@@ -36,3 +36,253 @@ body {
   background-color: var(--color-accent);
   color: #fff;
 }
+
+/* Hero starts hidden; GSAP reveals it after hydration (avoids flash + jump) */
+.hero-element {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-element {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---------------- Service motion graphics ---------------- */
+.sm-stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+  background: radial-gradient(120% 95% at 50% 0%, #18181d 0%, #0b0b0d 58%, #070708 100%);
+}
+.sm-stage[data-paused="true"] *,
+.sm-stage[data-paused="true"] *::before,
+.sm-stage[data-paused="true"] *::after {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sm-stage *,
+  .sm-stage *::before,
+  .sm-stage *::after {
+    animation: none !important;
+  }
+}
+
+.sm-orb {
+  position: absolute;
+  width: 70%;
+  height: 120%;
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.22;
+  will-change: transform;
+  animation: sm-drift 14s ease-in-out infinite var(--d, 0s);
+  pointer-events: none;
+}
+.group:hover .sm-orb {
+  opacity: 0.32;
+}
+
+/* Generic timeline driver */
+.sm-anim {
+  animation-duration: var(--dur, 6s);
+  animation-delay: var(--d, 0s);
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Web */
+.sm-type { transform-origin: left center; animation-name: sm-type; }
+.sm-rise { animation-name: sm-rise; }
+.sm-pop { animation-name: sm-pop; }
+.sm-ring { animation-name: sm-ring; }
+.sm-load { transform-origin: left center; animation-name: sm-load; --dur: 6s; }
+.sm-caret { animation: sm-blink 1s steps(1) infinite; }
+
+@keyframes sm-type {
+  0% { transform: scaleX(0); opacity: 1; }
+  9% { transform: scaleX(1); }
+  80% { transform: scaleX(1); opacity: 1; }
+  90%, 100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes sm-rise {
+  0% { opacity: 0; transform: translateY(10px) scale(0.97); }
+  10% { opacity: 1; transform: none; }
+  76% { opacity: 1; transform: none; }
+  86%, 100% { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes sm-pop {
+  0% { opacity: 0; transform: scale(0.6); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  10% { opacity: 1; transform: scale(1); }
+  72% { opacity: 1; transform: scale(1); }
+  82%, 100% { opacity: 0; transform: scale(0.94); }
+}
+@keyframes sm-ring {
+  0% { stroke-dashoffset: 100; }
+  20%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes sm-load {
+  0% { transform: scaleX(0); opacity: 1; }
+  28% { transform: scaleX(1); opacity: 1; }
+  38%, 100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes sm-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Mobile */
+.sm-scroll { animation: sm-scroll-y 9s linear infinite; will-change: transform; }
+.sm-float { animation: sm-float 5s ease-in-out infinite var(--d, 0s); }
+.sm-island { animation-name: sm-island; --dur: 5s; }
+.sm-island-in { animation-name: sm-island-in; --dur: 5s; }
+
+@keyframes sm-scroll-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes sm-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes sm-island {
+  0%, 18% { width: 30px; height: 9px; }
+  28%, 66% { width: 62px; height: 15px; }
+  78%, 100% { width: 30px; height: 9px; }
+}
+@keyframes sm-island-in {
+  0%, 24% { opacity: 0; }
+  32%, 62% { opacity: 1; }
+  70%, 100% { opacity: 0; }
+}
+
+/* Automation (3.6s pipeline) */
+.sm-flow-a { animation-name: sm-flow-a; --dur: 3.6s; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+.sm-flow-b { animation-name: sm-flow-b; --dur: 3.6s; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+.sm-glow-a { animation-name: sm-glow-a; --dur: 3.6s; opacity: 0; }
+.sm-glow-b { animation-name: sm-glow-b; --dur: 3.6s; opacity: 0; }
+.sm-glow-c { animation-name: sm-glow-c; --dur: 3.6s; opacity: 0; }
+.sm-bump { transform-box: fill-box; transform-origin: center; --dur: 3.6s; }
+.sm-glow-a-bump { animation-name: sm-bump-a; }
+.sm-glow-b-bump { animation-name: sm-bump-b; }
+.sm-glow-c-bump { animation-name: sm-bump-c; }
+.sm-spin { transform-box: fill-box; transform-origin: center; animation: sm-spin 2.4s linear infinite; }
+
+@keyframes sm-flow-a {
+  0%, 6% { stroke-dashoffset: 14; }
+  30%, 100% { stroke-dashoffset: -100; }
+}
+@keyframes sm-flow-b {
+  0%, 52% { stroke-dashoffset: 14; }
+  78%, 100% { stroke-dashoffset: -100; }
+}
+@keyframes sm-glow-a {
+  0% { opacity: 0; }
+  5% { opacity: 0.55; }
+  22%, 100% { opacity: 0; }
+}
+@keyframes sm-glow-b {
+  0%, 26% { opacity: 0; }
+  32% { opacity: 0.6; }
+  50% { opacity: 0.45; }
+  60%, 100% { opacity: 0; }
+}
+@keyframes sm-glow-c {
+  0%, 74% { opacity: 0; }
+  80% { opacity: 0.6; }
+  96%, 100% { opacity: 0; }
+}
+@keyframes sm-bump-a {
+  0%, 100% { transform: scale(1); }
+  5% { transform: scale(1.08); }
+  14% { transform: scale(1); }
+}
+@keyframes sm-bump-b {
+  0%, 28% { transform: scale(1); }
+  33% { transform: scale(1.07); }
+  44%, 100% { transform: scale(1); }
+}
+@keyframes sm-bump-c {
+  0%, 76% { transform: scale(1); }
+  81% { transform: scale(1.1); }
+  90%, 100% { transform: scale(1); }
+}
+@keyframes sm-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* UI / UX (6s edit loop) */
+.sm-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+.sm-resize { animation-name: sm-resize; }
+.sm-morph { animation-name: sm-morph; border-radius: 50%; }
+.sm-recolor { animation-name: sm-recolor; opacity: 0; }
+.sm-swatch { animation-name: sm-swatch; }
+.sm-cursor { animation-name: sm-cursor; animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1); }
+
+@keyframes sm-resize {
+  0%, 30% { transform: scale(1); }
+  45%, 84% { transform: scale(1.18); }
+  95%, 100% { transform: scale(1); }
+}
+@keyframes sm-morph {
+  0%, 28% { border-radius: 50%; }
+  45%, 84% { border-radius: 16px; }
+  96%, 100% { border-radius: 50%; }
+}
+@keyframes sm-recolor {
+  0%, 62% { opacity: 0; }
+  67%, 88% { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+@keyframes sm-swatch {
+  0%, 62% { transform: translateX(0); }
+  67%, 88% { transform: translateX(66px); }
+  97%, 100% { transform: translateX(0); }
+}
+@keyframes sm-cursor {
+  0% { transform: translate(190px, 132px) scale(1); }
+  18% { transform: translate(144px, 96px) scale(1); }
+  22% { transform: translate(144px, 96px) scale(0.85); }
+  26%, 30% { transform: translate(144px, 96px) scale(1); }
+  45%, 52% { transform: translate(151px, 103px) scale(1); }
+  60% { transform: translate(130px, 120px) scale(1); }
+  63% { transform: translate(130px, 120px) scale(0.85); }
+  67% { transform: translate(130px, 120px) scale(1); }
+  82%, 100% { transform: translate(190px, 132px) scale(1); }
+}
+
+/* Sound */
+.sm-eq {
+  transform: scaleY(0.2);
+  animation: sm-eq var(--dur, 1s) ease-in-out infinite alternate var(--d, 0s);
+  will-change: transform;
+}
+.sm-playhead { animation: sm-sweep 4s linear infinite; }
+.sm-progress { transform-origin: left center; animation: sm-progress 4s linear infinite; }
+.sm-pulse { animation: sm-pulse 1.6s ease-in-out infinite; }
+
+@keyframes sm-eq {
+  0% { transform: scaleY(0.18); }
+  100% { transform: scaleY(var(--h, 1)); }
+}
+@keyframes sm-sweep {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+@keyframes sm-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes sm-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+@keyframes sm-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(12%, 10%, 0) scale(1.15); }
+}

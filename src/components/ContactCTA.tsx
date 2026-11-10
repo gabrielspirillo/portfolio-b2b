@@ -39,7 +39,7 @@ export function ContactCTA() {
       className="py-32 outline-none relative z-10 overflow-hidden"
     >
       {/* Background Image with GSAP Parallax Hook */}
-      <img
+      <img loading="lazy" decoding="async"
         ref={imageRef}
         src="https://res.cloudinary.com/dcnik6ovx/image/upload/v1775663519/IMG_4360_tb1fuj.jpg"
         alt="Studio Environment"

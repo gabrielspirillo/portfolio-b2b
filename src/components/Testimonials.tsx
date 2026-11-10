@@ -144,7 +144,7 @@ export function Testimonials() {
                 <div className="flex items-center gap-4 mt-auto border-t border-carbon-800 pt-6">
                    <div className="w-12 h-12 rounded-full overflow-hidden bg-carbon-800 border border-carbon-700 flex items-center justify-center font-mono font-medium text-silver-100 text-sm shrink-0">
                      {review.image ? (
-                        <img src={review.image} alt={review.name} className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={review.image} alt={review.name} className="w-full h-full object-cover" />
                      ) : (
                         review.name.charAt(0)
                      )}

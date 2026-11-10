@@ -78,18 +78,18 @@ export function Footer() {
                 <div className="flex flex-col gap-5">
                   <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">{t("footer_help")}</h4>
                   <ul className="flex flex-col gap-4">
-                    <li><Link href="#services" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_serv")}</Link></li>
-                    <li><Link href="#projects" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_proj")}</Link></li>
-                    <li><Link href="#tech-stack" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_stack")}</Link></li>
+                    <li><a href="#services" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_serv")}</a></li>
+                    <li><a href="#projects" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_proj")}</a></li>
+                    <li><a href="#tech-stack" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_stack")}</a></li>
                   </ul>
                 </div>
 
                 <div className="flex flex-col gap-5">
                   <h4 className="text-silver-100 font-medium text-sm mb-1 tracking-wide">{t("footer_know")}</h4>
                   <ul className="flex flex-col gap-4">
-                    <li><Link href="#about" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_about")}</Link></li>
-                    <li><Link href="#education" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_edu")}</Link></li>
-                    <li><Link href="#testimonials" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_test")}</Link></li>
+                    <li><a href="#about" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_about")}</a></li>
+                    <li><a href="#education" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_edu")}</a></li>
+                    <li><a href="#testimonials" onClick={playEarcon} className="text-silver-200/80 hover:text-white transition-colors text-sm font-light">{t("footer_test")}</a></li>
                   </ul>
                 </div>
 

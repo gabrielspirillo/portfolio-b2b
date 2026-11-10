@@ -1,65 +1,59 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "lenis/dist/lenis.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null);
-  const rafRef = useRef<number | null>(null);
-
   useEffect(() => {
-    // Optimization for GSAP/ScrollTrigger
-    ScrollTrigger.config({ 
-      limitCallbacks: true,
-      ignoreMobileResize: true 
-    });
+    ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
 
-    // Device detection: Disable on touch or tiny screens for native performance
-    // standard for touch devices is to avoid virtual scroll
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isMobile = window.innerWidth < 1024;
+    const root = document.documentElement;
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (isTouch || isMobile) {
-      console.log("SmoothScroll: Touch/Mobile detected. Delegating to native scroll.");
-      return;
+    // Touch / small screens / reduced motion: native scroll (smooth only for anchors)
+    if (isTouch || window.innerWidth < 1024 || reduceMotion) {
+      if (!reduceMotion) root.style.scrollBehavior = "smooth";
+      return () => {
+        root.style.scrollBehavior = "";
+      };
     }
 
-    // Initialize Lenis Instance
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing for premium feel
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      infinite: false,
     });
 
-    lenisRef.current = lenis;
+    // Single RAF loop: Lenis runs on GSAP's ticker so ScrollTrigger and scroll stay in the same frame
+    lenis.on("scroll", ScrollTrigger.update);
+    const tick = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
 
-    // Sync GSAP ScrollTrigger with Lenis
-    lenis.on('scroll', ScrollTrigger.update);
-
-    // Optimized RequestAnimationFrame loop
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafRef.current = requestAnimationFrame(raf);
+    // In-page anchors (#services, #contact...) scroll through Lenis instead of jumping
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as HTMLElement).closest?.("a[href^='#']");
+      if (!link) return;
+      const hash = link.getAttribute("href")!;
+      const target = hash.length > 1 ? document.querySelector(hash) : null;
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target as HTMLElement);
+      history.replaceState(null, "", hash);
     };
-    
-    rafRef.current = requestAnimationFrame(raf);
+    document.addEventListener("click", onClick);
 
-    // Cleanup logic to prevent memory leaks and zombie loops
     return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-      lenis.off('scroll', ScrollTrigger.update);
+      document.removeEventListener("click", onClick);
+      gsap.ticker.remove(tick);
+      lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
-      lenisRef.current = null;
-      console.log("SmoothScroll: Cleanup completed.");
     };
   }, []);
 

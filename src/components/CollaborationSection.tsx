@@ -61,7 +61,7 @@ export function CollaborationSection() {
           
           {/* Left Column - Image */}
           <div ref={imageRef} className="relative group w-full aspect-[4/5] lg:aspect-square">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src="https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775600764/IMG_6420_2_vcauh7.jpg" 
                 alt="Gabriel Pirillo Workspace" 
                 className="w-full h-full object-cover rounded-2xl opacity-90 transition-all duration-500 group-hover:opacity-100 border border-carbon-800"

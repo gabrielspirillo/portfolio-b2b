@@ -17,13 +17,11 @@ export function HeroSection() {
       // Entry Animation Timeline
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.from(".hero-element", {
-        y: 20,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-        delay: 0.2,
-      });
+      // Elements start hidden via CSS (.hero-element) to avoid a flash before hydration
+      tl.fromTo(".hero-element",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.1, delay: 0.1 }
+      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -59,10 +57,7 @@ export function HeroSection() {
           </p>
 
           <Button
-            onClick={() => {
-              const el = document.getElementById('contact');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            href="#contact"
             className="hero-element mt-4"
           >
             {t("hero_cta")}
@@ -74,7 +69,7 @@ export function HeroSection() {
           dangerouslySetInnerHTML={{
             __html: `
               <video 
-                src="https://res.cloudinary.com/dcnik6ovx/video/upload/v1775590423/IMG_7596_gctekf.mp4" 
+                src="https://res.cloudinary.com/dcnik6ovx/video/upload/f_auto,q_auto/v1775590423/IMG_7596_gctekf.mp4" 
                 autoplay 
                 loop 
                 muted 

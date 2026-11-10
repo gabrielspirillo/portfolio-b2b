@@ -62,7 +62,7 @@ export function Education() {
               onMouseEnter={playEarcon}
             >
               <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 border border-carbon-700 bg-carbon-800 flex items-center justify-center p-2 rounded-2xl">
-                <img 
+                <img loading="lazy" decoding="async" 
                   src={item.logo} 
                   alt={item.institution} 
                   className="max-w-full max-h-full object-contain" 

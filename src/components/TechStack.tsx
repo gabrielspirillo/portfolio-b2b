@@ -73,10 +73,7 @@ export function TechStack() {
               </p>
               
               <Button
-                onClick={() => {
-                  const el = document.getElementById('contact');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                href="#contact"
               >
                 {t("collab_btn")}
               </Button>
@@ -84,7 +81,7 @@ export function TechStack() {
             
             {/* Right Side: Image */}
             <div ref={imageRef} className="relative w-full flex justify-center lg:justify-end mt-8 lg:mt-0">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src="https://res.cloudinary.com/dcnik6ovx/image/upload/f_auto,q_auto/v1775654516/Generated_Image_April_07_2026_-_8_42PM_eu6thm.png" 
                 alt="Tech Stack Showcase" 
                 className="w-full max-w-[600px] h-auto object-contain rounded-2xl drop-shadow-2xl"
