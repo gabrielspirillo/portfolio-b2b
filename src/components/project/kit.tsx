@@ -54,7 +54,7 @@ export function StatPair({ a, b }: { a: [string, string]; b: [string, string] })
 export function ValueCard({ Motion, title, desc, benefit, wide = false }: { Motion: () => ReactNode; title: string; desc: string; benefit?: string; wide?: boolean }) {
   return (
     <li className={`rounded-2xl border border-white/[0.07] bg-white/[0.03] p-2 flex flex-col ${wide ? "sm:col-span-2" : ""}`}>
-      <div className="pm-stage sx-stage relative h-32 rounded-xl overflow-hidden border border-white/[0.06] bg-[linear-gradient(180deg,#121010_0%,#0b0a0a_100%)]">
+      <div className="pm-stage sx-stage relative h-36 rounded-xl overflow-hidden border border-white/[0.06] bg-[linear-gradient(180deg,#121010_0%,#0b0a0a_100%)]">
         <Motion />
       </div>
       <div className="px-3 pt-4 pb-3 flex-1 flex flex-col">

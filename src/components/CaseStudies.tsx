@@ -9,6 +9,7 @@ import { Modal } from "@/components/ui/Modal";
 import { CarouselArrows } from "@/components/ui/CarouselArrows";
 import { SynexCard, SynexDetail } from "@/components/SynexProject";
 import { FinanzasCard, FinanzasDetail } from "@/components/FinanzasProject";
+import { FuturaCard, FuturaDetail } from "@/components/FuturaProject";
 
 const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
 
@@ -78,6 +79,7 @@ export function CaseStudies() {
   const [active, setActive] = useState<number | null>(null);
   const [synexOpen, setSynexOpen] = useState(false);
   const [finOpen, setFinOpen] = useState(false);
+  const [fuOpen, setFuOpen] = useState(false);
 
 
   const data = STUDIES.map((s) => ({
@@ -103,6 +105,7 @@ export function CaseStudies() {
         className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-5 px-5 pt-6 pb-14 -mt-6 md:px-[max(1.25rem,calc((100vw-72rem)/2))] md:scroll-px-[max(1.25rem,calc((100vw-72rem)/2))]"
         style={{ scrollbarWidth: "none" }}
       >
+        <FuturaCard onOpen={() => setFuOpen(true)} />
         <SynexCard onOpen={() => setSynexOpen(true)} />
         <FinanzasCard onOpen={() => setFinOpen(true)} />
         {data.map((study, i) => (
@@ -144,6 +147,10 @@ export function CaseStudies() {
 
       <Modal open={synexOpen} onClose={() => setSynexOpen(false)} className="max-w-3xl">
         {synexOpen && <SynexDetail />}
+      </Modal>
+
+      <Modal open={fuOpen} onClose={() => setFuOpen(false)} className="max-w-3xl">
+        {fuOpen && <FuturaDetail />}
       </Modal>
 
       <Modal open={finOpen} onClose={() => setFinOpen(false)} className="max-w-3xl">

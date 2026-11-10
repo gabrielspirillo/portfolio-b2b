@@ -10,7 +10,7 @@ export function Mono({ children, className = "" }: { children: ReactNode; classN
   return <span className={`text-[9px] font-semibold tracking-[0.2em] uppercase ${className}`}>{children}</span>;
 }
 
-function Frame({ label, children }: { label: string; children: ReactNode }) {
+export function Frame({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="absolute inset-0 px-5 pt-4 pb-4 flex flex-col">
       <Mono className="text-white/40">{label}</Mono>
