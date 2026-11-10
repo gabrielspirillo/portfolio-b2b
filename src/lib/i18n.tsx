@@ -10,6 +10,49 @@ interface Translations {
 
 const translations: Record<Language, Translations> = {
   es: {
+    // Synex
+    synex_eyebrow: "Caso propio",
+    synex_title: "Una productora de eventos que funciona sola.",
+    synex_desc: "**SYNEX** es mi productora de eventos de música electrónica, **100% automatizada**: del registro a la fidelización, cada proceso corre sin intervención manual.",
+    synex_result: "Agotar 2 de 3 fechas es algo inédito en producciones de este tipo, y tiene un vínculo directo con la **optimización de cada proceso**.",
+    synex_stat_1: "eventos SOLD OUT",
+    synex_stat_2: "procesos automatizados",
+    synex_stat_3: "fechas realizadas",
+    synex_s_root_title: "Onboarding",
+    synex_s_root_desc: "Cada asistente entra como **sujeto** del experimento: identidad y narrativa desde el primer día.",
+    synex_s_home_title: "Home",
+    synex_s_home_desc: "Rango, PSY DOSIS, line up y la **próxima fecha** en una sola pantalla.",
+    synex_s_expediente_title: "Expediente",
+    synex_s_expediente_desc: "ID único, rango y **firma sonora** según los géneros que escucha.",
+    synex_s_checkin_title: "Check-in por ubicación",
+    synex_s_checkin_desc: "La asistencia se registra **por geolocalización** dentro de la sede.",
+    synex_s_premios_title: "PSY DOSIS y rangos",
+    synex_s_premios_desc: "Puntos por asistir que suben de rango y **se canjean por premios**.",
+    synex_s_invite_title: "Referidos",
+    synex_s_invite_desc: "Cada sujeto invita con su link: **10% OFF** para el invitado y PSY DOSIS para quien invita.",
+    synex_s_protocolo_title: "Protocolo",
+    synex_s_protocolo_desc: "**Reducción de daños** con avatar nocturno, fichas de sustancias y tabla de combinaciones.",
+    synex_s_roadmap_title: "Recorrido",
+    synex_s_roadmap_desc: "Objetivos por fase que **mantienen a la comunidad activa** entre fechas.",
+    synex_backstage: "Detrás de escena",
+    synex_chip_1: "Pulseras con código único",
+    synex_chip_2: "Panel con embudo, retención y audiencia",
+    synex_chip_3: "Control de puerta",
+    synex_chip_4: "Asistente con IA",
+    synex_cta: "Visitar SYNEX",
+
+    // How I work
+    process_eyebrow: "Cómo trabajo",
+    process_title: "De la primera charla a producción.",
+    process_1_title: "Diagnóstico",
+    process_1_desc: "Una charla para entender tu negocio, tus objetivos y **qué procesos te frenan**.",
+    process_2_title: "Propuesta",
+    process_2_desc: "Te paso **alcance, tiempos y presupuesto** claros antes de empezar.",
+    process_3_title: "Desarrollo",
+    process_3_desc: "Avances frecuentes para que **veas y pruebes** el producto mientras se construye.",
+    process_4_title: "Lanzamiento y soporte",
+    process_4_desc: "Publico, mido y **te acompaño después de la entrega** para que funcione en el mundo real.",
+
     // Brand / hero
     nav_cta: "Hablemos",
     nav_language: "Idioma",
@@ -28,6 +71,7 @@ const translations: Record<Language, Translations> = {
 
     // Nav
     nav_services: "Servicios",
+    nav_synex: "Synex",
     nav_projects: "Proyectos",
     nav_testimonials: "Testimonios",
     nav_contact: "Contacto",
@@ -174,6 +218,49 @@ const translations: Record<Language, Translations> = {
     footer_rights: "Todos los derechos reservados."
   },
   en: {
+    // Synex
+    synex_eyebrow: "Own venture",
+    synex_title: "An events company that runs itself.",
+    synex_desc: "**SYNEX** is my electronic music events company, **100% automated**: from sign-up to loyalty, every process runs without manual work.",
+    synex_result: "Selling out 2 of 3 dates is unheard of for productions like this, and it ties directly to **optimizing every process**.",
+    synex_stat_1: "events SOLD OUT",
+    synex_stat_2: "automated processes",
+    synex_stat_3: "editions held",
+    synex_s_root_title: "Onboarding",
+    synex_s_root_desc: "Every attendee joins as a **subject** of the experiment: identity and narrative from day one.",
+    synex_s_home_title: "Home",
+    synex_s_home_desc: "Rank, PSY DOSIS, line up and the **next date** on a single screen.",
+    synex_s_expediente_title: "Profile",
+    synex_s_expediente_desc: "Unique ID, rank and a **sound signature** based on the genres they listen to.",
+    synex_s_checkin_title: "Location check-in",
+    synex_s_checkin_desc: "Attendance is recorded **by geolocation** inside the venue.",
+    synex_s_premios_title: "PSY DOSIS and ranks",
+    synex_s_premios_desc: "Points for attending that raise your rank and **are redeemed for rewards**.",
+    synex_s_invite_title: "Referrals",
+    synex_s_invite_desc: "Each subject invites with their own link: **10% OFF** for the guest and PSY DOSIS for the referrer.",
+    synex_s_protocolo_title: "Protocol",
+    synex_s_protocolo_desc: "**Harm reduction** with a night avatar, substance sheets and a combinations table.",
+    synex_s_roadmap_title: "Journey",
+    synex_s_roadmap_desc: "Goals per phase that **keep the community active** between dates.",
+    synex_backstage: "Behind the scenes",
+    synex_chip_1: "Wristbands with unique codes",
+    synex_chip_2: "Dashboard with funnel, retention and audience",
+    synex_chip_3: "Door control",
+    synex_chip_4: "AI assistant",
+    synex_cta: "Visit SYNEX",
+
+    // How I work
+    process_eyebrow: "How I work",
+    process_title: "From the first call to production.",
+    process_1_title: "Discovery",
+    process_1_desc: "A call to understand your business, your goals and **which processes are holding you back**.",
+    process_2_title: "Proposal",
+    process_2_desc: "You get a clear **scope, timeline and budget** before we start.",
+    process_3_title: "Build",
+    process_3_desc: "Frequent updates so you can **see and test** the product while it's being built.",
+    process_4_title: "Launch and support",
+    process_4_desc: "I ship, measure and **stay with you after delivery** so it works in the real world.",
+
     // Brand / hero
     nav_cta: "Let's talk",
     nav_language: "Language",
@@ -192,6 +279,7 @@ const translations: Record<Language, Translations> = {
 
     // Nav
     nav_services: "Services",
+    nav_synex: "Synex",
     nav_projects: "Projects",
     nav_testimonials: "Testimonials",
     nav_contact: "Contact",

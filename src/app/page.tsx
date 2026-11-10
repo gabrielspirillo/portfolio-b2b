@@ -12,6 +12,8 @@ import { Footer } from "@/components/Footer";
 import { AmbientBackground } from "@/components/AmbientBackground";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { EmberTicker } from "@/components/EmberTicker";
+import { SynexShowcase } from "@/components/SynexShowcase";
+import { HowIWork } from "@/components/HowIWork";
 
 export default function Home() {
   return (
@@ -23,9 +25,11 @@ export default function Home() {
         <EmberTicker />
         <AboutSection />
         <ServicesGrid />
+        <SynexShowcase />
         <CaseStudies />
         <CollaborationSection />
         <Testimonials />
+        <HowIWork />
         <TechStack />
         <Education />
         <ContactCTA />
