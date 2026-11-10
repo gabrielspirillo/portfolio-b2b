@@ -1,0 +1,909 @@
+/* ------------------------------------------------------------------
+   Tokens que SYN trae de la app de finanzas.
+   Se definen acá, junto a la hoja que los usa, para que el avatar sea
+   autocontenido: si manana se mueve de proyecto, viaja con ellos.
+   `--nav-space` es la barra de synex-music: 72px (h-14 + p-2 arriba y
+   abajo) más el borde seguro, que la barra respeta con max(12px, …). El
+   dock flotante se apoya justo arriba.
+   ------------------------------------------------------------------ */
+:root {
+  --color-flame: #ff3d14;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --edge-2: rgba(255, 255, 255, 0.22);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.5), 0 18px 44px -18px rgba(0, 0, 0, 0.85);
+  --nav-space: calc(72px + max(12px, env(safe-area-inset-bottom, 0px)));
+}
+
+/* ============================================================
+   SYN // motion
+   ------------------------------------------------------------
+   Reglas del movimiento, en orden de importancia:
+
+   1. Nada de esto pasa por React. El cuerpo se mueve con
+      animaciones CSS (compositor) y los ojos con un único rAF
+      compartido que escribe un atributo. Un avatar que re-renderiza
+      para parpadear traba la página entera.
+   2. Squash & stretch con volumen conservado: si algo se achata
+      4% en Y, se ensancha 4% en X. El origen está en la base
+      (50% 88%), que es donde el bicho toca el piso.
+   3. Todo gesto tiene anticipación y tiene resto. Un salto que
+      empieza subiendo y termina clavado se ve de juguete; el que
+      se agacha antes y rebota al caer se ve vivo.
+   ============================================================ */
+
+.syn-root {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  line-height: 0;
+  isolation: isolate;
+}
+
+.syn-body {
+  display: block;
+  transform-origin: 50% 88%;
+}
+/* `will-change` crea una capa de GPU por elemento: sólo la piden los dos que
+   se mueven todo el tiempo, no los veinte que puede haber en una lista.
+
+   El hint va en el elemento que ANIMA, no en el que está adentro del que
+   anima: `.syn-bob` es la respiración infinita y `.syn-drift` el flote del
+   login. Los cuerpos sin `.syn-bob` (la cabecera del panel) están quietos y
+   no piden capa; los humores y gestos duran un rato y se van. */
+.syn-bob,
+.syn-drift {
+  will-change: transform;
+}
+
+/* — reposo: respira, se inclina y vuelve. Nunca está quieto — */
+.syn-bob {
+  animation: syn-breathe 5.6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+/* — parpadeo: CSS puro, con la duración distinta en cada bicho — */
+.syn-lids {
+  transform-box: view-box;
+  transform-origin: 50px 52px;
+  animation-name: syn-blink;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes syn-blink {
+  0%, 90.5%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(0.06); }
+  93.4% { transform: scaleY(1); }
+  95.2% { transform: scaleY(0.06); }
+  96.6% { transform: scaleY(1); }
+}
+
+/* ============================================================
+   LOS OJOS — acá está el personaje
+   ------------------------------------------------------------
+   Todo lo que hace el cuerpo es acompañamiento: lo que se lee
+   como "está pensando" o "está contento" pasa en los ojos. Por
+   eso cada forma sale con su propia clase y su índice, y cada
+   humor tiene su animación de ojos, escalonada de a uno.
+
+   Tres capas anidadas para que nadie pise el transform del otro:
+   la mirada (JS) › los párpados (parpadeo) › el efecto del humor.
+   ============================================================ */
+.syn-eyes {
+  transform-box: view-box;
+  transform-origin: 50px 52px;
+}
+.syn-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-delay: calc(var(--i, 0) * var(--stagger, 0.1s));
+  animation-iteration-count: infinite;
+}
+
+[data-mood="working"] .syn-eye { animation-name: syn-eye-focus; animation-duration: 1.45s; animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); --stagger: 0.07s; }
+[data-mood="crunching"] .syn-eye { animation-name: syn-eye-bubble; animation-duration: 1.15s; animation-timing-function: cubic-bezier(0.34, 1.4, 0.64, 1); --stagger: 0.09s; }
+[data-mood="thinking"] .syn-eye { animation-name: syn-eye-ponder; animation-duration: 3.1s; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); --stagger: 0.18s; }
+[data-mood="thinking"] .syn-eyes { animation: syn-eyes-up 3.1s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+[data-mood="happy"] .syn-eye { animation-name: syn-eye-smile; animation-duration: 1.6s; animation-timing-function: cubic-bezier(0.34, 1.3, 0.64, 1); --stagger: 0.08s; }
+[data-mood="celebrate"] .syn-eye { animation-name: syn-eye-pop; animation-duration: 0.52s; animation-timing-function: cubic-bezier(0.34, 1.6, 0.64, 1); --stagger: 0.13s; }
+[data-mood="alert"] .syn-eye { animation-name: syn-eye-wide; animation-duration: 2.4s; animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1); --stagger: 0.05s; }
+[data-mood="error"] .syn-eye { animation-name: syn-eye-no; animation-duration: 0.52s; animation-timing-function: cubic-bezier(0.36, 0.07, 0.19, 0.97); animation-iteration-count: 3; --stagger: 0.06s; }
+[data-mood="sleep"] .syn-eye { animation-name: syn-eye-heavy; animation-duration: 5.4s; animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1); --stagger: 0.25s; }
+[data-mood="scan"] .syn-eye { animation-name: syn-eye-iris; animation-duration: 2.2s; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+[data-mood="curious"] .syn-eye { animation-name: syn-eye-curious; animation-duration: 2.6s; animation-timing-function: cubic-bezier(0.34, 1.4, 0.64, 1); --stagger: 0.32s; }
+[data-mood="peek"] .syn-eye { animation-name: syn-eye-peek; animation-duration: 3.4s; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); --stagger: 0.12s; }
+[data-gesture="hop"] .syn-eye { animation-name: syn-eye-jump; animation-duration: 0.95s; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); --stagger: 0.04s; }
+[data-gesture="robot"] .syn-eye { animation-name: syn-eye-digital; animation-duration: 0.8s; animation-timing-function: steps(3, end); --stagger: 0.12s; }
+[data-gesture="rocket"] .syn-eye { animation-name: syn-eye-gforce; animation-duration: 2.45s; animation-timing-function: cubic-bezier(0.4, 0, 0.5, 1); animation-iteration-count: 1; }
+[data-gesture="pour"] .syn-eye { animation-name: syn-eye-follow; animation-duration: 0.72s; animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.45); --stagger: 0.05s; }
+
+@keyframes syn-eye-focus {
+  0%, 100% { transform: scaleY(1) translateX(0); }
+  30% { transform: scaleY(0.68) translateX(-6%); }
+  62% { transform: scaleY(0.82) translateX(5%); }
+}
+@keyframes syn-eye-bubble {
+  0%, 100% { transform: scale(1); }
+  38% { transform: scale(1.22); }
+  70% { transform: scale(0.9); }
+}
+@keyframes syn-eye-ponder {
+  0%, 100% { transform: scaleY(1); }
+  26% { transform: scaleY(0.55) translateY(-6%); }
+  44% { transform: scaleY(1.08); }
+  62% { transform: scaleY(0.92); }
+}
+@keyframes syn-eyes-up {
+  0%, 100% { transform: translate(0, 0); }
+  30%, 58% { transform: translate(6px, -5px); }
+  76% { transform: translate(-2px, 1px); }
+}
+@keyframes syn-eye-smile {
+  0%, 100% { transform: scale(1, 1) translateY(0); }
+  34% { transform: scale(1.14, 0.86) translateY(-8%); }
+  62% { transform: scale(0.96, 1.08) translateY(2%); }
+}
+@keyframes syn-eye-pop {
+  0%, 100% { transform: scale(1, 1) translateY(0) rotate(0deg); }
+  30% { transform: scale(1.3, 0.78) translateY(10%) rotate(-6deg); }
+  58% { transform: scale(0.82, 1.28) translateY(-16%) rotate(5deg); }
+  80% { transform: scale(1.08, 0.94) translateY(0) rotate(0deg); }
+}
+@keyframes syn-eye-wide {
+  0%, 22%, 100% { transform: scale(1); }
+  30% { transform: scale(1.32, 1.24); }
+  44% { transform: scale(0.92, 0.96); }
+  56% { transform: scale(1.06, 1.02); }
+}
+@keyframes syn-eye-no {
+  0%, 100% { transform: scaleX(1); }
+  35% { transform: scaleX(0.62) translateX(-8%); }
+  70% { transform: scaleX(0.78) translateX(6%); }
+}
+@keyframes syn-eye-heavy {
+  0%, 100% { transform: scaleY(1) translateY(0); }
+  50% { transform: scaleY(0.72) translateY(6%); }
+}
+@keyframes syn-eye-iris {
+  0%, 100% { transform: scale(1); }
+  28% { transform: scale(0.76); }
+  60% { transform: scale(1.12); }
+}
+@keyframes syn-eye-curious {
+  0%, 62%, 100% { transform: scale(1); }
+  18% { transform: scale(1.5); }
+  38% { transform: scale(0.85); }
+}
+@keyframes syn-eye-peek {
+  0%, 100% { transform: translateX(0) scaleX(1); }
+  40% { transform: translateX(-7%) scaleX(1.08); }
+  70% { transform: translateX(3%) scaleX(0.96); }
+}
+@keyframes syn-eye-jump {
+  0%, 100% { transform: scale(1, 1); }
+  16% { transform: scale(1.18, 0.78); }
+  38% { transform: scale(0.78, 1.3) translateY(-6%); }
+  72% { transform: scale(1.24, 0.74); }
+  86% { transform: scale(0.94, 1.08); }
+}
+@keyframes syn-eye-digital {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  33% { opacity: 0.35; transform: scaleY(0.5); }
+  66% { opacity: 1; transform: scaleY(1.15); }
+}
+@keyframes syn-eye-gforce {
+  0%, 100% { transform: scale(1, 1) translateY(0); }
+  14% { transform: scale(1.2, 0.72) translateY(8%); }
+  34% { transform: scale(0.76, 1.24) translateY(-6%); }
+  62% { transform: scale(0.88, 1.12); }
+  88% { transform: scale(1.14, 0.86) translateY(4%); }
+}
+@keyframes syn-eye-follow {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  45% { transform: translateY(9%) scaleY(0.86); }
+}
+
+/* — humores: cada uno con su pulso — */
+[data-mood="working"] .syn-body { animation: syn-work 1.45s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+[data-mood="crunching"] .syn-body { animation: syn-work 0.92s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+[data-mood="thinking"] .syn-body { animation: syn-think 3.1s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+[data-mood="celebrate"] .syn-body { animation: syn-party 0.78s cubic-bezier(0.34, 1.4, 0.64, 1) infinite; }
+[data-mood="happy"] .syn-body { animation: syn-cheer 1.6s cubic-bezier(0.34, 1.3, 0.64, 1) infinite; }
+/* El temblor es finito (3 x 0.52s) pero el humor lo sobrevive: `syn.fail`
+   dura 6.5s y sin internet queda fijo hasta que vuelva la conexión. Los gestos
+   se limpian desde JS, el humor no, así que acá la respiración se COMPONE y
+   entra justo cuando el temblor termina. Sin esto el cuerpo queda en
+   `transform: none` y sin animación, con la sombra latiendo debajo: colgado. */
+[data-mood="error"] .syn-body {
+  animation:
+    syn-shake 0.52s cubic-bezier(0.36, 0.07, 0.19, 0.97) 3,
+    syn-breathe 5.6s cubic-bezier(0.37, 0, 0.63, 1) 1.56s infinite;
+}
+[data-mood="alert"] .syn-body { animation: syn-alert 2.4s cubic-bezier(0.4, 0, 0.3, 1) infinite; }
+[data-mood="sleep"] .syn-body { animation: syn-sleep 5.4s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
+[data-mood="scan"] .syn-body { animation: syn-scan 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+[data-mood="curious"] .syn-body { animation: syn-breathe 4.4s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
+/* Esperando: el símbolo gira y el cuerpo NO se mueve de lugar. La
+   respiración de siempre lo inclina y lo sube, y girando eso se ve como un
+   bamboleo. Acá sólo late, desde el centro. */
+/* El :not() es necesario: el origen del centro es exclusivo de este pulso. Si
+   cae un gesto encima, syn-hop/syn-robot/syn-launch están escritos para el
+   origen de los pies y el cuerpo gira descentrado, despegado de su sombra. */
+[data-mood="zen"]:not([data-gesture]) .syn-body {
+  transform-origin: 50% 50%;
+  animation: syn-zen-pulse 6.4s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+@keyframes syn-zen-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.025); }
+}
+
+/* — gestos: mandan sobre el humor mientras duran — */
+[data-gesture="hop"] .syn-body { animation: syn-hop 0.95s linear 2; }
+[data-gesture="robot"] .syn-body { animation: syn-robot 1.6s cubic-bezier(0.9, 0, 0.1, 1) 2; }
+[data-gesture="rocket"] .syn-body { animation: syn-launch 2.45s linear; }
+[data-gesture="pour"] .syn-body { animation: syn-breathe 2.6s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
+
+/* el yin-yang gira solo; la cabeza queda quieta para que la luz
+   de arriba no viaje y rompa la esfera */
+.syn-yin {
+  transform-box: view-box;
+  transform-origin: 50px 50px;
+  animation: syn-spin 7s linear infinite;
+}
+
+.syn-talking { animation: syn-talk 0.3s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+
+/* — manos: entran con rebote y saludan; se van con el desmonte — */
+.syn-hand {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-mood="celebrate"] .syn-hand-r {
+  animation: syn-hand-in 0.3s cubic-bezier(0.34, 1.7, 0.64, 1) both, syn-float 0.7s ease-in-out 0.3s infinite;
+}
+[data-mood="celebrate"] .syn-hand-l {
+  animation: syn-hand-in 0.3s cubic-bezier(0.34, 1.7, 0.64, 1) 0.08s both, syn-float 0.95s ease-in-out 0.38s infinite;
+}
+
+/* — extremidades de "pensando" —
+   Dos capas por extremidad, cada una dueña de su transform: la de afuera
+   brota y se retrae (escala desde la raíz), la de adentro se mece. El pivote
+   de las dos es la raíz, que llega inline desde el componente. */
+.syn-limb,
+.syn-limbs [class^="syn-limb-"] { transform-box: view-box; }
+/* Brotan escalonadas: primero el par de atrás, al final el brazo que se
+   levanta. Rebote con peso, como todo lo que hace el cuerpo. */
+.syn-limb {
+  animation: syn-limb-in 0.52s cubic-bezier(0.34, 1.5, 0.64, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+/* Se retraen en orden inverso: el brazo levantado primero. La última termina
+   a los 390ms; el componente las desmonta a los 420 (LIMB_OUT_MS). */
+.syn-limbs[data-out] .syn-limb {
+  animation: syn-limb-out 0.24s cubic-bezier(0.4, 0, 0.9, 0.5) both;
+  animation-delay: calc((5 - var(--i, 0)) * 30ms);
+}
+/* Cada una se mece a su ritmo: con el mismo período se verían como un solo
+   bloque de goma. Los pies casi no se mueven, que son los que sostienen. */
+.syn-limb-back { --a: 3.5deg; animation: syn-limb-sway 3.4s cubic-bezier(0.37, 0, 0.63, 1) calc(var(--i, 0) * -0.7s) infinite; }
+.syn-limb-arm { --a: 5deg; animation: syn-limb-sway 2.9s cubic-bezier(0.37, 0, 0.63, 1) -0.5s infinite; }
+.syn-limb-foot { --a: 2deg; animation: syn-limb-sway 3.1s cubic-bezier(0.37, 0, 0.63, 1) calc(var(--i, 0) * -0.9s) infinite; }
+/* El brazo levantado actúa con el cuerpo: mismo período y misma curva que
+   syn-think. Cuando el bicho mira para arriba, se rasca — tres toques cortos —
+   y cuando vuelve, el brazo se afloja. */
+.syn-limb-raised { animation: syn-limb-ponder 3.1s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+@keyframes syn-limb-in {
+  0% { transform: scale(0.05); }
+  60% { transform: scale(1.1); }
+  82% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+@keyframes syn-limb-out {
+  from { transform: scale(1); }
+  to { transform: scale(0.05); }
+}
+@keyframes syn-limb-sway {
+  0%, 100% { transform: rotate(calc(var(--a) * -1)); }
+  50% { transform: rotate(var(--a)); }
+}
+@keyframes syn-limb-ponder {
+  0%, 100% { transform: rotate(0deg); }
+  18% { transform: rotate(-8deg); }
+  26% { transform: rotate(-3deg); }
+  32% { transform: rotate(-9deg); }
+  38% { transform: rotate(-3deg); }
+  46% { transform: rotate(-8deg); }
+  64% { transform: rotate(1deg); }
+  84% { transform: rotate(0deg); }
+}
+
+.syn-antenna {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: syn-blip 0.62s steps(2, end) infinite;
+}
+.syn-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: syn-flicker 0.13s ease-in-out infinite alternate;
+}
+.syn-funnel {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: syn-pour 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.syn-drop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: syn-drip 0.72s cubic-bezier(0.55, 0, 0.9, 0.45) infinite;
+  opacity: 0;
+}
+.syn-stream {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: syn-stream 0.62s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes syn-stream {
+  0%, 100% { transform: scaleY(0.92) scaleX(1.05); opacity: 0.9; }
+  50% { transform: scaleY(1.06) scaleX(0.92); opacity: 1; }
+}
+
+.syn-scanline {
+  transform-box: view-box;
+  animation: syn-scanline 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.syn-thought {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: syn-thought 3.1s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  opacity: 0;
+}
+
+.syn-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: syn-blip-soft 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.syn-z {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: syn-z 2.6s cubic-bezier(0.3, 0, 0.6, 1) infinite;
+  opacity: 0;
+}
+
+/* — luz de rebote. Sin `filter: blur`: en móvil un blur permanente
+   sobre un elemento animado cuesta más que todo lo demás junto — */
+.syn-glow {
+  position: absolute;
+  inset: -16%;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 999px;
+  /* `closest-side`: el centro está al 62% de la altura, así que abajo quedan
+     38px de caja. Sin tamaño explícito el degradado se dimensiona contra la
+     esquina y cierra a 54px: lo cortaba el borde todavía con alfa, y el
+     escalón se leía como un arco duro. */
+  background: radial-gradient(closest-side circle at 50% 62%, color-mix(in srgb, var(--syn-rim) 24%, transparent), transparent 100%);
+  opacity: 0.7;
+}
+.syn-shadow {
+  position: absolute;
+  bottom: -6%;
+  left: 50%;
+  width: 62%;
+  height: 12%;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55), transparent 70%);
+  animation: syn-shadow 5.6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  pointer-events: none;
+}
+
+/* ── reposo y humores ── */
+@keyframes syn-breathe {
+  0% { transform: translateY(0) scale(1, 1) rotate(0deg); }
+  22% { transform: translateY(-3.4%) scale(0.994, 1.006) rotate(-1.1deg); }
+  50% { transform: translateY(-6%) scale(0.986, 1.014) rotate(0.2deg); }
+  74% { transform: translateY(-2.8%) scale(1.005, 0.995) rotate(1deg); }
+  100% { transform: translateY(0) scale(1, 1) rotate(0deg); }
+}
+@keyframes syn-shadow {
+  0%, 100% { opacity: 0.55; transform: scaleX(1); }
+  50% { opacity: 0.32; transform: scaleX(0.86); }
+}
+/* Trabajando: empuja. Se agacha, mete el hombro hacia adelante y
+   vuelve — el ritmo de alguien haciendo fuerza, no un globo latiendo. */
+@keyframes syn-work {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1, 1); animation-timing-function: cubic-bezier(0.4, 0, 0.9, 0.5); }
+  22% { transform: translate(-5%, 4%) rotate(-7deg) scale(1.08, 0.92); animation-timing-function: cubic-bezier(0.1, 0.75, 0.35, 1); }
+  48% { transform: translate(7%, -6%) rotate(9deg) scale(0.94, 1.07); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+  66% { transform: translate(5%, -2%) rotate(6deg) scale(1, 1); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1, 1); }
+}
+/* Pensando: mira para arriba, se queda ahí un rato (la pausa es lo que
+   se lee como pensar) y vuelve. Arriba salen los tres puntitos. */
+@keyframes syn-think {
+  0% { transform: rotate(0deg) translateY(0) scale(1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1); }
+  18% { transform: rotate(-11deg) translateY(-5%) scale(0.98, 1.02); }
+  46% { transform: rotate(-12deg) translateY(-6%) scale(0.98, 1.02); animation-timing-function: cubic-bezier(0.5, 0, 0.3, 1); }
+  64% { transform: rotate(7deg) translateY(-3%) scale(1.02, 0.98); }
+  84% { transform: rotate(8deg) translateY(-2%) scale(1.01, 0.99); animation-timing-function: cubic-bezier(0.4, 0, 0.4, 1); }
+  100% { transform: rotate(0deg) translateY(0) scale(1, 1); }
+}
+@keyframes syn-cheer {
+  0% { transform: translateY(0) scale(1.05, 0.95); }
+  18% { transform: translateY(-20%) scale(0.93, 1.07); }
+  38% { transform: translateY(0) scale(1.09, 0.91); }
+  54% { transform: translateY(-9%) scale(0.97, 1.03); }
+  70%, 100% { transform: translateY(0) scale(1, 1); }
+}
+/* Festejo: dos saltos con peso, sin girar. El show lo hacen los ojos. */
+@keyframes syn-party {
+  0% { transform: translateY(0) scale(1, 1); animation-timing-function: cubic-bezier(0.4, 0, 0.9, 0.4); }
+  12% { transform: translateY(8%) scale(1.14, 0.86); animation-timing-function: cubic-bezier(0.05, 0.85, 0.3, 1); }
+  34% { transform: translateY(-30%) scale(0.88, 1.14); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.45); }
+  54% { transform: translateY(0) scale(1.16, 0.84); animation-timing-function: cubic-bezier(0.1, 0.8, 0.3, 1); }
+  72% { transform: translateY(-16%) scale(0.94, 1.06); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.5); }
+  88% { transform: translateY(0) scale(1.09, 0.91); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes syn-shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  18% { transform: translateX(-8%) rotate(-5deg); }
+  42% { transform: translateX(7%) rotate(4deg); }
+  66% { transform: translateX(-4%) rotate(-2deg); }
+  86% { transform: translateX(2%) rotate(1deg); }
+}
+@keyframes syn-alert {
+  0%, 58%, 100% { transform: translateY(0) scale(1, 1); }
+  10% { transform: translateY(3%) scale(1.06, 0.94); }
+  26% { transform: translateY(-17%) scale(0.93, 1.07); }
+  42% { transform: translateY(0) scale(1.08, 0.92); }
+  50% { transform: translateY(-5%) scale(0.98, 1.02); }
+}
+@keyframes syn-sleep {
+  0%, 100% { transform: translateY(3%) scale(1.025, 0.975) rotate(-1deg); }
+  50% { transform: translateY(-2%) scale(0.98, 1.02) rotate(1deg); }
+}
+/* Leyendo: la cabeza baja y sube despacio siguiendo el renglón, mientras
+   la línea del escáner recorre el cuerpo. */
+@keyframes syn-scan {
+  0%, 100% { transform: rotate(-4deg) translateY(-3%); }
+  50% { transform: rotate(4deg) translateY(3%); }
+}
+@keyframes syn-scanline {
+  0% { transform: translateY(-46px); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateY(46px); opacity: 0; }
+}
+@keyframes syn-thought {
+  0%, 100% { opacity: 0; transform: translateY(6%) scale(0.5); }
+  18% { opacity: 1; transform: translateY(0) scale(1); }
+  62% { opacity: 1; transform: translateY(-8%) scale(1); }
+  82% { opacity: 0; transform: translateY(-16%) scale(0.7); }
+}
+@keyframes syn-talk {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.012); }
+}
+@keyframes syn-spin { to { transform: rotate(360deg); } }
+
+/* ── piruetas: anticipación, vuelo, aterrizaje y resto ── */
+@keyframes syn-hop {
+  0% { transform: translateY(0) scale(1, 1); animation-timing-function: cubic-bezier(0.4, 0, 0.9, 0.5); }
+  16% { transform: translateY(5%) scale(1.1, 0.9); animation-timing-function: cubic-bezier(0.1, 0.8, 0.4, 1); }
+  38% { transform: translateY(-26%) scale(0.9, 1.12); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.5); }
+  52% { transform: translateY(-28%) scale(0.95, 1.05); }
+  72% { transform: translateY(0) scale(1.12, 0.88); animation-timing-function: cubic-bezier(0.34, 1.5, 0.64, 1); }
+  86% { transform: translateY(-7%) scale(0.98, 1.02); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes syn-robot {
+  0%, 9% { transform: rotate(0) translate(0, 0); }
+  22%, 31% { transform: rotate(-7deg) translate(-6%, -3%); }
+  44%, 53% { transform: rotate(7deg) translate(6%, 0); }
+  66%, 75% { transform: rotate(-4deg) translate(-3%, -5%); }
+  88%, 100% { transform: rotate(0) translate(0, 0); }
+}
+@keyframes syn-launch {
+  0% { transform: translateY(0) rotate(0) scale(1, 1); animation-timing-function: cubic-bezier(0.4, 0, 0.9, 0.4); }
+  12% { transform: translateY(9%) scale(1.12, 0.88); animation-timing-function: cubic-bezier(0.05, 0.9, 0.3, 1); }
+  30% { transform: translateY(-46%) rotate(-8deg) scale(0.88, 1.14); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+  52% { transform: translateY(-62%) rotate(7deg) scale(0.93, 1.08); }
+  72% { transform: translateY(-40%) rotate(-3deg) scale(0.96, 1.05); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.5); }
+  90% { transform: translateY(0) scale(1.12, 0.88); animation-timing-function: cubic-bezier(0.34, 1.5, 0.64, 1); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes syn-pour {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-3%); }
+}
+@keyframes syn-drip {
+  0% { opacity: 0; transform: translateY(-16px) scaleY(0.7); }
+  25% { opacity: 1; }
+  75% { opacity: 1; transform: translateY(16px) scaleY(1.2); }
+  100% { opacity: 0; transform: translateY(24px) scaleY(0.85); }
+}
+@keyframes syn-flicker {
+  from { transform: scaleY(0.82) scaleX(1.05); opacity: 0.85; }
+  to { transform: scaleY(1.14) scaleX(0.92); opacity: 1; }
+}
+@keyframes syn-hand-in {
+  from { opacity: 0; transform: scale(0.3) translate(14%, 18%); }
+  to { opacity: 1; transform: scale(1) translate(0, 0); }
+}
+@keyframes syn-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-14%) scale(1.06, 0.94); }
+}
+@keyframes syn-blip {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+@keyframes syn-blip-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.88); }
+}
+@keyframes syn-z {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.7); }
+  25% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(18%, -60%) scale(1.25); }
+}
+
+/* ============================================================
+   EL DOCK — fijo abajo a la derecha. No se arrastra: se toca.
+   ============================================================ */
+/* Se hace a un lado sin desvanecerse: sube hasta el primer hueco libre.
+   Entero y opaco — un personaje translúcido se lee como error. */
+.syn-dock {
+  transform: translateY(calc(var(--syn-lift, 0px) * -1));
+  transition: transform 0.34s cubic-bezier(0.34, 1.3, 0.5, 1);
+}
+/* El halo no anima: alcanza con bajarle el opacity. */
+.syn-dock[data-flying] .syn-glow { opacity: 0; }
+/* La sombra sí: `syn-shadow` corre infinita y sus keyframes animan opacity, y
+   el origen de animación le gana a una declaración normal — el `opacity: 0`
+   solo nunca llegaba a aplicarse y la sombra seguía latiendo en pleno aire. */
+.syn-dock[data-flying] .syn-shadow { animation: none; opacity: 0; }
+
+/* Penumbra para leer el globo.
+   El texto caía sobre lo que hubiera en la esquina — una tabla clara, una
+   foto — y se volvía ilegible. Este degradado oscurece la esquina de atrás
+   y se apaga hacia afuera, así que no se ve un recuadro: se ve un rincón
+   con sombra. Sin blur a propósito: filtrar detrás de algo que se anima es
+   lo que hacía saltar los frames. */
+.syn-dock::before {
+  content: "";
+  position: absolute;
+  right: -22px;
+  /* El dock se despega del borde más de 22px: lo sube `--syn-lift` y en
+     teléfono lo levanta `--nav-space` por encima de la tabbar. El pseudo lo
+     seguía y su filo inferior entraba en pantalla, rebanando el degradado en
+     su parte más oscura. Así queda clavado al rincón. */
+  bottom: calc(-22px - var(--nav-space));
+  transform: translateY(var(--syn-lift, 0px));
+  width: min(360px, 82vw);
+  height: min(320px, 42vh);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.26s var(--ease-out);
+  background: radial-gradient(
+    112% 100% at 100% 100%,
+    rgba(9, 6, 5, 0.78) 0%,
+    rgba(9, 6, 5, 0.58) 26%,
+    rgba(9, 6, 5, 0.3) 48%,
+    rgba(9, 6, 5, 0.08) 68%,
+    rgba(9, 6, 5, 0) 82%
+  );
+}
+.syn-dock[data-talking="1"]::before { opacity: 1; }
+.syn-dock {
+  position: fixed;
+  right: 14px;
+  /* `--nav-space` incluye la barra inferior y el borde seguro del teléfono: el
+     bicho se apoya arriba de las pestañas, nunca encima de una de ellas. */
+  bottom: calc(14px + var(--nav-space));
+  z-index: 55;
+  -webkit-user-select: none;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .syn-dock {
+    right: 18px;
+    bottom: calc(18px + var(--safe-b));
+  }
+}
+.syn-call {
+  display: block;
+  /* sin esto la caja de línea suma ~8px de descendente y el bicho se apoya
+     más arriba de lo que dice `.syn-dock` */
+  line-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: transform 0.22s cubic-bezier(0.34, 1.5, 0.64, 1);
+}
+.syn-call:hover { transform: translateY(-4px) scale(1.06); }
+.syn-call:active { transform: translateY(0) scale(0.95); }
+.syn-call:focus-visible {
+  /* El foco global de la app usa `border-radius: inherit`, y como el dock no
+     tiene radio el anillo salía cuadrado alrededor de una pelota. */
+  border-radius: 999px;
+  outline: 2px solid var(--color-amber);
+  outline-offset: 5px;
+}
+.syn-chip:focus-visible,
+.syn-row:focus-visible { border-radius: inherit; }
+
+/* globo de diálogo: sin backdrop-filter — el blur detrás de un
+   elemento que se anima es lo que hacía saltar los frames */
+.syn-bubble {
+  position: absolute;
+  right: 0;
+  /* El globo se corre para arriba cuando tapa un control. Va por `bottom` y
+     no por transform: syn-pop es `both` y su keyframe final pisa cualquier
+     transform que le pongamos. */
+  bottom: calc(100% + 4px + var(--syn-bub-up, 0px));
+  width: max-content;
+  max-width: min(76vw, 320px);
+  padding: 0.75rem 0.9rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #3a322d, #191513);
+  border: 1px solid var(--edge-2);
+  box-shadow: var(--shadow-2), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 13.5px;
+  line-height: 1.45;
+  animation: syn-pop 0.34s cubic-bezier(0.34, 1.5, 0.64, 1) both;
+  transform-origin: 88% 100%;
+  pointer-events: none;
+}
+.syn-bubble::after {
+  content: "";
+  position: absolute;
+  /* centro de la colita = centro de la cabeza. El dock mide lo que mide el
+     avatar, y el avatar cambia de tamaño en teléfono (Buddy.tsx: 76 / 62). */
+  right: calc(var(--syn-size, 76px) / 2 - 6px);
+  bottom: -5px;
+  width: 12px;
+  height: 12px;
+  rotate: 45deg;
+  background: #191513;
+  border-right: 1px solid var(--edge-2);
+  border-bottom: 1px solid var(--edge-2);
+}
+/* Corrido de su lugar, la colita ya no apunta a la cabeza: se va en vez de
+   quedar flotando en el aire. */
+.syn-dock[data-bub-up="1"] .syn-bubble::after { display: none; }
+.syn-bubble a,
+.syn-bubble button { pointer-events: auto; }
+
+.syn-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.syn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 6px 11px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11.5px;
+  line-height: 1;
+  color: #fff;
+  border: 1px solid rgba(255, 170, 120, 0.4);
+  background: linear-gradient(140deg, rgba(255, 154, 60, 0.26), rgba(255, 61, 20, 0.22));
+  transition: filter 0.16s var(--ease-out), transform 0.16s var(--ease-out);
+  cursor: pointer;
+}
+.syn-chip:hover { filter: brightness(1.18); transform: translateY(-1px); }
+
+@keyframes syn-pop {
+  0% { opacity: 0; transform: scale(0.72) translateY(6px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ============================================================
+   EL PANEL — lo que muestra al tocarlo
+   ============================================================ */
+.syn-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 14px);
+  width: min(calc(100vw - 28px), 318px);
+  /* En un teléfono acostado el panel no entra: scrollea adentro (sin arrastrar
+     la página) en vez de desbordar por arriba de la pantalla. */
+  /* El dock puede estar subido para no tapar algo tocable, y el panel se sube
+     con él: hay que descontar esa subida o se dibuja por arriba del borde y se
+     come su propia cabecera. */
+  max-height: calc(100dvh - var(--nav-space) - var(--syn-lift, 0px) - 132px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 24px;
+  background: linear-gradient(168deg, #3a2c24, #120d0b);
+  border: 1px solid rgba(255, 160, 100, 0.26);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  animation: syn-panel-in 0.36s cubic-bezier(0.34, 1.3, 0.5, 1) both;
+  transform-origin: 88% 100%;
+}
+@keyframes syn-panel-in {
+  0% { opacity: 0; transform: scale(0.84) translateY(14px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.syn-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(180deg, rgba(255, 106, 31, 0.12), transparent);
+}
+.syn-panel-sec { padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.09); }
+.syn-panel-sec:last-of-type { border-bottom: 0; }
+.syn-panel-label {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-mut2);
+  margin-bottom: 9px;
+}
+.syn-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.045);
+  color: #fff;
+  font-size: 13.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.16s var(--ease-out), border-color 0.16s var(--ease-out), transform 0.16s var(--ease-out);
+}
+.syn-row:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 150, 90, 0.36);
+  transform: translateX(2px);
+}
+.syn-row .arrow { margin-left: auto; color: var(--color-mut2); }
+.syn-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px 12px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.syn-foot button {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: var(--color-mut2);
+  background: none;
+  border: 0;
+  padding: 4px 2px;
+  cursor: pointer;
+  transition: color 0.16s var(--ease-out);
+}
+.syn-foot button:hover { color: #fff; }
+
+/* ============================================================
+   BARRA CON EL BICHO DE MANIJA — para cualquier carga con %
+   ============================================================ */
+.syn-bar { display: grid; gap: 8px; }
+.syn-bar-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11.5px;
+  color: var(--color-mut);
+}
+.syn-bar-track {
+  position: relative;
+  /* el riel es el container de consulta: dentro de los keyframes de abajo
+     1cqw = 1% del riel. Sin esto los % de translateX() se resolverían contra
+     el ancho del propio bicho y quedaría clavado a la izquierda. */
+  container-type: inline-size;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+.syn-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-amber), var(--color-flame));
+  box-shadow: 0 0 16px -2px rgba(255, 106, 31, 0.75);
+  transition: width 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.syn-bar-thumb {
+  position: absolute;
+  top: 50%;
+  translate: -50% -50%;
+  transition: left 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.55));
+}
+.syn-bar[data-loose="true"] .syn-bar-fill,
+.syn-bar[data-loose="true"] .syn-bar-thumb { transition: none; }
+/* La espera abierta va entera en el compositor: `left`/`right` disparaban
+   recálculo y layout en CADA frame, para siempre, justo mientras se sube un
+   archivo. La pastilla mantiene ancho fijo y se traslada — con scaleX el
+   `border-radius: 999px` se aplastaría en elipse. */
+.syn-bar[data-loose="true"] .syn-bar-fill {
+  width: 44%;
+  animation: syn-bar-sweep 2.1s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.syn-bar[data-loose="true"] .syn-bar-thumb {
+  left: 0;
+  animation: syn-bar-ride 2.1s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes syn-bar-sweep {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(56cqw); }
+}
+@keyframes syn-bar-ride {
+  0%, 100% { transform: translateX(6cqw); }
+  50% { transform: translateX(94cqw); }
+}
+/* Con "reducir movimiento" la regla global apaga las dos animaciones, y como
+   el estado "lleno" vive entero adentro de los keyframes, sin esto el riel
+   quedaba vacío y el bicho colgado fuera de la pista. Estado estático
+   equivalente, fuera de toda animación. */
+@media (prefers-reduced-motion: reduce) {
+  .syn-bar[data-loose="true"] .syn-bar-fill { width: 100%; opacity: 0.5; }
+  .syn-bar[data-loose="true"] .syn-bar-thumb { left: 50%; }
+}
+
+/* confeti de festejo: partículas planas, sin librería */
+.syn-confetti { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.syn-confetti i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: syn-conf 1.05s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+@keyframes syn-conf {
+  0% { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(0.6); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--rot)) scale(1); }
+}
+
+
+/* el ancla del chat: adonde vuela el bicho al entrar a /chat. Cuando el
+   que viaja llega, el que recibe acusa el golpe. */
+.syn-anchor { position: relative; }
+.syn-land {
+  animation: syn-land 0.62s cubic-bezier(0.34, 1.5, 0.64, 1);
+}
+@keyframes syn-land {
+  0% { transform: scale(1, 1); }
+  22% { transform: scale(1.24, 0.8) translateY(6%); }
+  52% { transform: scale(0.92, 1.1) translateY(-6%); }
+  78% { transform: scale(1.05, 0.96); }
+  100% { transform: scale(1, 1); }
+}
+
+/* el bicho decorativo: flota, y nada más. Sin halo naranja detrás —
+   quedaba como una mancha alrededor de la cabeza. */
+.syn-drift {
+  display: inline-block;
+  animation: syn-drift 6.2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+@keyframes syn-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-7px) rotate(-1.6deg); }
+  66% { transform: translateY(-2px) rotate(1.4deg); }
+}
