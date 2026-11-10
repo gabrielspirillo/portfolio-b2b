@@ -1,11 +1,10 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Tag, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
-import { AgendaFill, MAgenda, MVoice, MWhatsApp, MRecord, MTasks, MDashboard } from "@/components/project/futura-motions";
+import { MAgenda, MVoice, MWhatsApp, MRecord, MTasks, MDashboard } from "@/components/project/futura-motions";
 
 const VALUES = [
   { k: "voz", M: MVoice },
@@ -16,32 +15,12 @@ const VALUES = [
   { k: "panel", M: MDashboard },
 ];
 
-function FuturaWordmark({ className = "" }: { className?: string }) {
+export function FuturaLogo({ className = "", size = 18 }: { className?: string; size?: number }) {
   return (
-    <span className={`inline-flex items-baseline gap-2 ${className}`}>
-      <span className="text-[17px] font-semibold tracking-[0.32em] text-white">FUTURA</span>
-      <span className="text-[13px] font-medium text-white/55">Solutions</span>
+    <span className={`inline-flex items-center ${className}`} aria-label="FUTURA">
+      <span className="font-extrabold tracking-[0.01em] text-white leading-none" style={{ fontSize: size }}>FUTURA</span>
+      <span className="rounded-full bg-[#70A697]" style={{ width: size * 0.36, height: size * 0.36, marginLeft: size * 0.3 }} />
     </span>
-  );
-}
-
-function FuturaStage({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <div className="absolute inset-x-[10%] bottom-[-45%] h-[90%] rounded-full bg-[radial-gradient(closest-side,rgba(255,90,31,0.4),transparent)]" />
-      {children}
-    </>
-  );
-}
-
-/* Ember glass panel with the agenda filling itself */
-function EmberAgenda({ className = "" }: { className?: string }) {
-  return (
-    <div className={`pm-stage glass-ember absolute rounded-[20px] overflow-hidden ${className}`}>
-      <div className="relative z-10 w-full h-full">
-        <AgendaFill tone="ember" />
-      </div>
-    </div>
   );
 }
 
@@ -58,14 +37,20 @@ export function FuturaCard({ onOpen }: { onOpen: () => void }) {
         onOpen();
       }}
     >
-      <div className="relative z-10 aspect-[16/10] rounded-[22px] overflow-hidden bg-[radial-gradient(120%_100%_at_50%_100%,#2a0e05_0%,#100807_45%,#070606_100%)]">
-        <FuturaStage>
-          <EmberAgenda className="inset-x-[9%] top-[13%] bottom-[13%] shadow-[0_30px_60px_-20px_rgba(255,90,31,0.55)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]" />
-        </FuturaStage>
+      <div className="relative z-10 aspect-[16/10] rounded-[22px] overflow-hidden bg-[#0d1512]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          loading="lazy"
+          decoding="async"
+          src="/futura/panel.webp"
+          alt="FUTURA · panel"
+          className="absolute inset-0 w-full h-full object-cover object-left-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
       </div>
       <div className="relative z-10 flex-1 flex flex-col px-4 pt-5 pb-4">
         <span className="text-[12px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {t("fu_tag")}</span>
-        <h3 className="mt-3 mb-1"><FuturaWordmark /></h3>
+        <h3 className="mt-3 mb-1"><FuturaLogo /></h3>
         <p className="mt-2 text-sm leading-relaxed text-white/55 flex-1">{rich(t("fu_card_roi"))}</p>
         <div className="mt-5 flex flex-wrap gap-1.5">
           {t("fu_tags").split(", ").slice(0, 3).map((tag) => <Tag key={tag}>{tag}</Tag>)}
@@ -80,15 +65,27 @@ export function FuturaDetail() {
   const { t } = useLanguage();
   return (
     <>
-      <div className="relative h-56 md:h-64 rounded-[22px] overflow-hidden border border-white/10 bg-[radial-gradient(120%_110%_at_50%_100%,#3a1206_0%,#120807_48%,#070606_100%)]">
-        <FuturaStage>
-          <EmberAgenda className="left-[7%] right-[7%] top-[22%] bottom-[10%] shadow-[0_30px_60px_-20px_rgba(255,90,31,0.55)]" />
-        </FuturaStage>
-        <div className="absolute left-5 top-5"><FuturaWordmark /></div>
+      <div className="relative rounded-[22px] overflow-hidden border border-white/10 bg-[#0d1512]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/futura/panel.webp" alt="FUTURA · panel general" className="block w-full h-auto" />
+                <div className="absolute left-4 bottom-4 rounded-full bg-black/70 backdrop-blur-md border border-white/10 px-4 py-2"><FuturaLogo size={16} /></div>
       </div>
 
       <CaseIntro eyebrow={t("fu_tag")} title={t("fu_title")} desc={t("fu_desc")} />
       <StatPair a={["94%", t("fu_stat_1")]} b={["60%", t("fu_stat_2")]} />
+
+      <div className="mt-6 grid gap-3">
+        {[["agenda", "fu_shot_agenda"], ["whatsapp", "fu_shot_wa"]].map(([img, key]) => (
+          <figure key={img} className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img loading="lazy" decoding="async" src={`/futura/${img}.webp`} alt={t(key)} className="block w-full h-auto rounded-xl" />
+            <figcaption className="px-3 pt-3 pb-1.5 text-[13px] text-white/55">
+              <span className="text-ember-500 font-semibold mr-1.5">{"//"}</span>
+              {t(key)}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
 
       <ul className="mt-6 grid sm:grid-cols-2 gap-3">
         {VALUES.map(({ k, M }) => (
