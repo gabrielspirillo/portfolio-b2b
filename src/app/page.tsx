@@ -11,6 +11,7 @@ import { ContactCTA } from "@/components/ContactCTA";
 import { Footer } from "@/components/Footer";
 import { AmbientBackground } from "@/components/AmbientBackground";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { EmberTicker } from "@/components/EmberTicker";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Header />
       <main className="flex flex-col w-full">
         <HeroSection />
+        <EmberTicker />
         <AboutSection />
         <ServicesGrid />
         <CaseStudies />

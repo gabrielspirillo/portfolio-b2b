@@ -3,7 +3,7 @@
 import { ReactNode, useEffect } from "react";
 import { useLanguage } from "@/lib/i18n";
 
-// Dark liquid-glass dialog. Locks page scroll (incl. Lenis via data-lenis-prevent) and closes on Esc.
+// Dark liquid-glass dialog. Locks page scroll and closes on Esc.
 export function Modal({ open, onClose, className = "", children }: { open: boolean; onClose: () => void; className?: string; children: ReactNode }) {
   const { t } = useLanguage();
 
@@ -22,7 +22,7 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
   if (!open) return null;
 
   return (
-    <div data-lenis-prevent className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 overscroll-contain" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 overscroll-contain" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={onClose} />
       <div className={`glass-blur relative w-full max-h-[90vh] rounded-[28px] ${className}`}>
         <button

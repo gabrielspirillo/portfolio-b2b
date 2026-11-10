@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n";
 import { Eyebrow } from "@/components/ui/SectionHeader";
+import { Liquid } from "@/components/ui/Liquid";
 
 export function AboutSection() {
   const { t } = useLanguage();
@@ -43,11 +44,14 @@ export function AboutSection() {
             ))}
           </div>
 
-          <p className="reveal mt-10 text-xl md:text-2xl font-semibold tracking-[-0.025em] leading-snug text-white max-w-xl">
-            {t("about_conclusion").split("\n").map((line, i) => (
-              <span key={i} className={`block ${i === 1 ? "text-ember-gradient" : ""}`}>{line}</span>
-            ))}
-          </p>
+          <div className="reveal glass-ember mt-10 rounded-[24px] px-6 py-6 md:px-8 md:py-7 overflow-hidden">
+            <Liquid />
+            <p className="relative z-10 text-xl md:text-2xl font-semibold tracking-[-0.025em] leading-snug text-white">
+              {t("about_conclusion").split("\n").map((line, i) => (
+                <span key={i} className="block">{line}</span>
+              ))}
+            </p>
+          </div>
         </div>
       </div>
     </section>

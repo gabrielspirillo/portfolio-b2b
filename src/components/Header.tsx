@@ -79,10 +79,11 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             onMouseEnter={playEarcon}
-            className="glass-ember hidden sm:inline-flex items-center gap-2 h-10 pl-4 pr-3 rounded-full text-[13px] font-semibold"
+            className="group glass-ember relative overflow-hidden hidden sm:inline-flex items-center gap-2 h-10 pl-4 pr-3 rounded-full text-[13px] font-semibold"
           >
+            <span className="absolute inset-0 rounded-full bg-carbon-950 scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-[2]" />
             <span className="relative z-10">{t("nav_cta")}</span>
-            <svg viewBox="0 0 24 24" fill="none" className="relative z-10 w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" className="relative z-10 w-4 h-4 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180"><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
           </a>
           <button
             className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-white/80 hover:bg-white/[0.06]"
