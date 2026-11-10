@@ -40,7 +40,6 @@ export function Header() {
 
   const navItems = [
     { key: "nav_services", href: "#services" },
-    { key: "nav_synex", href: "#synex" },
     { key: "nav_projects", href: "#projects" },
     { key: "nav_testimonials", href: "#testimonials" },
     { key: "nav_contact", href: "#contact" },
