@@ -8,6 +8,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Modal } from "@/components/ui/Modal";
 import { CarouselArrows } from "@/components/ui/CarouselArrows";
 import { SynexCard, SynexDetail } from "@/components/SynexProject";
+import { FinanzasCard, FinanzasDetail } from "@/components/FinanzasProject";
 
 const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
 
@@ -76,6 +77,7 @@ export function CaseStudies() {
   const { t } = useLanguage();
   const [active, setActive] = useState<number | null>(null);
   const [synexOpen, setSynexOpen] = useState(false);
+  const [finOpen, setFinOpen] = useState(false);
 
 
   const data = STUDIES.map((s) => ({
@@ -102,6 +104,7 @@ export function CaseStudies() {
         style={{ scrollbarWidth: "none" }}
       >
         <SynexCard onOpen={() => setSynexOpen(true)} />
+        <FinanzasCard onOpen={() => setFinOpen(true)} />
         {data.map((study, i) => (
           <button
             key={study.key}
@@ -141,6 +144,10 @@ export function CaseStudies() {
 
       <Modal open={synexOpen} onClose={() => setSynexOpen(false)} className="max-w-3xl">
         {synexOpen && <SynexDetail />}
+      </Modal>
+
+      <Modal open={finOpen} onClose={() => setFinOpen(false)} className="max-w-3xl">
+        {finOpen && <FinanzasDetail />}
       </Modal>
 
       <Modal open={current !== null} onClose={() => setActive(null)} className="max-w-3xl">

@@ -122,7 +122,7 @@ const MOTIONS: Record<string, () => React.JSX.Element> = {
 
 const VALUES = ["expediente", "rangos", "juego", "noche", "recorrido"];
 
-function Tag({ children }: { children: ReactNode }) {
+export function Tag({ children }: { children: ReactNode }) {
   return <span className="px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-medium text-white/60">{children}</span>;
 }
 
@@ -160,8 +160,6 @@ export function SynexCard({ onOpen }: { onOpen: () => void }) {
           <circle cx="260" cy="400" r="200" stroke="white" strokeOpacity="0.12" />
           <circle cx="260" cy="400" r="290" stroke="white" strokeOpacity="0.08" strokeDasharray="2 8" />
         </svg>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/synex-logo.png" alt="SYNEX" className="absolute left-5 top-5 h-3 w-auto" />
         <div className="absolute inset-0 grid place-items-center pt-6 scale-[0.72] sm:scale-100">
           <SynexAvatar size={132} mood={hover ? "thinking" : "idle"} look="cursor" glow shadow />
         </div>
@@ -171,7 +169,10 @@ export function SynexCard({ onOpen }: { onOpen: () => void }) {
         <span className="text-[12px] font-medium text-ember-400">
           <span className="font-semibold">{"//"}</span> {t("synex_tag")}
         </span>
-        <h3 className="mt-1.5 text-xl font-semibold tracking-[-0.025em] text-white">SYNEX</h3>
+        <h3 className="mt-3 mb-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/synex-logo.png" alt="SYNEX" className="h-[15px] w-auto" />
+        </h3>
         <p className="mt-2 text-sm leading-relaxed text-white/55 flex-1">{rich(t("synex_card_roi"))}</p>
         <div className="mt-5 flex flex-wrap gap-1.5">
           {t("synex_tags").split(", ").slice(0, 3).map((tag) => <Tag key={tag}>{tag}</Tag>)}
