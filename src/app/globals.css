@@ -117,16 +117,6 @@ body {
   color: transparent;
 }
 
-/* Rich-text details (service + project modals) on dark glass */
-.detail-dark { color: rgba(255, 255, 255, 0.72); }
-.detail-dark .text-black,
-.detail-dark .text-carbon-950,
-.detail-dark .text-white { color: #fff; }
-.detail-dark .text-carbon-700 { color: rgba(255, 255, 255, 0.72); }
-.detail-dark .text-carbon-400 { color: var(--color-ember-500); }
-.detail-dark h4 { color: var(--color-ember-400); border-color: rgba(255, 255, 255, 0.1); }
-.detail-dark .bg-carbon-800 { background: rgba(255, 255, 255, 0.04); }
-.detail-dark .border-white { border-color: var(--color-ember-500); }
 }
 
 /* Hero starts hidden; GSAP reveals it after hydration (avoids flash + jump) */
@@ -460,35 +450,80 @@ body {
 }
 @keyframes levitate {
   0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -12px, 0); }
+  50% { transform: translate3d(0, var(--lev-amp, -7px), 0); }
+}
+@media (max-width: 1023px) {
+  .levitate { --lev-amp: -4px; }
 }
 
 /* Ember ticker band */
 .ticker-track { animation: marquee 32s linear infinite; will-change: transform; }
 
-/* Ambient background drift */
-.ambient-glow { will-change: transform; }
-.ambient-glow.g1 { animation: ambient-a 22s ease-in-out infinite alternate; }
-.ambient-glow.g2 { animation: ambient-b 28s ease-in-out infinite alternate; }
-.ambient-glow.g3 { animation: ambient-c 18s ease-in-out infinite alternate; }
-.ambient-arcs { animation: ambient-breathe 9s ease-in-out infinite; }
-@keyframes ambient-a {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  100% { transform: translate3d(-18vw, -12vh, 0) scale(1.15); }
+/* Moving hairlines (background + contact block).
+   .line-flow: a light pulse travelling along the path (pathLength=100).
+   .line-drift / .line-spin: slow transform-only motion of whole line groups. */
+.line-flow {
+  stroke-dasharray: 12 188;
+  animation: line-flow var(--dur, 9s) cubic-bezier(0.45, 0, 0.25, 1) infinite var(--d, 0s);
 }
-@keyframes ambient-b {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  100% { transform: translate3d(22vw, 18vh, 0) scale(1.2); }
+.line-drift { animation: line-drift var(--dur, 24s) ease-in-out infinite alternate var(--d, 0s); will-change: transform; }
+.line-spin { transform-box: view-box; transform-origin: var(--ox, 50%) var(--oy, 50%); animation: line-spin var(--dur, 60s) linear infinite; will-change: transform; }
+@keyframes line-flow {
+  0% { stroke-dashoffset: 12; }
+  100% { stroke-dashoffset: -100; }
 }
-@keyframes ambient-c {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-10vw, 25vh, 0); }
+@keyframes line-drift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(-2.5%, 2%, 0) rotate(-2deg); }
 }
-@keyframes ambient-breathe {
-  0%, 100% { opacity: 0.08; }
-  50% { opacity: 0.2; }
+@keyframes line-spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .liquid-blob, .liquid-sheen, .levitate, .ticker-track, .ambient-glow, .ambient-arcs { animation: none !important; }
+  .liquid-blob, .liquid-sheen, .levitate, .ticker-track, .line-flow, .line-drift, .line-spin { animation: none !important; }
 }
+
+/* Rich-text details (service + project modals) on dark glass.
+   Unlayered on purpose: must win over the utility classes embedded in the copy. */
+.detail-dark { color: rgba(255, 255, 255, 0.68); }
+.detail-dark .text-black,
+.detail-dark .text-carbon-950,
+.detail-dark .text-white { color: #fff; }
+.detail-dark .text-carbon-700 { color: rgba(255, 255, 255, 0.68); }
+.detail-dark > div > p:first-child { color: #fff; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
+.detail-dark h4 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0;
+  border: 0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--color-ember-400);
+}
+.detail-dark h4::before { content: "//"; letter-spacing: 0; font-weight: 700; }
+.detail-dark .grid { gap: 0.75rem; }
+.detail-dark .flex.gap-3 {
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  line-height: 1.55;
+  font-size: 0.875rem;
+}
+.detail-dark .flex.gap-3 > span:first-child {
+  font-size: 0;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.5rem;
+  border-radius: 9999px;
+  background: var(--color-ember-500);
+  box-shadow: 0 0 10px rgba(255, 90, 31, 0.8);
+}
+.detail-dark .flex.gap-3 strong { font-size: 0.95rem; margin-bottom: 0.25rem; }
+.detail-dark .bg-carbon-800 { background: rgba(255, 255, 255, 0.04); }
+.detail-dark .border-white { border-color: var(--color-ember-500); }

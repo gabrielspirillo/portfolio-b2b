@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CarouselArrows } from "@/components/ui/CarouselArrows";
@@ -44,7 +45,7 @@ export function Testimonials() {
                 <svg key={i} viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               ))}
             </div>
-            <blockquote className={`relative z-10 mt-5 flex-1 text-[15px] leading-relaxed ${idx === 0 ? "text-white" : "text-white/75"}`}>&ldquo;{r.text}&rdquo;</blockquote>
+            <blockquote className={`relative z-10 mt-5 flex-1 text-[15px] leading-relaxed ${idx === 0 ? "text-white" : "text-white/75"}`}>&ldquo;{rich(r.text, idx === 0 ? "font-semibold text-white underline decoration-white/40 underline-offset-4" : "font-semibold text-white")}&rdquo;</blockquote>
             <figcaption className={`relative z-10 mt-7 pt-5 border-t ${idx === 0 ? "border-white/25" : "border-white/[0.08]"} flex items-center gap-3`}>
               <span className="w-11 h-11 shrink-0 rounded-full overflow-hidden bg-white/[0.06] border border-white/10 flex items-center justify-center text-sm font-semibold text-white">
                 {r.image ? (

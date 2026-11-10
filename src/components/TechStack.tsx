@@ -1,5 +1,6 @@
 "use client";
 
+import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/SectionHeader";
@@ -30,7 +31,7 @@ export function TechStack() {
         <div className="reveal flex flex-col items-center text-center">
           <Eyebrow>{t("stack_eyebrow")}</Eyebrow>
           <h2 className="mt-4 text-[2rem] leading-[1.05] md:text-5xl font-semibold tracking-[-0.035em] text-white max-w-2xl">{t("stack_title")}</h2>
-          <p className="mt-5 text-base md:text-lg text-white/55 max-w-xl">{t("stack_desc")}</p>
+          <p className="mt-5 text-base md:text-lg text-white/55 max-w-xl">{rich(t("stack_desc"))}</p>
         </div>
 
         <div className="reveal mt-12 flex flex-col gap-3">

@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useAudio } from "@/lib/audio";
+import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Modal } from "@/components/ui/Modal";
@@ -83,7 +84,7 @@ export function ServicesGrid() {
                 </span>
               </div>
               <h3 className="relative z-10 mt-6 text-2xl font-semibold tracking-[-0.03em] text-white">{svc.title}</h3>
-              <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/55 max-w-md">{svc.desc}</p>
+              <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/55 max-w-md">{rich(svc.desc)}</p>
               <div className="relative z-10 mt-auto w-full">{GRAPHICS[i]}</div>
             </button>
           ))}

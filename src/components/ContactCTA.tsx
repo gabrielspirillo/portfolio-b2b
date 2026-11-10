@@ -1,6 +1,7 @@
 "use client";
 
 import { useAudio } from "@/lib/audio";
+import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Button } from "@/components/ui/Button";
 import { Liquid } from "@/components/ui/Liquid";
@@ -13,10 +14,27 @@ export function ContactCTA() {
     <section id="contact" className="relative w-full py-24 md:py-32 px-5">
       <div className="reveal glass-ember max-w-6xl mx-auto rounded-[40px] px-6 py-16 md:px-16 md:py-24 overflow-hidden">
         <Liquid />
-        {/* Hairline arcs, as in the brand banner */}
-        <svg aria-hidden="true" className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 1000 500" preserveAspectRatio="none" fill="none">
-          <path d="M620 -10 C 660 180, 800 320, 1010 360" stroke="white" strokeOpacity="0.5" strokeWidth="1" />
-          <path d="M-10 420 C 220 380, 420 460, 560 510" stroke="white" strokeOpacity="0.3" strokeWidth="1" />
+        {/* Circular hairlines (brand banner): slow rotation + light pulses */}
+        <svg aria-hidden="true" className="absolute inset-0 w-full h-full" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" fill="none">
+          <g className="line-spin" style={{ ["--ox" as string]: "1000px", ["--oy" as string]: "560px", ["--dur" as string]: "90s" }}>
+            {[260, 380, 520, 680].map((r, i) => (
+              <circle key={r} cx="1000" cy="560" r={r} stroke="white" strokeOpacity={i % 2 ? 0.22 : 0.14} strokeWidth="1" strokeDasharray={i % 2 ? "2 9" : undefined} vectorEffect="non-scaling-stroke" />
+            ))}
+          </g>
+          <g className="line-spin" style={{ ["--ox" as string]: "1000px", ["--oy" as string]: "560px", ["--dur" as string]: "50s" }}>
+            {[380, 680].map((r, i) => (
+              <circle
+                key={r} cx="1000" cy="560" r={r} pathLength={100}
+                className="line-flow" stroke="white" strokeOpacity="0.7" strokeWidth="1.5" strokeLinecap="round" vectorEffect="non-scaling-stroke"
+                style={{ ["--dur" as string]: i ? "12s" : "9s", ["--d" as string]: i ? "-5s" : "0s" }}
+              />
+            ))}
+          </g>
+          <g className="line-spin" style={{ ["--ox" as string]: "-60px", ["--oy" as string]: "620px", ["--dur" as string]: "120s" }}>
+            {[300, 440].map((r, i) => (
+              <circle key={r} cx="-60" cy="620" r={r} stroke="white" strokeOpacity="0.14" strokeWidth="1" strokeDasharray={i ? "2 9" : undefined} vectorEffect="non-scaling-stroke" />
+            ))}
+          </g>
         </svg>
 
         <div className="relative z-10 flex flex-col items-center text-center">
@@ -26,7 +44,7 @@ export function ContactCTA() {
           <h2 className="mt-5 text-4xl md:text-6xl lg:text-7xl font-bold tracking-[-0.05em] leading-[0.98] text-white max-w-3xl">
             {t("contact_title_1")}
           </h2>
-          <p className="mt-6 text-base md:text-lg text-white/85 max-w-xl leading-relaxed">{t("contact_desc")}</p>
+          <p className="mt-6 text-base md:text-lg text-white/85 max-w-xl leading-relaxed">{rich(t("contact_desc"), "font-semibold text-white underline decoration-white/40 underline-offset-4")}</p>
 
           <div className="mt-10 flex flex-col items-center gap-5">
             <Button

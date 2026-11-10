@@ -41,26 +41,26 @@ function Stage({ children, glow }: { children: ReactNode; glow: [string, string]
 
 /* ------------------------------ 1. Web ------------------------------ */
 const CODE_LINES = [
-  { w: "38%", c: "#FF7A45", i: 0 },
-  { w: "62%", c: "#FFA27A", i: 1 },
+  { w: "38%", c: "#FF5A1F", i: 0 },
+  { w: "62%", c: "#ffffff40", i: 1 },
   { w: "48%", c: "#ffffff55", i: 2 },
-  { w: "70%", c: "#FFD3BC", i: 2 },
+  { w: "70%", c: "#ffffff70", i: 2 },
   { w: "40%", c: "#ffffff55", i: 1 },
   { w: "56%", c: "#FF5A1F", i: 1 },
-  { w: "30%", c: "#FF7A45", i: 0 },
+  { w: "30%", c: "#ffffff40", i: 0 },
 ];
 
 export function WebMotion() {
   return (
-    <Stage glow={["#FF5A1F", "#7A2A10"]}>
+    <Stage glow={["#FF5A1F", "#3A3A3C"]}>
       <div className="absolute inset-x-[6%] top-[12%] -bottom-4 rounded-t-xl bg-[#111114] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden">
         {/* Window chrome */}
         <div className="h-6 flex items-center gap-1.5 px-3 border-b border-white/[0.06] bg-white/[0.02]">
-          <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
-          <span className="w-2 h-2 rounded-full bg-[#febc2e]" />
-          <span className="w-2 h-2 rounded-full bg-[#28c840]" />
+          <span className="w-2 h-2 rounded-full bg-white/25" />
+          <span className="w-2 h-2 rounded-full bg-white/15" />
+          <span className="w-2 h-2 rounded-full bg-white/10" />
           <div className="ml-3 flex-1 max-w-[220px] h-3 rounded-full bg-white/[0.06] relative overflow-hidden">
-            <span className="sm-anim sm-load absolute inset-y-0 left-0 w-full bg-gradient-to-r from-ember-600 to-ember-300" />
+            <span className="sm-anim sm-load absolute inset-y-0 left-0 w-full bg-ember-500" />
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export function WebMotion() {
           {/* Live preview */}
           <div className="flex-1 p-3 flex flex-col gap-2 relative">
             <div
-              className="sm-anim sm-rise h-9 rounded-lg bg-gradient-to-br from-[#FF8A55] via-[#FF5A1F] to-[#B83210] relative overflow-hidden"
+              className="sm-anim sm-rise h-9 rounded-lg bg-ember-500 relative overflow-hidden"
               style={v({ "--d": "1.4s" })}
             >
               <span className="absolute left-2.5 top-2 h-1.5 w-[40%] rounded-full bg-white/80" />
@@ -95,7 +95,7 @@ export function WebMotion() {
                   className="sm-anim sm-pop h-11 rounded-lg bg-white/[0.06] border border-white/[0.06] p-1.5 flex flex-col gap-1"
                   style={v({ "--d": `${1.8 + n * 0.15}s` })}
                 >
-                  <span className="w-3 h-3 rounded-[4px]" style={{ background: ["#FF7A45", "#FFB020", "#F2F2F2"][n] }} />
+                  <span className="w-3 h-3 rounded-[4px]" style={{ background: ["#FF5A1F", "#ffffff30", "#ffffff30"][n] }} />
                   <span className="h-1 w-[70%] rounded-full bg-white/25" />
                   <span className="h-1 w-[45%] rounded-full bg-white/15" />
                 </div>
@@ -111,12 +111,12 @@ export function WebMotion() {
                 <circle cx="18" cy="18" r="15" fill="none" stroke="#ffffff1a" strokeWidth="4" />
                 <circle
                   className="sm-anim sm-ring"
-                  cx="18" cy="18" r="15" fill="none" stroke="#30D158" strokeWidth="4" strokeLinecap="round"
+                  cx="18" cy="18" r="15" fill="none" stroke="#FF5A1F" strokeWidth="4" strokeLinecap="round"
                   pathLength={100} strokeDasharray="100"
                   style={v({ "--d": "2.4s" })}
                 />
               </svg>
-              <span className="text-[9px] font-semibold text-[#30D158] tabular-nums">100</span>
+              <span className="text-[9px] font-semibold text-white tabular-nums">100</span>
             </div>
           </div>
         </div>
@@ -127,24 +127,24 @@ export function WebMotion() {
 
 /* ----------------------------- 2. Mobile ----------------------------- */
 const APP_ROWS = [
-  { c: "linear-gradient(135deg,#FF8A55,#E5410F)", w: "64%" },
-  { c: "linear-gradient(135deg,#F5F5F5,#8A8A8A)", w: "48%" },
-  { c: "linear-gradient(135deg,#FFB020,#FF5A1F)", w: "72%" },
-  { c: "linear-gradient(135deg,#3A3A3C,#1C1C1E)", w: "54%" },
-  { c: "linear-gradient(135deg,#FFA27A,#FF5A1F)", w: "60%" },
+  { c: "#FF5A1F", w: "64%" },
+  { c: "#5A5A5E", w: "48%" },
+  { c: "#3A3A3C", w: "72%" },
+  { c: "#8A8A8E", w: "54%" },
+  { c: "#2A2A2D", w: "60%" },
 ];
 
 export function MobileMotion() {
   return (
-    <Stage glow={["#FF5A1F", "#B83210"]}>
+    <Stage glow={["#FF5A1F", "#3A3A3C"]}>
       {/* Phone */}
       <div className="absolute left-1/2 -translate-x-1/2 top-4 w-[96px] h-[200px] rounded-[22px] border-[3px] border-[#2c2c30] bg-[#050507] shadow-[0_24px_50px_rgba(0,0,0,0.7),inset_0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden">
         {/* Dynamic island */}
         <div className="sm-anim sm-island absolute left-1/2 -translate-x-1/2 top-1.5 h-[9px] w-[30px] rounded-full bg-black z-20 flex items-center justify-between px-1.5 overflow-hidden">
-          <span className="sm-anim sm-island-in w-1 h-1 rounded-full bg-[#30D158]" />
+          <span className="sm-anim sm-island-in w-1 h-1 rounded-full bg-ember-500" />
           <span className="sm-anim sm-island-in flex items-end gap-[1.5px] h-2">
             {[0, 1, 2].map((b) => (
-              <span key={b} className="sm-eq w-[1.5px] h-full bg-[#30D158] rounded-full" style={v({ "--h": 0.9, "--dur": `${0.6 + b * 0.15}s`, "--d": `-${b * 0.2}s` })} />
+              <span key={b} className="sm-eq w-[1.5px] h-full bg-ember-500 rounded-full" style={v({ "--h": 0.9, "--dur": `${0.6 + b * 0.15}s`, "--d": `-${b * 0.2}s` })} />
             ))}
           </span>
         </div>
@@ -167,10 +167,10 @@ export function MobileMotion() {
 
       {/* Floating platform chips */}
       <div className="sm-float absolute left-[8%] top-[30%] rounded-full bg-white/[0.08] border border-white/10 px-2.5 py-1 text-[9px] font-medium text-white/80 flex items-center gap-1.5 shadow-lg">
-        <span className="w-1.5 h-1.5 rounded-full bg-white" /> iOS
+        <span className="w-1.5 h-1.5 rounded-full bg-white/60" /> iOS
       </div>
       <div className="sm-float absolute right-[8%] top-[55%] rounded-full bg-white/[0.08] border border-white/10 px-2.5 py-1 text-[9px] font-medium text-white/80 flex items-center gap-1.5 shadow-lg" style={v({ "--d": "-2s" })}>
-        <span className="w-1.5 h-1.5 rounded-full bg-ember-500" /> Android
+        <span className="w-1.5 h-1.5 rounded-full bg-white/60" /> Android
       </div>
     </Stage>
   );
@@ -178,9 +178,9 @@ export function MobileMotion() {
 
 /* --------------------------- 3. Automation --------------------------- */
 const FLOWS = [
-  { d: "M58 80 C 90 80, 100 80, 128 80", cls: "sm-flow-a", color: "#FF9F0A" },
-  { d: "M172 80 C 205 80, 205 42, 238 42", cls: "sm-flow-b", color: "#30D158" },
-  { d: "M172 80 C 205 80, 205 118, 238 118", cls: "sm-flow-b", color: "#FFA27A" },
+  { d: "M58 80 C 90 80, 100 80, 128 80", cls: "sm-flow-a", color: "#FF5A1F" },
+  { d: "M172 80 C 205 80, 205 42, 238 42", cls: "sm-flow-b", color: "#FF5A1F" },
+  { d: "M172 80 C 205 80, 205 118, 238 118", cls: "sm-flow-b", color: "#FF5A1F" },
 ];
 
 function Node({ x, y, size = 34, color, glowCls, children }: { x: number; y: number; size?: number; color: string; glowCls: string; children: ReactNode }) {
@@ -198,12 +198,12 @@ function Node({ x, y, size = 34, color, glowCls, children }: { x: number; y: num
 
 export function AutomationMotion() {
   return (
-    <Stage glow={["#FF5A1F", "#7A2A10"]}>
+    <Stage glow={["#FF5A1F", "#3A3A3C"]}>
       <svg viewBox="0 0 300 160" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="sm-ai" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#FFB020" />
-            <stop offset="100%" stopColor="#FF5A1F" />
+            <stop offset="0%" stopColor="#FF5A1F" />
+            <stop offset="100%" stopColor="#8A8A8E" />
           </linearGradient>
         </defs>
 
@@ -220,8 +220,8 @@ export function AutomationMotion() {
         ))}
 
         {/* Trigger */}
-        <Node x={40} y={80} color="#FF9F0A" glowCls="sm-glow-a">
-          <path d="M2 -9 L-6 2 H0 L-2 9 L6 -2 H0 Z" fill="#FF9F0A" />
+        <Node x={40} y={80} color="#FF5A1F" glowCls="sm-glow-a">
+          <path d="M2 -9 L-6 2 H0 L-2 9 L6 -2 H0 Z" fill="#FF5A1F" />
         </Node>
 
         {/* AI core */}
@@ -231,12 +231,12 @@ export function AutomationMotion() {
         </Node>
 
         {/* Outputs */}
-        <Node x={256} y={42} size={30} color="#30D158" glowCls="sm-glow-c">
-          <path d="M-5 0 L-1.5 3.5 L5 -3.5" fill="none" stroke="#30D158" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        <Node x={256} y={42} size={30} color="#8A8A8E" glowCls="sm-glow-c">
+          <path d="M-5 0 L-1.5 3.5 L5 -3.5" fill="none" stroke="#E5E5E5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
         </Node>
-        <Node x={256} y={118} size={30} color="#FFA27A" glowCls="sm-glow-c">
-          <rect x="-6" y="-4.5" width="12" height="9" rx="2" fill="none" stroke="#FFA27A" strokeWidth="1.8" />
-          <path d="M-5.5 -3.5 L0 0.5 L5.5 -3.5" fill="none" stroke="#FFA27A" strokeWidth="1.6" strokeLinejoin="round" />
+        <Node x={256} y={118} size={30} color="#8A8A8E" glowCls="sm-glow-c">
+          <rect x="-6" y="-4.5" width="12" height="9" rx="2" fill="none" stroke="#E5E5E5" strokeWidth="1.8" />
+          <path d="M-5.5 -3.5 L0 0.5 L5.5 -3.5" fill="none" stroke="#E5E5E5" strokeWidth="1.6" strokeLinejoin="round" />
         </Node>
 
         <text x="40" y="112" textAnchor="middle" className="fill-white/40" fontSize="7" fontFamily="inherit">Trigger</text>
@@ -247,11 +247,11 @@ export function AutomationMotion() {
 }
 
 /* ----------------------------- 4. UI / UX ----------------------------- */
-const SWATCHES = ["#F2F2F2", "#FFA27A", "#FF7A45", "#FF5A1F", "#B83210"];
+const SWATCHES = ["#F2F2F2", "#A3A3A3", "#5A5A5E", "#FF5A1F", "#2A2A2D"];
 
 export function DesignMotion() {
   return (
-    <Stage glow={["#FF5A1F", "#3A1206"]}>
+    <Stage glow={["#FF5A1F", "#3A3A3C"]}>
       <div className="sm-grid absolute inset-0 opacity-60" />
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[150px]">
         <div className="absolute left-2 top-1 rounded-md bg-white/[0.06] border border-white/10 px-1.5 py-0.5 text-[8px] text-white/60 font-medium"># Frame 01</div>
@@ -260,12 +260,12 @@ export function DesignMotion() {
         {/* Object being edited */}
         <div className="sm-anim sm-resize absolute left-[80px] top-[32px] w-[60px] h-[60px]" style={v({ "--dur": "6s" })}>
           <div className="sm-anim sm-morph absolute inset-0 overflow-hidden" style={v({ "--dur": "6s" })}>
-            <div className="absolute inset-0 bg-gradient-to-br from-[#F5F5F5] to-[#7A7A7A]" />
-            <div className="sm-anim sm-recolor absolute inset-0 bg-gradient-to-br from-[#FF8A55] to-[#E5410F]" style={v({ "--dur": "6s" })} />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#E5E5E5] to-[#6A6A6E]" />
+            <div className="sm-anim sm-recolor absolute inset-0 bg-ember-500" style={v({ "--dur": "6s" })} />
           </div>
-          <div className="absolute -inset-[5px] border border-ember-400">
+          <div className="absolute -inset-[5px] border border-ember-500">
             {["-left-[3px] -top-[3px]", "-right-[3px] -top-[3px]", "-left-[3px] -bottom-[3px]", "-right-[3px] -bottom-[3px]"].map((pos) => (
-              <span key={pos} className={`absolute ${pos} w-[6px] h-[6px] bg-white border border-ember-400`} />
+              <span key={pos} className={`absolute ${pos} w-[6px] h-[6px] bg-white border border-ember-500`} />
             ))}
           </div>
         </div>
@@ -299,7 +299,7 @@ const BARS = Array.from({ length: 36 }, (_, i) => {
 
 export function SoundMotion() {
   return (
-    <Stage glow={["#FF5A1F", "#B83210"]}>
+    <Stage glow={["#FF5A1F", "#3A3A3C"]}>
       <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-white/[0.06] border border-white/10 px-2 py-0.5">
         <span className="sm-pulse w-1.5 h-1.5 rounded-full bg-ember-500" />
         <span className="text-[8px] font-medium text-white/70 tracking-wide">Master · −14 LUFS</span>
@@ -309,7 +309,7 @@ export function SoundMotion() {
         {BARS.map((b, i) => (
           <span
             key={i}
-            className="sm-eq w-[3px] h-full rounded-full bg-gradient-to-t from-[#E5410F] via-[#FF5A1F] to-[#FFB27F]"
+            className="sm-eq w-[3px] h-full rounded-full bg-ember-500"
             style={v({ "--h": b.h, "--dur": `${b.dur}s`, "--d": `${b.delay}s`, transformOrigin: "center" })}
           />
         ))}

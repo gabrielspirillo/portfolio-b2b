@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useAudio } from "@/lib/audio";
+import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Modal } from "@/components/ui/Modal";
@@ -127,7 +128,7 @@ export function CaseStudies() {
 
             <div className="relative z-10 flex-1 flex flex-col px-4 pt-5 pb-4">
               <h3 className="text-xl font-semibold tracking-[-0.025em] text-white">{study.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/55 flex-1">{study.roi}</p>
+              <p className="mt-2 text-sm leading-relaxed text-white/55 flex-1">{rich(study.roi)}</p>
               <div className="mt-5 flex flex-wrap gap-1.5">
                 {study.tags.slice(0, 3).map((tag) => <Tag key={tag}>{tag}</Tag>)}
               </div>
@@ -154,7 +155,7 @@ export function CaseStudies() {
                 <img src={BRANDBOOST_LOGO} alt="Brandboost AI" className="h-5 w-auto brightness-0 invert opacity-90" />
               </div>
             )}
-            <p className="mt-6 text-lg leading-relaxed text-white/70">{current.roi}</p>
+            <p className="mt-6 text-lg leading-relaxed text-white/70">{rich(current.roi)}</p>
 
             {current.isHtmlDetail ? (
               <div className="detail-dark mt-8" dangerouslySetInnerHTML={{ __html: current.detail }} />

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useAudio } from "@/lib/audio";
+import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Button } from "@/components/ui/Button";
 import { Liquid } from "@/components/ui/Liquid";
@@ -33,7 +34,7 @@ export function HeroSection() {
         .fromTo(
           ".hero-card",
           { y: 40, opacity: 0, rotate: 0 },
-          { y: 0, opacity: 1, rotate: (i: number) => [-3, -1.5, -2][i], duration: 1.3, stagger: 0.12 },
+          { y: 0, opacity: 1, rotate: (i: number) => (window.innerWidth < 1024 ? [-1.2, 0.8, -0.8] : [-2.5, -1, -1.8])[i], duration: 1.3, stagger: 0.12 },
           0.35
         );
     }, containerRef);
@@ -95,7 +96,7 @@ export function HeroSection() {
                 }}
               />
             </div>
-            <p className="text-base md:text-xl leading-snug text-white/75 max-w-md tracking-tight">{t("hero_sub")}</p>
+            <p className="text-base md:text-xl leading-snug text-white/75 max-w-md tracking-tight">{rich(t("hero_sub"))}</p>
           </div>
 
           <div className="hero-element mt-10 flex flex-wrap items-center gap-3">
@@ -112,20 +113,20 @@ export function HeroSection() {
 
         {/* Stacked glass cards (from the brand banner): levitate + follow the cursor */}
         <div ref={stackRef} className="relative flex flex-col lg:pl-6 [perspective:1400px]">
-          <div ref={tiltRef} className="flex flex-col [transform-style:preserve-3d]">
+          <div ref={tiltRef} className="flex flex-col gap-6 [transform-style:preserve-3d]">
             <div className="levitate relative z-10 lg:mr-10" style={{ ["--lev-dur" as string]: "6.5s" }}>
               <div className="hero-card glass-ember rounded-[28px] p-6 md:p-7 overflow-hidden">
                 <Liquid />
                 <div className="relative z-10 flex items-center justify-between gap-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/synex-logo.png" alt="Synex" className="h-4 md:h-[18px] w-auto" />
+                  <img src="/synex-logo.png" alt="Synex" className="h-3 md:h-3.5 w-auto" />
                   <RolePill>Founder</RolePill>
                 </div>
                 <p className="relative z-10 mt-5 text-[15px] leading-snug text-white/90 max-w-sm">{t("card_synex_desc")}</p>
               </div>
             </div>
 
-            <div className="levitate relative z-20 -mt-2 lg:ml-8" style={{ ["--lev-dur" as string]: "7.5s", ["--lev-delay" as string]: "-2.5s" }}>
+            <div className="levitate relative z-20 lg:ml-8" style={{ ["--lev-dur" as string]: "7.5s", ["--lev-delay" as string]: "-2.5s" }}>
               <div className="hero-card glass-ember rounded-[28px] p-6 md:p-7 overflow-hidden">
                 <Liquid />
                 <div className="relative z-10 flex items-center justify-between gap-4">
@@ -140,7 +141,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="levitate relative z-30 -mt-2 lg:ml-16" style={{ ["--lev-dur" as string]: "6s", ["--lev-delay" as string]: "-4s" }}>
+            <div className="levitate relative z-30 lg:ml-16" style={{ ["--lev-dur" as string]: "6s", ["--lev-delay" as string]: "-4s" }}>
               <a
                 href={WHATSAPP}
                 target="_blank"

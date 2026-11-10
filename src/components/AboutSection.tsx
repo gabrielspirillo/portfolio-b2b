@@ -1,5 +1,6 @@
 "use client";
 
+import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Eyebrow } from "@/components/ui/SectionHeader";
 import { Liquid } from "@/components/ui/Liquid";
@@ -29,7 +30,7 @@ export function AboutSection() {
             <h2 className="mt-4 text-[2rem] leading-[1.05] md:text-5xl font-semibold tracking-[-0.035em] text-white max-w-xl">
               {t("about_title")}
             </h2>
-            <p className="mt-6 text-base md:text-lg leading-relaxed text-white/65 max-w-2xl">{t("about_intro")}</p>
+            <p className="mt-6 text-base md:text-lg leading-relaxed text-white/65 max-w-2xl">{rich(t("about_intro"))}</p>
           </div>
 
           <div className="mt-10 grid sm:grid-cols-2 gap-3">
@@ -39,7 +40,7 @@ export function AboutSection() {
                   <span className="text-ember-500 mr-1.5">{"//"}</span>
                   {p.title}
                 </h3>
-                <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/55">{p.desc}</p>
+                <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/55">{rich(p.desc)}</p>
               </div>
             ))}
           </div>
