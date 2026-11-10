@@ -4,22 +4,22 @@ import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Tag, SynexLogo, CaseCover, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
-import { PnlChart, MPnl, MPace, MTeam, MReceipt, MTicket } from "@/components/project/motions";
+import { MPnl, MPace, MTeam, MReceipt, MTicket } from "@/components/project/motions";
 
 const VALUES = [
   { k: "pnl", M: MPnl },
   { k: "pulso", M: MPace },
   { k: "equipo", M: MTeam },
-  { k: "comprobantes", M: MReceipt },
+  { k: "comprobantes", M: () => <MReceipt /> },
   { k: "entradas", M: MTicket },
 ];
 
-/* Orange glass panel holding the live P&L chart */
-function EmberPnl({ className = "" }: { className?: string }) {
+/* Orange glass panel with the AI receipt validation */
+function EmberReceipt({ className = "" }: { className?: string }) {
   return (
     <div className={`pm-stage glass-ember absolute rounded-[20px] overflow-hidden ${className}`}>
       <div className="relative z-10 w-full h-full">
-        <PnlChart tone="ember" label="P&L · Evento 02" />
+        <MReceipt tone="ember" big />
       </div>
     </div>
   );
@@ -51,7 +51,7 @@ export function FinanzasCard({ onOpen }: { onOpen: () => void }) {
     >
       <div className="relative z-10 aspect-[16/10] rounded-[22px] overflow-hidden bg-[radial-gradient(120%_100%_at_50%_100%,#2a0e05_0%,#100807_45%,#070606_100%)]">
         <FinStage>
-          <EmberPnl className="inset-x-[9%] top-[14%] bottom-[14%] shadow-[0_30px_60px_-20px_rgba(255,90,31,0.55)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]" />
+          <EmberReceipt className="inset-x-[9%] top-[14%] bottom-[14%] shadow-[0_30px_60px_-20px_rgba(255,90,31,0.55)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]" />
         </FinStage>
       </div>
 
@@ -78,7 +78,7 @@ export function FinanzasDetail() {
     <>
       <CaseCover product="Finanzas">
         <FinStage>
-          <EmberPnl className="left-[7%] right-[7%] top-[22%] bottom-[10%] shadow-[0_30px_60px_-20px_rgba(255,90,31,0.55)]" />
+          <EmberReceipt className="left-[7%] right-[7%] top-[22%] bottom-[10%] shadow-[0_30px_60px_-20px_rgba(255,90,31,0.55)]" />
         </FinStage>
       </CaseCover>
 

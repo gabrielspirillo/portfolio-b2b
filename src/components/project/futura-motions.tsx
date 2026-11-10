@@ -128,23 +128,35 @@ export function MTasks() {
   );
 }
 
-// Smart dashboard: what needs attention, ranked
+// Smart dashboard: occupancy ring fills, key KPIs come in
 export function MDashboard() {
-  const items = [
-    ["20", "sin confirmar"],
-    ["19", "esperan respuesta"],
-    ["4", "huecos ofrecidos"],
+  const kpis = [
+    { l: "Citas por IA", v: "72", d: "▲", up: true },
+    { l: "Faltas", v: "7,8%", d: "▼", up: false },
   ];
   return (
-    <Frame label="Requiere atención">
-      <div className="absolute inset-0 flex flex-col justify-center gap-1.5">
-        {items.map(([n, l], i) => (
-          <div key={l} className="fu-row flex items-center gap-3" style={{ ["--i" as string]: i }}>
-            <span className={`w-8 text-[15px] font-semibold tabular-nums ${i === 0 ? "text-ember-400" : "text-white"}`}>{n}</span>
-            <span className="text-[10px] text-white/55">{l}</span>
-            <span className="ml-auto h-px w-10 bg-white/10" />
-          </div>
-        ))}
+    <Frame label="Panel del mes">
+      <div className="absolute inset-0 flex items-center gap-6">
+        <div className="relative w-[72px] h-[72px] shrink-0">
+          <svg viewBox="0 0 64 64" className="w-full h-full -rotate-90">
+            <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
+            <circle className="fu-ring" cx="32" cy="32" r="26" fill="none" stroke="#FF5A1F" strokeWidth="6" strokeLinecap="round" pathLength={100} />
+          </svg>
+          <span className="absolute inset-0 flex flex-col items-center justify-center leading-none">
+            <span className="text-[15px] font-semibold text-white">68%</span>
+            <span className="mt-1 text-[7px] font-semibold tracking-[0.14em] text-white/45">OCUPACIÓN</span>
+          </span>
+        </div>
+        <div className="flex-1 flex flex-col gap-2.5">
+          {kpis.map((k, i) => (
+            <div key={k.l} className="fu-row flex items-baseline justify-between border-b border-white/[0.07] pb-1.5" style={{ ["--i" as string]: i + 1 }}>
+              <span className="text-[10px] text-white/55">{k.l}</span>
+              <span className="text-[14px] font-semibold text-white tabular-nums">
+                {k.v} <span className={`text-[9px] ${k.up ? "text-ember-400" : "text-white/50"}`}>{k.d}</span>
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </Frame>
   );

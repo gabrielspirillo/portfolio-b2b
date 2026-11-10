@@ -25,10 +25,10 @@ export function CaseCover({ product, children }: { product?: string; children: R
   );
 }
 
-export function CaseIntro({ eyebrow, title, desc }: { eyebrow: string; title: string; desc: string }) {
+export function CaseIntro({ eyebrow, title, desc }: { eyebrow: ReactNode; title: string; desc: string }) {
   return (
     <div className="mt-7">
-      <span className="text-[13px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {eyebrow}</span>
+      <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {eyebrow}</span>
       <h3 className="mt-2 text-3xl md:text-[2.4rem] leading-[1.05] font-semibold tracking-[-0.035em] text-white">{title}</h3>
       <p className="mt-4 text-base md:text-lg leading-relaxed text-white/65">{rich(desc)}</p>
     </div>
@@ -77,5 +77,15 @@ export function CardFooterLink({ label }: { label: string }) {
       {label}
       <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
     </span>
+  );
+}
+
+/* Spain flag (inline SVG: emoji flags don't render on Windows) */
+export function FlagES({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 3 2" className={`inline-block w-[18px] h-3 rounded-[2px] shadow-[0_0_0_1px_rgba(255,255,255,0.15)] ${className}`} aria-label="España">
+      <rect width="3" height="2" fill="#AA151B" />
+      <rect y="0.5" width="3" height="1" fill="#F1BF00" />
+    </svg>
   );
 }

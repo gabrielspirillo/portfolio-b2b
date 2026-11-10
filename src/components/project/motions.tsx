@@ -121,21 +121,23 @@ export function MJourney() {
 
 /* ---------------- SYNEX FINANZAS ---------------- */
 
-// Receipts: AI reads the receipt and checks it matches the price
-export function MReceipt() {
+// Receipts: AI reads the receipt and checks it matches the price.
+// `tone="ember"` renders white-on-orange for cover panels.
+export function MReceipt({ tone = "dark", big = false }: { tone?: "dark" | "ember"; big?: boolean }) {
   const fields = ["monto", "fecha", "banco"];
+  const ember = tone === "ember";
   return (
-    <div className="absolute inset-0 flex items-center justify-center gap-5 px-6">
-      <div className="relative w-16 h-[76px] rounded-lg bg-white/[0.08] border border-white/15 overflow-hidden px-2 py-2 flex flex-col gap-1.5">
+    <div className={`absolute inset-0 flex items-center justify-center px-6 ${big ? "gap-9" : "gap-5"}`}>
+      <div className={`relative overflow-hidden flex flex-col ${big ? "w-28 h-[136px] rounded-xl px-3.5 py-3.5 gap-2.5" : "w-16 h-[76px] rounded-lg px-2 py-2 gap-1.5"} ${ember ? "bg-white/20 border border-white/40" : "bg-white/[0.08] border border-white/15"}`}>
         {[80, 60, 70, 45, 65].map((w, i) => (
-          <span key={i} className="h-1 rounded-full bg-white/25" style={{ width: `${w}%` }} />
+          <span key={i} className={`${big ? "h-1.5" : "h-1"} rounded-full ${ember ? "bg-white/70" : "bg-white/25"}`} style={{ width: `${w}%` }} />
         ))}
-        <span className="fx-read absolute inset-x-0 h-4 bg-gradient-to-b from-transparent via-ember-500/40 to-transparent" />
+        <span className={`fx-read absolute inset-x-0 ${big ? "h-8" : "h-4"} bg-gradient-to-b from-transparent ${ember ? "via-white/70" : "via-ember-500/40"} to-transparent`} style={big ? { ["--scan" as string]: "170px" } : undefined} />
       </div>
-      <div className="flex flex-col gap-1.5">
+      <div className={`flex flex-col ${big ? "gap-3" : "gap-1.5"}`}>
         {fields.map((f, i) => (
-          <span key={f} className="fx-field flex items-center gap-2 text-[10px] text-white/70" style={{ ["--i" as string]: i }}>
-            <span className="fx-check w-3.5 h-3.5 rounded-full grid place-items-center bg-ember-500 text-[8px] text-white">✓</span>
+          <span key={f} className={`fx-field flex items-center ${big ? "gap-3 text-[15px] font-medium" : "gap-2 text-[10px]"} ${ember ? "text-white" : "text-white/70"}`} style={{ ["--i" as string]: i }}>
+            <span className={`fx-check rounded-full grid place-items-center ${big ? "w-6 h-6 text-[12px]" : "w-3.5 h-3.5 text-[8px]"} ${ember ? "bg-white text-ember-600" : "bg-ember-500 text-white"}`}>✓</span>
             {f}
           </span>
         ))}

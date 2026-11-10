@@ -3,7 +3,7 @@
 import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
-import { Tag, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
+import { Tag, FlagES, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
 import { MAgenda, MVoice, MWhatsApp, MRecord, MTasks, MDashboard } from "@/components/project/futura-motions";
 
 const VALUES = [
@@ -49,7 +49,7 @@ export function FuturaCard({ onOpen }: { onOpen: () => void }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
       </div>
       <div className="relative z-10 flex-1 flex flex-col px-4 pt-5 pb-4">
-        <span className="text-[12px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {t("fu_tag")}</span>
+        <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {t("fu_tag")} <FlagES /></span>
         <h3 className="mt-3 mb-1"><FuturaLogo /></h3>
         <p className="mt-2 text-sm leading-relaxed text-white/55 flex-1">{rich(t("fu_card_roi"))}</p>
         <div className="mt-5 flex flex-wrap gap-1.5">
@@ -71,7 +71,7 @@ export function FuturaDetail() {
                 <div className="absolute left-4 bottom-4 rounded-full bg-black/70 backdrop-blur-md border border-white/10 px-4 py-2"><FuturaLogo size={16} /></div>
       </div>
 
-      <CaseIntro eyebrow={t("fu_tag")} title={t("fu_title")} desc={t("fu_desc")} />
+      <CaseIntro eyebrow={<>{t("fu_tag")} <FlagES /></>} title={t("fu_title")} desc={t("fu_desc")} />
       <StatPair a={["94%", t("fu_stat_1")]} b={["60%", t("fu_stat_2")]} />
 
       <div className="mt-6 grid gap-3">
