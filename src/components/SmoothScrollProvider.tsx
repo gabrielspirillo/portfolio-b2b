@@ -29,7 +29,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     );
     const watched = new WeakSet<Element>();
     const scan = () =>
-      document.querySelectorAll("video").forEach((v) => {
+      document.querySelectorAll("video:not([data-manual])").forEach((v) => {
         if (!watched.has(v)) {
           watched.add(v);
           io.observe(v);
