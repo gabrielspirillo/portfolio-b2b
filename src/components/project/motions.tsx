@@ -21,123 +21,129 @@ function Frame({ label, children }: { label: string; children: ReactNode }) {
 
 /* ---------------- SYNEX ---------------- */
 
-// Know who comes: audience by genre (donut draws in)
+
+
+
+
+
+// Know who comes: the crowd gets scanned and each subject lights up with its profile
 export function MAudience() {
-  const segs = [
-    { len: 46, off: 0, c: "#FF5A1F" },
-    { len: 32, off: 46, c: "rgba(255,255,255,0.6)" },
-    { len: 22, off: 78, c: "rgba(255,255,255,0.18)" },
-  ];
   return (
-    <Frame label="Audiencia">
-      <div className="absolute inset-0 flex items-center gap-6">
-        <svg viewBox="0 0 64 64" className="w-[72px] h-[72px] -rotate-90">
-          <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="7" />
-          {segs.map((s, i) => (
-            <circle
-              key={i} cx="32" cy="32" r="24" fill="none" stroke={s.c} strokeWidth="7" pathLength={100}
-              strokeDasharray={`${s.len - 1.5} ${100 - s.len + 1.5}`} strokeDashoffset={-s.off}
-              className="pm-seg" style={{ ["--i" as string]: i }}
-            />
-          ))}
-        </svg>
-        <ul className="flex flex-col gap-2">
-          {["Psytrance", "Hard Techno", "Hypnotic"].map((g, i) => (
-            <li key={g} className="pm-fade flex items-center gap-2 text-[11px] text-white/70" style={{ ["--i" as string]: i }}>
-              <span className="w-2 h-2 rounded-[2px]" style={{ background: segs[i].c }} />
-              {g}
-            </li>
-          ))}
-        </ul>
+    <div className="absolute inset-0 flex items-center justify-center gap-5 px-5">
+      <div className="relative grid grid-cols-6 gap-2">
+        {Array.from({ length: 18 }, (_, i) => (
+          <span key={i} className="sx-dot w-3 h-3 rounded-full bg-white/15" style={{ ["--i" as string]: (i % 6) }} />
+        ))}
+        <span className="sx-scan absolute -top-2 -bottom-2 w-px bg-ember-400 shadow-[0_0_10px_2px_rgba(255,90,31,0.7)]" />
       </div>
-    </Frame>
+      <div className="sx-profile rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2">
+        <span className="block text-[11px] font-bold text-ember-500 tracking-wide">SNX-0142</span>
+        <span className="block mt-1 text-[9px] text-white/55">3 asistencias</span>
+        <span className="mt-1.5 flex gap-1">
+          <span className="rounded-full bg-ember-500/80 px-1.5 py-[1px] text-[8px] text-white">psytrance</span>
+          <span className="rounded-full bg-white/10 px-1.5 py-[1px] text-[8px] text-white/70">techno</span>
+        </span>
+      </div>
+    </div>
   );
 }
 
 // Retention: each date attended extends the streak
 export function MStreak() {
   return (
-    <Frame label="Asistencia por fecha">
-      <div className="absolute inset-x-3 top-1/2 -translate-y-1/2">
-        <div className="relative flex items-center justify-between">
-          <span className="absolute left-1 right-1 h-px bg-white/12" />
-          <span className="pm-line absolute left-1 right-1 h-px bg-ember-500 origin-left" />
-          {["I", "II", "III", "IV"].map((n, i) => (
-            <span key={n} className="relative flex flex-col items-center">
-              <span className={`pm-node pm-node-${i} w-2.5 h-2.5 rounded-full bg-[#2a2726] ring-4 ring-[#0d0b0a]`} />
-              <span className="absolute top-4 text-[10px] font-semibold text-white/45">{n}</span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </Frame>
-  );
-}
-
-// Gamification: points push the rank forward
-export function MPoints() {
-  return (
-    <Frame label="PSY DOSIS">
-      <div className="absolute inset-0 flex flex-col justify-center gap-3">
-        <div className="flex items-baseline gap-2">
-          <span className="text-[28px] font-semibold tracking-[-0.04em] text-white leading-none">2.340</span>
-          <span className="pm-plus text-[11px] font-semibold text-ember-400">+100</span>
-        </div>
-        <div>
-          <div className="relative h-1 rounded-full bg-white/10 overflow-hidden">
-            <span className="pm-progress absolute inset-y-0 left-0 w-full bg-ember-500 origin-left" />
-          </div>
-          <div className="mt-1.5 flex justify-between text-[9px] font-semibold tracking-[0.14em] text-white/40">
-            <span>INMERSO</span>
-            <span>PERSISTENTE</span>
-          </div>
-        </div>
-      </div>
-    </Frame>
-  );
-}
-
-// Care at night: live vitals breathing gently
-export function MVitals() {
-  const rows = [["Hidratación", 0], ["Temperatura", 1], ["Energía", 2]] as const;
-  return (
-    <Frame label="Modo noche">
-      <div className="absolute inset-0 flex flex-col justify-center gap-2.5">
-        {rows.map(([name, i]) => (
-          <div key={name} className="flex items-center gap-3">
-            <span className="w-[74px] text-[10px] text-white/55">{name}</span>
-            <span className="relative flex-1 h-1 rounded-full bg-white/10 overflow-hidden">
-              <span className="pm-vital absolute inset-y-0 left-0 w-full origin-left" style={{ ["--i" as string]: i, background: i === 0 ? "#FF5A1F" : "rgba(255,255,255,0.55)" }} />
-            </span>
-          </div>
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6">
+      <div className="relative w-full max-w-[230px] flex items-center justify-between">
+        <span className="absolute left-3 right-3 top-1/2 h-[2px] -translate-y-1/2 bg-white/10" />
+        <span className="sx-track absolute left-3 right-3 top-1/2 h-[2px] -translate-y-1/2 bg-ember-500 origin-left" />
+        {["I", "II", "III", "IV"].map((n, i) => (
+          <span key={n} className="sx-node relative grid place-items-center w-8 h-8 rounded-full border border-white/15 bg-[#121010] text-[10px] font-bold text-white/50" style={{ ["--i" as string]: i }}>
+            {n}
+          </span>
         ))}
       </div>
-    </Frame>
+      <span className="text-[10px] font-semibold tracking-[0.18em] text-white/45">RACHA</span>
+    </div>
   );
 }
 
-// Co-creation: the project grows phase by phase with the community
-export function MJourney() {
-  const phases = ["Origen", "Reacción en cadena", "Fase III", "Fase IV"];
+// Gamification: points come in and fill the rank
+export function MPoints() {
   return (
-    <Frame label="Recorrido">
-      <div className="absolute inset-x-8 top-1/2 -translate-y-1/2">
-        <div className="relative flex justify-between">
-          <span className="absolute left-1 right-1 top-[5px] h-px bg-white/12" />
-          <span className="pm-travel absolute top-0 z-10 w-2.5 h-2.5 -translate-x-1/2 rounded-full bg-ember-500 shadow-[0_0_12px_rgba(255,90,31,0.8)]" />
-          {phases.map((p, i) => (
-            <span key={p} className="relative flex flex-col items-center gap-2 w-0">
-              <span className={`w-2.5 h-2.5 rounded-full ring-4 ring-[#0d0b0a] ${i < 3 ? "bg-white/70" : "border border-dashed border-white/40 bg-transparent"}`} />
-              <span className={`whitespace-nowrap text-[10px] ${i < 3 ? "text-white/60" : "text-white/30"}`}>{p}</span>
-            </span>
-          ))}
-        </div>
+    <div className="absolute inset-0 flex items-center justify-center gap-5 px-6">
+      <div className="relative">
+        <span className="text-[30px] font-bold tracking-[-0.05em] text-white leading-none">2.340</span>
+        <span className="block text-[9px] font-semibold tracking-[0.18em] text-white/45 mt-1">PSY DOSIS</span>
+        <span className="sx-plus absolute -right-9 -top-1 text-[12px] font-bold text-ember-400">+100</span>
       </div>
-    </Frame>
+      <div className="flex items-end gap-1.5 h-14">
+        {[30, 45, 60, 75, 90, 100].map((h, i) => (
+          <span key={i} className="sx-bar w-2.5 rounded-sm bg-white/10 overflow-hidden relative" style={{ height: `${h}%`, ["--i" as string]: i }}>
+            <span className="sx-fill absolute inset-0 bg-ember-500 origin-bottom" />
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
+
+// Care at night: a calm heartbeat and hydration rising
+export function MVitals() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center gap-4 px-5">
+      <svg viewBox="0 0 200 60" className="w-[62%] h-16" fill="none">
+        <path d="M0 30 H60 L72 12 L86 50 L98 22 L106 30 H200" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeLinejoin="round" />
+        <path className="sx-ekg" d="M0 30 H60 L72 12 L86 50 L98 22 L106 30 H200" pathLength={100} stroke="#FF5A1F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <div className="relative w-7 h-16 rounded-full border border-white/15 overflow-hidden">
+        <span className="sx-water absolute inset-x-0 bottom-0 h-full bg-ember-500/80 origin-bottom" />
+      </div>
+    </div>
+  );
+}
+
+// Co-creation: the community connects to the project and it grows
+const COMMUNITY_NODES = [[30, 22], [30, 78], [100, 12], [170, 22], [170, 78], [100, 88]];
+export function MJourney() {
+  return (
+    <svg viewBox="0 0 200 100" className="absolute inset-0 w-full h-full" fill="none" preserveAspectRatio="xMidYMid meet">
+      {COMMUNITY_NODES.map(([x, y], i) => (
+        <path key={i} className="sx-link" d={`M${x} ${y} L100 50`} pathLength={100} stroke="#FF5A1F" strokeWidth="1.2" style={{ ["--i" as string]: i }} />
+      ))}
+      {COMMUNITY_NODES.map(([x, y], i) => (
+        <circle key={i} className="sx-member" cx={x} cy={y} r="5" fill="#2a2726" stroke="rgba(255,255,255,0.25)" style={{ ["--i" as string]: i }} />
+      ))}
+      <circle className="sx-core" cx="100" cy="50" r="13" fill="#FF5A1F" />
+      <circle cx="100" cy="50" r="13" fill="none" stroke="#FF5A1F" className="sx-ring" />
+    </svg>
+  );
+}
+
 
 /* ---------------- SYNEX FINANZAS ---------------- */
+
+// Receipts: AI reads the receipt and checks it matches the price
+export function MReceipt() {
+  const fields = ["monto", "fecha", "banco"];
+  return (
+    <div className="absolute inset-0 flex items-center justify-center gap-5 px-6">
+      <div className="relative w-16 h-[76px] rounded-lg bg-white/[0.08] border border-white/15 overflow-hidden px-2 py-2 flex flex-col gap-1.5">
+        {[80, 60, 70, 45, 65].map((w, i) => (
+          <span key={i} className="h-1 rounded-full bg-white/25" style={{ width: `${w}%` }} />
+        ))}
+        <span className="fx-read absolute inset-x-0 h-4 bg-gradient-to-b from-transparent via-ember-500/40 to-transparent" />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        {fields.map((f, i) => (
+          <span key={f} className="fx-field flex items-center gap-2 text-[10px] text-white/70" style={{ ["--i" as string]: i }}>
+            <span className="fx-check w-3.5 h-3.5 rounded-full grid place-items-center bg-ember-500 text-[8px] text-white">✓</span>
+            {f}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 
 // P&L chart. `tone="ember"` renders white-on-orange for the cover block.
 export function PnlChart({ tone = "dark", label = "P&L · evento" }: { tone?: "dark" | "ember"; label?: string }) {
@@ -154,7 +160,10 @@ export function PnlChart({ tone = "dark", label = "P&L · evento" }: { tone?: "d
         </span>
       </div>
       <div className="relative flex-1 mt-2">
-        <svg viewBox="0 0 200 84" preserveAspectRatio="none" className="pm-reveal absolute inset-0 w-full h-full" fill="none">
+        {/* Compositor-only reveal: the window slides in while the chart counter-slides */}
+        <div className="pm-wipe absolute inset-0 overflow-hidden">
+          <div className="pm-wipe-in absolute inset-0">
+            <svg viewBox="0 0 200 84" preserveAspectRatio="none" className="absolute inset-0 w-full h-full" fill="none">
           {[20, 42, 64].map((y) => (
             <line key={y} x1="0" x2="200" y1={y} y2={y} stroke={ember ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.06)"} strokeWidth="1" vectorEffect="non-scaling-stroke" />
           ))}
@@ -162,6 +171,8 @@ export function PnlChart({ tone = "dark", label = "P&L · evento" }: { tone?: "d
           <path d={cost} stroke={ember ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.35)"} strokeWidth="1.6" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
           <path d={inc} stroke={ember ? "#fff" : "#FF5A1F"} strokeWidth="2" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
         </svg>
+          </div>
+        </div>
         <span className={`pm-result absolute right-0 top-0 -translate-y-1 rounded-md px-2 py-1 text-[10px] font-semibold ${ember ? "bg-white text-ember-600" : "bg-ember-500/15 text-ember-400"}`}>
           Resultado ▲
         </span>
@@ -212,31 +223,6 @@ export function MTeam() {
   );
 }
 
-// AI receipt validation
-export function MReceipt() {
-  const checks = ["Monto", "Fecha", "Banco"];
-  return (
-    <Frame label="Validación de pago">
-      <div className="absolute inset-0 flex items-center gap-6">
-        <div className="relative w-14 h-[68px] rounded-md bg-white/[0.06] border border-white/12 overflow-hidden px-2 py-2.5 flex flex-col gap-1.5">
-          {[80, 55, 70, 40].map((w, i) => (
-            <span key={i} className="h-[3px] rounded-full bg-white/25" style={{ width: `${w}%` }} />
-          ))}
-          <span className="mt-auto h-[5px] w-[60%] rounded-full bg-white/45" />
-          <span className="pm-scan absolute inset-x-0 h-px bg-ember-400 shadow-[0_0_10px_rgba(255,90,31,0.9)]" />
-        </div>
-        <ul className="flex flex-col gap-1.5">
-          {checks.map((c, i) => (
-            <li key={c} className="pm-check flex items-center gap-2 text-[11px]" style={{ ["--i" as string]: i }}>
-              <svg viewBox="0 0 12 12" className="w-3 h-3" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="#FF5A1F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              {c}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Frame>
-  );
-}
 
 // One tap authorizes, the ticket is sent automatically
 export function MTicket() {

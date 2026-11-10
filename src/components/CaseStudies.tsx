@@ -91,7 +91,7 @@ export function CaseStudies() {
   const current = active !== null ? data[active] : null;
 
   return (
-    <section id="projects" className="relative w-full py-24 md:py-32">
+    <section id="projects" data-anim className="relative w-full py-24 md:py-32">
       <div className="px-5"><div className="max-w-6xl mx-auto">
         <SectionHeader eyebrow={t("projects_eyebrow")} title={t("projects_title")}>
           <CarouselArrows target={scrollRef} />

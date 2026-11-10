@@ -44,6 +44,17 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     );
     document.querySelectorAll("[data-anim]").forEach((el) => animIo.observe(el));
 
+    // Lite devices: pause the background light pulses while the page is
+    // scrolling, so the GPU only has to move content (less heat, steadier fps)
+    let scrollTimer = 0;
+    const onScroll = () => {
+      if (!root.classList.contains("lite")) return;
+      root.classList.add("is-scrolling");
+      clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => root.classList.remove("is-scrolling"), 180);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     const mo = new MutationObserver(scan);
     mo.observe(document.body, { childList: true, subtree: true });
 
@@ -51,6 +62,8 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       root.style.scrollBehavior = "";
       io.disconnect();
       animIo.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(scrollTimer);
       mo.disconnect();
     };
   }, []);

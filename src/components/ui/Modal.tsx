@@ -35,12 +35,16 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
     closing.current = false;
     const root = document.documentElement;
     root.style.overflow = "hidden";
+    // Pause decorative page motion behind the dialog: the blurred backdrop
+    // would otherwise be re-rendered every frame
+    root.classList.add("modal-open");
     gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" });
     gsap.fromTo(panelRef.current, { y: 28, scale: 0.96, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" });
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && requestClose();
     window.addEventListener("keydown", onKey);
     return () => {
       root.style.overflow = "";
+      root.classList.remove("modal-open");
       window.removeEventListener("keydown", onKey);
     };
   }, [open, requestClose]);
