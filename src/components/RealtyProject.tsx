@@ -1,34 +1,62 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
-import { Tag, CaseIntro, StatPair, ValueCard, CardFooterLink, CollabWith } from "@/components/project/kit";
-import { RealtyFlow, MAI, MMatch, MLeadRoute, MContract, MOwnerReport, MRecruit, MDirection, MRanking, CostCompare } from "@/components/project/realty-motions";
+import { Tag, CaseIntro, StatPair, CardFooterLink, CollabWith } from "@/components/project/kit";
+import { RealtyDashboard, MAI, MMatch, MLeads, MRanking, MReport, MContract, MSign, MRecruit, MDirection, MDays } from "@/components/project/realty-motions";
 
 const VALUES = [
   { k: "ia", M: MAI },
   { k: "match", M: MMatch },
-  { k: "leads", M: MLeadRoute },
+  { k: "leads", M: MLeads },
+  { k: "ranking", M: MRanking },
   { k: "contrato", M: MContract },
-  { k: "informe", M: MOwnerReport },
+  { k: "firma", M: MSign },
+  { k: "informe", M: MReport },
   { k: "reclut", M: MRecruit },
   { k: "direccion", M: MDirection },
-  { k: "ranking", M: MRanking },
+  { k: "dias", M: MDays },
 ];
 const INTEGRATIONS = ["Portal REMAX", "WhatsApp 24/7", "Gmail", "Outlook", "Google Calendar", "Meta Ads", "Google Ads", "Claude · ChatGPT · Gemini (MCP)"];
-const STAGE = "bg-[radial-gradient(120%_110%_at_50%_100%,#3a1206_0%,#120807_48%,#070606_100%)]";
 
 function RealtyLogo({ className = "" }: { className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
   return <img src="/realty/realty-logo-dark.png" alt="Realty by Brandboost" className={`w-auto ${className}`} />;
 }
+function RemaxLogo({ className = "" }: { className?: string }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src="/realty/remax-white.svg" alt="REMAX" className={`w-auto ${className}`} />;
+}
 
-function Eyebrow({ label, className = "" }: { label: string; className?: string }) {
+/* REMAX × Realty lockup */
+function Lockup({ size = "sm" }: { size?: "sm" | "lg" }) {
+  const lg = size === "lg";
   return (
-    <span className={`inline-flex flex-wrap items-center gap-1.5 font-medium text-ember-400 ${className}`}>
-      <span className="font-semibold">{"//"}</span> <CollabWith label={label} />
+    <span className={`inline-flex items-center ${lg ? "gap-4" : "gap-3"}`}>
+      <RemaxLogo className={lg ? "h-[22px]" : "h-[17px]"} />
+      <span className={`text-white/35 font-light ${lg ? "text-xl" : "text-lg"}`}>×</span>
+      <RealtyLogo className={lg ? "h-9" : "h-[30px]"} />
     </span>
+  );
+}
+
+function FeatureCard({ Motion, title, desc, benefit }: { Motion: () => ReactNode; title: string; desc: string; benefit: string }) {
+  return (
+    <li className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-2 flex flex-col">
+      <div className="pm-stage relative aspect-[16/10] rounded-xl overflow-hidden bg-[radial-gradient(120%_120%_at_15%_0%,#1a5fe0_0%,#003DA5_45%,#00266f_100%)]">
+        <Motion />
+      </div>
+      <div className="px-3 pt-4 pb-3 flex-1 flex flex-col">
+        <span className="block text-[15px] font-semibold text-white">{title}</span>
+        <span className="mt-1.5 block text-[13px] leading-relaxed text-white/55 flex-1">{rich(desc)}</span>
+        <span className="mt-3 self-start inline-flex items-center gap-1.5 rounded-full bg-ember-500/12 border border-ember-500/25 px-2.5 py-1 text-[11px] font-semibold text-ember-400">
+          <span className="w-1 h-1 rounded-full bg-ember-500" />
+          {benefit}
+        </span>
+      </div>
+    </li>
   );
 }
 
@@ -45,12 +73,16 @@ export function RealtyCard({ onOpen }: { onOpen: () => void }) {
         onOpen();
       }}
     >
-      <div className={`pm-stage relative z-10 aspect-[16/10] rounded-[22px] overflow-hidden ${STAGE}`}>
-        <RealtyFlow />
+      <div className="pm-stage relative z-10 aspect-[16/10] rounded-[22px] overflow-hidden">
+        <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]">
+          <RealtyDashboard />
+        </div>
       </div>
       <div className="relative z-10 flex-1 flex flex-col px-4 pt-5 pb-4">
-        <Eyebrow label={t("rw_collab")} className="text-[12px]" />
-        <h3 className="mt-3 mb-1"><RealtyLogo className="h-[30px]" /></h3>
+        <span className="inline-flex flex-wrap items-center gap-1.5 text-[12px] font-medium text-ember-400">
+          <span className="font-semibold">{"//"}</span> <CollabWith label={t("rw_collab")} />
+        </span>
+        <h3 className="mt-3.5 mb-1"><Lockup /></h3>
         <p className="mt-2 text-sm leading-relaxed text-white/55 flex-1">{rich(t("rw_card_roi"))}</p>
         <div className="mt-5 flex flex-wrap gap-1.5">
           {t("rw_tags").split(", ").slice(0, 3).map((tag) => <Tag key={tag}>{tag}</Tag>)}
@@ -65,13 +97,10 @@ export function RealtyDetail() {
   const { t } = useLanguage();
   return (
     <>
-      <div className={`pm-stage relative h-72 md:h-80 rounded-[22px] overflow-hidden border border-white/10 ${STAGE}`}>
-        <RealtyFlow big />
+      <div className="pm-stage relative aspect-[16/10] rounded-[22px] overflow-hidden border border-white/10">
+        <RealtyDashboard />
       </div>
-      <div className="mt-4 flex items-center gap-3">
-        <RealtyLogo className="h-8" />
-        <span className="text-[12px] font-semibold text-white/40">× REMAX</span>
-      </div>
+      <div className="mt-5"><Lockup size="lg" /></div>
 
       <CaseIntro eyebrow={<CollabWith label={t("rw_collab")} />} title={t("rw_title")} desc={t("rw_desc")} />
       <StatPair a={["95%", t("rw_stat_1")]} b={["5", t("rw_stat_2")]} />
@@ -103,7 +132,7 @@ export function RealtyDetail() {
 
       <ul className="mt-6 grid sm:grid-cols-2 gap-3">
         {VALUES.map(({ k, M }) => (
-          <ValueCard key={k} Motion={M} title={t(`rw_v_${k}_title`)} desc={t(`rw_v_${k}_desc`)} benefit={t(`rw_v_${k}_benefit`)} />
+          <FeatureCard key={k} Motion={M} title={t(`rw_v_${k}_title`)} desc={t(`rw_v_${k}_desc`)} benefit={t(`rw_v_${k}_benefit`)} />
         ))}
       </ul>
 
@@ -118,13 +147,6 @@ export function RealtyDetail() {
             </span>
           ))}
         </div>
-      </div>
-
-      <div className="mt-8">
-        <span className="text-[13px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {t("rw_cost_eyebrow")}</span>
-        <h4 className="mt-2 mb-5 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] text-white">{t("rw_cost_title")}</h4>
-        <div className="pm-stage"><CostCompare /></div>
-        <p className="mt-3 text-[12px] leading-relaxed text-white/40">{t("rw_cost_note")}</p>
       </div>
 
       <p className="mt-8 text-base leading-relaxed text-white/65">
