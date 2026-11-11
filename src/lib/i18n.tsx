@@ -616,3 +616,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 export function useLanguage() {
   return useContext(LanguageContext);
 }
+
+/** Inline ES/EN pair for short UI labels inside illustrations. */
+export function useTx() {
+  const { language } = useContext(LanguageContext);
+  return (es: string, en: string) => (language === "en" ? en : es);
+}

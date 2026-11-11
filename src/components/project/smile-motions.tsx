@@ -1,24 +1,27 @@
 "use client";
 
+import { useTx } from "@/lib/i18n";
+
 import { Frame } from "@/components/project/motions";
 
 /* Before / after slider: the "after" layer is revealed by a moving divider. */
 export function BeforeAfter({ className = "", labels = true }: { className?: string; labels?: boolean }) {
+  const tx = useTx();
   return (
     <div className={`overflow-hidden ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/smilefast/before.webp" alt="Antes" className="absolute inset-0 w-full h-full object-cover object-[50%_35%]" />
+      <img src="/smilefast/before.webp" alt={tx("Antes", "Before")} className="absolute inset-0 w-full h-full object-cover object-[50%_35%]" />
       <div className="sf-after absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/smilefast/after.webp" alt="Simulación" className="absolute inset-0 w-full h-full object-cover object-[50%_35%]" />
+        <img src="/smilefast/after.webp" alt={tx("Simulación", "Simulation")} className="absolute inset-0 w-full h-full object-cover object-[50%_35%]" />
       </div>
       <span className="sf-divider absolute inset-y-0 w-[2px] bg-white shadow-[0_0_12px_rgba(0,0,0,0.35)]">
         <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 border border-white shadow-lg grid place-items-center text-[11px] text-carbon-950">‹›</span>
       </span>
       {labels && (
         <>
-          <span className="absolute left-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[9px] font-semibold tracking-[0.16em] text-white backdrop-blur-sm">ANTES</span>
-          <span className="absolute right-3 top-3 rounded-full bg-ember-500 px-2.5 py-1 text-[9px] font-semibold tracking-[0.16em] text-white">PROYECCIÓN</span>
+          <span className="absolute left-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[9px] font-semibold tracking-[0.16em] text-white backdrop-blur-sm">{tx("ANTES", "BEFORE")}</span>
+          <span className="absolute right-3 top-3 rounded-full bg-ember-500 px-2.5 py-1 text-[9px] font-semibold tracking-[0.16em] text-white">{tx("PROYECCIÓN", "AFTER")}</span>
         </>
       )}
     </div>
@@ -35,9 +38,10 @@ export function MSim() {
 // Clinical analysis: VITA shade scale, target lands on B1
 const SHADES = ["#f6f1e4", "#f1ead7", "#ece2c8", "#e6d8b6", "#ddcca2", "#d3be8d"];
 export function MVita() {
+  const tx = useTx();
   const labels = ["B1", "A1", "B2", "A2", "A3", "A3.5"];
   return (
-    <Frame label="Tono VITA · 6 parámetros">
+    <Frame label={tx(tx("Tono VITA · 6 parámetros", "VITA shade · 6 parameters"), "VITA shade · 6 parameters")}>
       <div className="absolute inset-0 flex flex-col justify-center gap-2">
         <div className="relative flex gap-1.5">
           {SHADES.map((c, i) => (
@@ -49,7 +53,7 @@ export function MVita() {
           <span className="sf-target absolute top-[-4px] h-[44px] rounded-lg border-2 border-ember-500 shadow-[0_0_14px_rgba(255,90,31,0.6)]" />
         </div>
         <span className="flex gap-1.5 text-[9px] text-white/45">
-          {["Proporción áurea", "Arco", "Encía"].map((t) => (
+          {[tx("Proporción áurea", "Golden ratio"), tx("Arco", "Arc"), tx("Encía", "Gums")].map((t) => (
             <span key={t} className="rounded-full border border-white/10 px-2 py-[2px]">{t}</span>
           ))}
         </span>
@@ -60,8 +64,9 @@ export function MVita() {
 
 // Qualified lead lands in the panel and moves to booked
 export function MLead() {
+  const tx = useTx();
   return (
-    <Frame label="Panel · Leads">
+    <Frame label={tx(tx("Panel · Leads", "Panel · Leads"), tx("Panel · Leads", "Panel · Leads"))}>
       <div className="absolute inset-0 flex items-center">
         <div className="sf-lead w-full flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2.5">
           <span className="relative w-9 h-9 rounded-lg overflow-hidden shrink-0">
@@ -70,12 +75,12 @@ export function MLead() {
           </span>
           <span className="flex-1 min-w-0">
             <span className="block text-[11px] font-semibold text-white">María F.</span>
-            <span className="block text-[9px] text-white/50 whitespace-nowrap">Simulación · WhatsApp</span>
+            <span className="block text-[9px] text-white/50 whitespace-nowrap">{tx("Simulación · WhatsApp", "Simulation · WhatsApp")}</span>
           </span>
           <span className="relative h-5 w-[78px] text-[9px] font-semibold">
-            <span className="sf-st sf-st-1 absolute inset-0 grid place-items-center rounded-full bg-ember-500 text-white">NUEVO</span>
-            <span className="sf-st sf-st-2 absolute inset-0 grid place-items-center rounded-full bg-white/10 text-white/80">Contactado</span>
-            <span className="sf-st sf-st-3 absolute inset-0 grid place-items-center rounded-full bg-white text-carbon-950">✓ Cita</span>
+            <span className="sf-st sf-st-1 absolute inset-0 grid place-items-center rounded-full bg-ember-500 text-white">{tx("NUEVO", "NEW")}</span>
+            <span className="sf-st sf-st-2 absolute inset-0 grid place-items-center rounded-full bg-white/10 text-white/80">{tx("Contactado", "Contacted")}</span>
+            <span className="sf-st sf-st-3 absolute inset-0 grid place-items-center rounded-full bg-white text-carbon-950">{tx("✓ Cita", "✓ Booked")}</span>
           </span>
         </div>
       </div>
@@ -85,8 +90,9 @@ export function MLead() {
 
 // Live on the clinic's website: the widget switches on inside its own site
 export function MLive() {
+  const tx = useTx();
   return (
-    <Frame label="Tu web · 1 día">
+    <Frame label={tx(tx("Tu web · 1 día", "Your site · 1 day"), "Your site · 1 day")}>
       <div className="absolute inset-0 flex items-center">
         <div className="w-full rounded-lg border border-white/10 bg-white/[0.04] overflow-hidden">
           <div className="flex items-center gap-1.5 px-2.5 py-1.5 border-b border-white/[0.07]">
@@ -100,8 +106,8 @@ export function MLive() {
               <span className="h-1.5 w-14 rounded-full bg-white/15" />
             </span>
             <span className="relative h-6 w-[108px] text-[9px] font-semibold">
-              <span className="sf-off absolute inset-0 grid place-items-center rounded-full border border-white/15 text-white/45">Desactivado</span>
-              <span className="sf-on absolute inset-0 grid place-items-center rounded-full bg-ember-500 text-white shadow-[0_0_14px_rgba(255,90,31,0.5)]">Simula tu sonrisa ✓</span>
+              <span className="sf-off absolute inset-0 grid place-items-center rounded-full border border-white/15 text-white/45">{tx("Desactivado", "Off")}</span>
+              <span className="sf-on absolute inset-0 grid place-items-center rounded-full bg-ember-500 text-white shadow-[0_0_14px_rgba(255,90,31,0.5)]">{tx("Simula tu sonrisa ✓", "Try your smile ✓")}</span>
             </span>
           </div>
         </div>

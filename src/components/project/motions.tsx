@@ -1,5 +1,7 @@
 "use client";
 
+import { useTx } from "@/lib/i18n";
+
 import type { ReactNode } from "react";
 
 /* Dashboard-style micro motions for the SYNEX case studies.
@@ -28,6 +30,7 @@ export function Frame({ label, children }: { label: string; children: ReactNode 
 
 // Know who comes: the crowd gets scanned and each subject lights up with its profile
 export function MAudience() {
+  const tx = useTx();
   return (
     <div className="absolute inset-0 flex items-center justify-center gap-5 px-5">
       <div className="relative grid grid-cols-6 gap-2">
@@ -38,7 +41,7 @@ export function MAudience() {
       </div>
       <div className="sx-profile rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2">
         <span className="block text-[11px] font-bold text-ember-500 tracking-wide">SNX-0142</span>
-        <span className="block mt-1 text-[9px] text-white/55">3 asistencias</span>
+        <span className="block mt-1 text-[9px] text-white/55">{tx("3 asistencias", "3 visits")}</span>
         <span className="mt-1.5 flex gap-1">
           <span className="rounded-full bg-ember-500/80 px-1.5 py-[1px] text-[8px] text-white">psytrance</span>
           <span className="rounded-full bg-white/10 px-1.5 py-[1px] text-[8px] text-white/70">techno</span>
@@ -50,6 +53,7 @@ export function MAudience() {
 
 // Retention: each date attended extends the streak
 export function MStreak() {
+  const tx = useTx();
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6">
       <div className="relative w-full max-w-[230px] flex items-center justify-between">
@@ -61,17 +65,18 @@ export function MStreak() {
           </span>
         ))}
       </div>
-      <span className="text-[10px] font-semibold tracking-[0.18em] text-white/45">RACHA</span>
+      <span className="text-[10px] font-semibold tracking-[0.18em] text-white/45">{tx("RACHA", "STREAK")}</span>
     </div>
   );
 }
 
 // Gamification: points come in and fill the rank
 export function MPoints() {
+  const tx = useTx();
   return (
     <div className="absolute inset-0 flex items-center justify-center gap-5 px-6">
       <div className="relative">
-        <span className="text-[30px] font-bold tracking-[-0.05em] text-white leading-none">2.340</span>
+        <span className="text-[30px] font-bold tracking-[-0.05em] text-white leading-none">{tx("2.340", "2,340")}</span>
         <span className="block text-[9px] font-semibold tracking-[0.18em] text-white/45 mt-1">PSY DOSIS</span>
         <span className="sx-plus absolute -right-9 -top-1 text-[12px] font-bold text-ember-400">+100</span>
       </div>
@@ -124,7 +129,8 @@ export function MJourney() {
 // Receipts: AI reads the receipt and checks it matches the price.
 // `tone="ember"` renders white-on-orange for cover panels.
 export function MReceipt({ tone = "dark", big = false }: { tone?: "dark" | "ember"; big?: boolean }) {
-  const fields = ["monto", "fecha", "banco"];
+  const tx = useTx();
+  const fields = [tx("monto", "amount"), tx("fecha", "date"), tx("banco", "bank")];
   const ember = tone === "ember";
   return (
     <div className={`absolute inset-0 flex items-center justify-center px-6 ${big ? "gap-9" : "gap-5"}`}>
@@ -148,7 +154,9 @@ export function MReceipt({ tone = "dark", big = false }: { tone?: "dark" | "embe
 
 
 // P&L chart. `tone="ember"` renders white-on-orange for the cover block.
-export function PnlChart({ tone = "dark", label = "P&L · evento" }: { tone?: "dark" | "ember"; label?: string }) {
+export function PnlChart({ tone = "dark", label }: { tone?: "dark" | "ember"; label?: string }) {
+  const tx = useTx();
+  label = label ?? tx("P&L · evento", "P&L · event");
   const inc = "M0 70 C 30 66, 50 52, 80 46 S 140 26, 200 16";
   const cost = "M0 74 C 40 72, 70 64, 100 60 S 160 54, 200 52";
   const ember = tone === "ember";
@@ -157,8 +165,8 @@ export function PnlChart({ tone = "dark", label = "P&L · evento" }: { tone?: "d
       <div className="flex items-center justify-between">
         <Mono className={ember ? "text-white/80" : "text-white/40"}>{label}</Mono>
         <span className="flex items-center gap-3 text-[10px]">
-          <span className={`flex items-center gap-1.5 ${ember ? "text-white" : "text-white/60"}`}><span className={`w-3 h-[2px] rounded ${ember ? "bg-white" : "bg-ember-500"}`} />Ingresos</span>
-          <span className={`flex items-center gap-1.5 ${ember ? "text-white/70" : "text-white/45"}`}><span className={`w-3 h-[2px] rounded ${ember ? "bg-black/45" : "bg-white/35"}`} />Costos</span>
+          <span className={`flex items-center gap-1.5 ${ember ? "text-white" : "text-white/60"}`}><span className={`w-3 h-[2px] rounded ${ember ? "bg-white" : "bg-ember-500"}`} />{tx("Ingresos", "Income")}</span>
+          <span className={`flex items-center gap-1.5 ${ember ? "text-white/70" : "text-white/45"}`}><span className={`w-3 h-[2px] rounded ${ember ? "bg-black/45" : "bg-white/35"}`} />{tx("Costos", "Costs")}</span>
         </span>
       </div>
       <div className="relative flex-1 mt-2">
@@ -176,7 +184,7 @@ export function PnlChart({ tone = "dark", label = "P&L · evento" }: { tone?: "d
           </div>
         </div>
         <span className={`pm-result absolute right-0 top-0 -translate-y-1 rounded-md px-2 py-1 text-[10px] font-semibold ${ember ? "bg-white text-ember-600" : "bg-ember-500/15 text-ember-400"}`}>
-          Resultado ▲
+          {tx("Resultado ▲", "Profit ▲")}
         </span>
       </div>
     </div>
@@ -188,17 +196,18 @@ export function MPnl() {
 
 // Projection: sold vs projected vs capacity
 export function MPace() {
+  const tx = useTx();
   return (
-    <Frame label="Proyección de venta">
+    <Frame label={tx(tx("Proyección de venta", "Sales projection"), "Sales projection")}>
       <div className="absolute inset-0 flex flex-col justify-center gap-2">
         <div className="relative h-2 rounded-full bg-white/[0.07] overflow-hidden">
           <span className="pm-proj absolute inset-y-0 left-0 w-full bg-white/20 origin-left" />
           <span className="pm-sold absolute inset-y-0 left-0 w-full bg-ember-500 origin-left" />
         </div>
         <div className="flex items-center gap-4 text-[10px] text-white/55">
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-[2px] bg-ember-500" />Vendidas</span>
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-[2px] bg-white/25" />Proyección</span>
-          <span className="ml-auto text-white/30">Capacidad</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-[2px] bg-ember-500" />{tx("Vendidas", "Sold")}</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-[2px] bg-white/25" />{tx("Proyección", "Projected")}</span>
+          <span className="ml-auto text-white/30">{tx("Capacidad", "Capacity")}</span>
         </div>
       </div>
     </Frame>
@@ -207,9 +216,10 @@ export function MPace() {
 
 // Team goals: progress per promoter toward the target
 export function MTeam() {
+  const tx = useTx();
   const team = [["MR", 92], ["LC", 74], ["JP", 61], ["AS", 43]] as const;
   return (
-    <Frame label="Metas del equipo">
+    <Frame label={tx(tx("Metas del equipo", "Team goals"), "Team goals")}>
       <div className="absolute inset-0 flex flex-col justify-center gap-[7px]">
         {team.map(([n, w], i) => (
           <div key={n} className="flex items-center gap-2.5">
@@ -228,14 +238,15 @@ export function MTeam() {
 
 // One tap authorizes, the ticket is sent automatically
 export function MTicket() {
+  const tx = useTx();
   return (
-    <Frame label="Autorización">
+    <Frame label={tx(tx("Autorización", "Approval"), "Approval")}>
       <div className="absolute inset-0 flex items-center justify-center gap-4">
-        <span className="pm-approve rounded-full border border-white/15 px-3 py-1.5 text-[10px] font-semibold text-white/80">Autorizar</span>
+        <span className="pm-approve rounded-full border border-white/15 px-3 py-1.5 text-[10px] font-semibold text-white/80">{tx("Autorizar", "Approve")}</span>
         <span className="relative w-16 h-px bg-white/12">
           <span className="pm-dot absolute -top-[2px] w-[5px] h-[5px] rounded-full bg-ember-500 shadow-[0_0_8px_rgba(255,90,31,0.9)]" />
         </span>
-        <span className="pm-ticket rounded-md border border-white/15 px-3 py-1.5 text-[10px] font-semibold tracking-[0.12em] text-white/50">ENTRADA</span>
+        <span className="pm-ticket rounded-md border border-white/15 px-3 py-1.5 text-[10px] font-semibold tracking-[0.12em] text-white/50">{tx("ENTRADA", "TICKET")}</span>
       </div>
     </Frame>
   );
