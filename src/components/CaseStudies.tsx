@@ -10,6 +10,7 @@ import { CarouselArrows } from "@/components/ui/CarouselArrows";
 import { SynexCard, SynexDetail } from "@/components/SynexProject";
 import { FinanzasCard, FinanzasDetail } from "@/components/FinanzasProject";
 import { FuturaCard, FuturaDetail } from "@/components/FuturaProject";
+import { SmileFastCard, SmileFastDetail } from "@/components/SmileFastProject";
 
 const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
 
@@ -80,6 +81,7 @@ export function CaseStudies() {
   const [synexOpen, setSynexOpen] = useState(false);
   const [finOpen, setFinOpen] = useState(false);
   const [fuOpen, setFuOpen] = useState(false);
+  const [sfOpen, setSfOpen] = useState(false);
 
 
   const data = STUDIES.map((s) => ({
@@ -106,6 +108,7 @@ export function CaseStudies() {
         style={{ scrollbarWidth: "none" }}
       >
         <FuturaCard onOpen={() => setFuOpen(true)} />
+        <SmileFastCard onOpen={() => setSfOpen(true)} />
         <SynexCard onOpen={() => setSynexOpen(true)} />
         <FinanzasCard onOpen={() => setFinOpen(true)} />
         {data.map((study, i) => (
@@ -151,6 +154,10 @@ export function CaseStudies() {
 
       <Modal open={fuOpen} onClose={() => setFuOpen(false)} className="max-w-3xl">
         {fuOpen && <FuturaDetail />}
+      </Modal>
+
+      <Modal open={sfOpen} onClose={() => setSfOpen(false)} className="max-w-3xl">
+        {sfOpen && <SmileFastDetail />}
       </Modal>
 
       <Modal open={finOpen} onClose={() => setFinOpen(false)} className="max-w-3xl">
