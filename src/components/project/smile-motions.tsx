@@ -83,45 +83,68 @@ export function MLead() {
   );
 }
 
-// Realistic video of the new smile
-export function MVideo() {
+// Live on the clinic's website: the widget switches on inside its own site
+export function MLive() {
   return (
-    <div className="absolute inset-0 p-2">
-      <div className="relative w-full h-full rounded-lg overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/smilefast/after.webp" alt="" className="sf-kb absolute inset-0 w-full h-full object-cover object-[50%_32%]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <span className="absolute left-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[9px] font-semibold tracking-[0.16em] text-white backdrop-blur-sm">VÍDEO REALISTA</span>
-        <div className="absolute left-3 right-3 bottom-3 flex items-center gap-2.5">
-          <span className="w-6 h-6 rounded-full bg-white grid place-items-center">
-            <svg viewBox="0 0 12 12" className="w-2.5 h-2.5 ml-[1px]"><path d="M3 2l7 4-7 4z" fill="#0a0a0a" /></svg>
-          </span>
-          <span className="relative flex-1 h-1 rounded-full bg-white/30 overflow-hidden">
-            <span className="sf-progress absolute inset-0 bg-ember-500 origin-left" />
-          </span>
+    <Frame label="Tu web · 1 día">
+      <div className="absolute inset-0 flex items-center">
+        <div className="w-full rounded-lg border border-white/10 bg-white/[0.04] overflow-hidden">
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 border-b border-white/[0.07]">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/25" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/15" />
+            <span className="ml-2 rounded-full bg-white/[0.06] px-2 py-[1px] text-[8px] text-white/50">tuclinica.com</span>
+          </div>
+          <div className="flex items-center justify-between gap-3 px-3 py-2.5">
+            <span className="flex flex-col gap-1">
+              <span className="h-1.5 w-20 rounded-full bg-white/25" />
+              <span className="h-1.5 w-14 rounded-full bg-white/15" />
+            </span>
+            <span className="relative h-6 w-[108px] text-[9px] font-semibold">
+              <span className="sf-off absolute inset-0 grid place-items-center rounded-full border border-white/15 text-white/45">Desactivado</span>
+              <span className="sf-on absolute inset-0 grid place-items-center rounded-full bg-ember-500 text-white shadow-[0_0_14px_rgba(255,90,31,0.5)]">Simula tu sonrisa ✓</span>
+            </span>
+          </div>
         </div>
+      </div>
+    </Frame>
+  );
+}
+
+// Funnel comparison, as on the product site: without vs with Smile Fast
+function Lane({ ok, steps, result, label }: { ok: boolean; steps: string[]; result: string; label: string }) {
+  return (
+    <div className={`rounded-2xl px-5 py-5 md:px-6 grid md:grid-cols-[150px_1fr_150px] gap-5 md:gap-6 items-center ${ok ? "glass-ember" : "border border-white/10 bg-white/[0.03]"}`}>
+      <div className="relative z-10 flex md:flex-col items-center md:items-start gap-3">
+        <span className={`w-8 h-8 rounded-full grid place-items-center text-[13px] ${ok ? "bg-white text-ember-600" : "border border-white/20 text-white/60"}`}>{ok ? "✓" : "✕"}</span>
+        <span className={`text-[15px] font-semibold ${ok ? "text-white" : "text-white/70"}`}>{label}</span>
+      </div>
+      <div className="relative z-10 px-7 md:px-6">
+        <div className="relative flex justify-between">
+          <span className={`absolute left-[7px] right-[7px] top-[7px] h-px ${ok ? "bg-white/50" : "bg-white/15"}`} />
+          <span className={`${ok ? "sf-pulse-ok bg-white shadow-[0_0_10px_rgba(255,255,255,0.9)]" : "sf-pulse-ko bg-white/50"} absolute top-[4px] w-[7px] h-[7px] -ml-[3.5px] rounded-full`} />
+          {steps.map((st, i) => {
+            const last = i === steps.length - 1;
+            return (
+              <span key={st} className="relative flex flex-col items-center w-0">
+                <span className={`w-[15px] h-[15px] rounded-full ${last ? (ok ? "bg-white" : "bg-white/40") : ok ? "bg-ember-600 border border-white/70" : "bg-[#151313] border border-white/25"}`} />
+                <span className={`mt-2.5 w-[64px] md:w-[72px] text-center text-[10px] md:text-[11px] leading-tight ${ok ? "text-white/95" : last ? "text-white/75" : "text-white/50"}`}>{st}</span>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+      <div className={`relative z-10 md:border-l md:pl-5 ${ok ? "md:border-white/30" : "md:border-white/10"}`}>
+        <span className={`block text-[9px] font-semibold tracking-[0.18em] ${ok ? "text-white/80" : "text-white/40"}`}>RESULTADO</span>
+        <span className={`mt-1 block text-[15px] font-semibold leading-tight ${ok ? "text-white" : "text-white/60"}`}>{result}</span>
       </div>
     </div>
   );
 }
-
-// Funnel: visitor -> simulates -> lead -> booked
-export function MFunnel() {
-  const steps = ["Visitante", "Se simula", "Deja sus datos", "Agenda"];
+export function FunnelCompare({ t }: { t: (k: string) => string }) {
   return (
-    <Frame label="Embudo">
-      <div className="absolute inset-0 flex items-center px-6">
-        <div className="relative w-full flex justify-between">
-          <span className="absolute left-3 right-3 top-[9px] h-px bg-white/12" />
-          <span className="sf-flow absolute top-[5px] w-2.5 h-2.5 -ml-[5px] rounded-full bg-ember-500 shadow-[0_0_12px_rgba(255,90,31,0.9)]" />
-          {steps.map((s, i) => (
-            <span key={s} className="relative flex flex-col items-center gap-2 w-0">
-              <span className={`sf-node sf-node-${i} w-[18px] h-[18px] rounded-full border border-white/20 bg-[#121010]`} />
-              <span className="whitespace-nowrap text-[10px] text-white/55">{s}</span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </Frame>
+    <div className="flex flex-col gap-3">
+      <Lane ok={false} label={t("sf_without")} steps={t("sf_without_steps").split(" | ")} result={t("sf_without_result")} />
+      <Lane ok label={t("sf_with")} steps={t("sf_with_steps").split(" | ")} result={t("sf_with_result")} />
+    </div>
   );
 }

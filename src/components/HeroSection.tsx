@@ -57,12 +57,12 @@ export function HeroSection() {
             <span className="text-ember-gradient pr-1">{t("hero_title_2")}</span>
           </h1>
 
-          <div className="hero-element mt-10 flex items-center gap-5">
-            <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] shrink-0 rounded-full p-[2px] bg-gradient-to-br from-ember-400 to-ember-700 shadow-[0_0_40px_-6px_rgba(255,90,31,0.7)]">
+          <div className="hero-element mt-10 flex items-center gap-6 md:gap-7">
+            <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-full p-[3px] bg-gradient-to-br from-ember-400 to-ember-700 shadow-[0_0_60px_-8px_rgba(255,90,31,0.75)]">
               <div
                 className="w-full h-full rounded-full overflow-hidden bg-carbon-800 relative"
                 dangerouslySetInnerHTML={{
-                  __html: `<video src="https://res.cloudinary.com/dcnik6ovx/video/upload/f_auto,q_auto,w_200/v1775590423/IMG_7596_gctekf.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"></video>`,
+                  __html: `<video src="https://res.cloudinary.com/dcnik6ovx/video/upload/f_auto,q_auto,w_400/v1775590423/IMG_7596_gctekf.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"></video>`,
                 }}
               />
             </div>

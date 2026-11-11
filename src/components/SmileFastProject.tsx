@@ -4,14 +4,13 @@ import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Tag, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
-import { BeforeAfter, MSim, MVita, MLead, MVideo, MFunnel } from "@/components/project/smile-motions";
+import { BeforeAfter, MSim, MVita, MLead, MLive, FunnelCompare } from "@/components/project/smile-motions";
 
 const VALUES = [
   { k: "sim", M: MSim },
   { k: "analisis", M: MVita },
   { k: "lead", M: MLead },
-  { k: "video", M: MVideo },
-  { k: "embudo", M: MFunnel },
+  { k: "live", M: MLive },
 ];
 const STEPS = [1, 2, 3, 4];
 
@@ -82,17 +81,22 @@ export function SmileFastDetail() {
       </div>
 
       <ul className="mt-3 grid sm:grid-cols-2 gap-3">
-        {VALUES.map(({ k, M }, i) => (
+        {VALUES.map(({ k, M }) => (
           <ValueCard
             key={k}
             Motion={M}
             title={t(`sf_v_${k}_title`)}
             desc={t(`sf_v_${k}_desc`)}
             benefit={t(`sf_v_${k}_benefit`)}
-            wide={i === VALUES.length - 1}
           />
         ))}
       </ul>
+
+      <div className="mt-8">
+        <span className="text-[13px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {t("sf_funnel_eyebrow")}</span>
+        <h4 className="mt-2 mb-5 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] text-white">{t("sf_funnel_title")}</h4>
+        <FunnelCompare t={t} />
+      </div>
 
       <p className="mt-8 text-base leading-relaxed text-white/65">
         <span className="text-ember-500 font-semibold mr-2">{"//"}</span>
