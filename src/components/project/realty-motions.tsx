@@ -23,10 +23,46 @@ export function Fit({ w, h, children }: { w: number; h: number; children: ReactN
   }, [w, h]);
   return (
     <div ref={ref} className="absolute inset-0 flex items-center justify-center overflow-hidden">
-      <div className="relative shrink-0 origin-center" style={{ width: w, height: h, transform: `scale(${s ?? 1})`, visibility: s === null ? "hidden" : "visible" }}>
+      <div className="relative shrink-0 origin-center text-[#0F1B3D]" style={{ width: w, height: h, transform: `scale(${s ?? 1})`, visibility: s === null ? "hidden" : "visible" }}>
         {children}
       </div>
     </div>
+  );
+}
+
+const ICONS: Record<string, ReactNode> = {
+  grid: <><rect x="2" y="2" width="5" height="5" rx="1" /><rect x="9" y="2" width="5" height="5" rx="1" /><rect x="2" y="9" width="5" height="5" rx="1" /><rect x="9" y="9" width="5" height="5" rx="1" /></>,
+  cal: <><rect x="2" y="3" width="12" height="11" rx="2" /><path d="M2 7h12M5 1.5v3M11 1.5v3" /></>,
+  inbox: <><rect x="2" y="3" width="12" height="10" rx="2" /><path d="M2.5 4l5.5 4.5L13.5 4" /></>,
+  chart: <path d="M2 13.5h12M3.5 10.5l3-3 2.5 2 4-4.5" />,
+  users: <><circle cx="6" cy="5.5" r="2.5" /><path d="M1.5 13.5c.5-2.5 2.3-3.7 4.5-3.7s4 1.2 4.5 3.7M10.5 3.2a2.4 2.4 0 010 4.6M12 10.2c1.3.5 2.2 1.6 2.5 3.3" /></>,
+  kanban: <><rect x="2" y="2.5" width="3.5" height="11" rx="1" /><rect x="6.25" y="2.5" width="3.5" height="7" rx="1" /><rect x="10.5" y="2.5" width="3.5" height="9" rx="1" /></>,
+  home: <path d="M2.5 7.5L8 3l5.5 4.5V13a.8.8 0 01-.8.8H3.3a.8.8 0 01-.8-.8zM6.5 13.8V10h3v3.8" />,
+  heart: <path d="M8 13.5S2 10 2 6.2A3 3 0 018 4.6a3 3 0 016 1.6C14 10 8 13.5 8 13.5z" />,
+  bell: <path d="M4 11V7a4 4 0 018 0v4l1.2 1.5H2.8zM6.5 14a1.6 1.6 0 003 0" />,
+  search: <><circle cx="7" cy="7" r="4.2" /><path d="M10.2 10.2l3.3 3.3" /></>,
+  globe: <><circle cx="8" cy="8" r="6" /><path d="M2 8h12M8 2c1.8 1.7 2.6 3.7 2.6 6S9.8 12.3 8 14M8 2C6.2 3.7 5.4 5.7 5.4 8s.8 4.3 2.6 6" /></>,
+  chat: <path d="M8 2a6 6 0 00-5.2 9L2 14l3.1-.8A6 6 0 108 2z" />,
+};
+function Ico({ n, className = "" }: { n: keyof typeof ICONS; className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 ${className}`}>
+      {ICONS[n]}
+    </svg>
+  );
+}
+function Up({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 8 8" className={`inline-block w-[0.75em] h-[0.75em] shrink-0 ${className}`}>
+      <path d="M4 1.2L7.2 6.6H.8z" fill="currentColor" />
+    </svg>
+  );
+}
+function Sparkle({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" className={`shrink-0 ${className}`}>
+      <path d="M8 1.5l1.6 4.9L14.5 8l-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -63,17 +99,17 @@ function RemaxMark({ className = "" }: { className?: string }) {
 /* ---------------- Cover: the office dashboard ---------------- */
 export function RealtyDashboard() {
   const tx = useTx();
-  const nav = [
-    { l: "Dashboard", on: true },
-    { l: tx("Calendario", "Calendar") },
-    { l: tx("Casilla", "Inbox"), n: 5 },
+  const nav: { l?: string; h?: string; on?: boolean; n?: number; i?: keyof typeof ICONS }[] = [
+    { l: "Dashboard", on: true, i: "grid" },
+    { l: tx("Calendario", "Calendar"), i: "cal" },
+    { l: tx("Casilla", "Inbox"), n: 5, i: "inbox" },
     { h: tx("INDICADORES", "METRICS") },
-    { l: tx("Tablero de dirección", "Management board") },
+    { l: tx("Tablero de dirección", "Management board"), i: "chart" },
     { h: "CRM" },
-    { l: tx("Contactos & Tareas", "Contacts & Tasks") },
-    { l: tx("Pipeline Negocios", "Deals pipeline") },
-    { l: tx("Propiedades", "Properties") },
-    { l: "Tinder Inmobiliario" },
+    { l: tx("Contactos & Tareas", "Contacts & Tasks"), i: "users" },
+    { l: tx("Pipeline Negocios", "Deals pipeline"), i: "kanban" },
+    { l: tx("Propiedades", "Properties"), i: "home" },
+    { l: "Tinder Inmobiliario", i: "heart" },
   ];
   return (
     <div className={`absolute inset-0 ${REMAX_STAGE}`}>
@@ -97,7 +133,7 @@ export function RealtyDashboard() {
                     <span key={i} className="mt-1.5 px-1.5 text-[6.5px] font-bold tracking-[0.14em] text-white/45">{n.h}</span>
                   ) : (
                     <span key={i} className={`flex items-center gap-1.5 rounded-md px-1.5 py-[3px] text-[8px] ${n.on ? "bg-white/15 text-white font-semibold" : "text-white/75"}`}>
-                      <span className="w-[7px] h-[7px] rounded-[2px] border border-current opacity-70" />
+                      {n.i && <Ico n={n.i} className="w-[9px] h-[9px] opacity-80" />}
                       {n.l}
                       {n.n && <span className="ml-auto rounded-full bg-[#DC1C2E] px-1 text-[6.5px] font-bold text-white">{n.n}</span>}
                     </span>
@@ -110,9 +146,9 @@ export function RealtyDashboard() {
             <main className="flex-1 px-4 pt-2.5">
               <div className="flex items-center gap-2">
                 <span className="text-[9px] font-semibold">Dashboard</span>
-                <span className="ml-3 flex-1 rounded-md border border-[#E6EAF2] bg-white px-2 py-[3px] text-[7px] text-[#98A2B8]">{tx("Buscar contactos, propiedades, tareas…", "Search contacts, properties, tasks…")}</span>
+                <span className="ml-3 flex-1 flex items-center gap-1.5 rounded-md border border-[#E6EAF2] bg-white px-2 py-[3px] text-[7px] text-[#98A2B8]"><Ico n="search" className="w-[8px] h-[8px]" />{tx("Buscar contactos, propiedades, tareas...", "Search contacts, properties, tasks...")}</span>
                 <span className="relative grid place-items-center w-5 h-5 rounded-full bg-white border border-[#E6EAF2]">
-                  <span className="w-2 h-2 rounded-[2px] border border-[#6B7690]" />
+                  <Ico n="bell" className="w-[10px] h-[10px] text-[#6B7690]" />
                   <span className="absolute -top-1 -right-1 rounded-full bg-[#DC1C2E] px-[3px] text-[6px] font-bold text-white">3</span>
                 </span>
                 <Av t="MR" c="r" s={18} />
@@ -121,7 +157,7 @@ export function RealtyDashboard() {
               <div className="mt-3 flex items-end justify-between">
                 <div>
                   <span className="block text-[14px] font-bold tracking-[-0.02em] text-[#0F1B3D]">{tx("¡Buenos días, Marta!", "Good morning, Marta!")}</span>
-                  <span className="block mt-0.5 text-[7.5px] text-[#6B7690]">{tx("Tenés 3 actividades y 2 reportes de leads para hoy", "You have 3 activities and 2 lead reports today")}</span>
+                  <span className="block mt-0.5 text-[7.5px] text-[#6B7690]">{tx("Tienes 3 actividades y 2 reportes de leads para hoy", "You have 3 activities and 2 lead reports today")}</span>
                 </div>
                 <span className="rounded-full bg-[#E8EEFB] px-2 py-[2px] text-[7px] font-semibold text-[#003DA5]">{tx("Lunes 26 de octubre", "Monday, October 26")}</span>
               </div>
@@ -143,7 +179,7 @@ export function RealtyDashboard() {
                   <div className="mt-2 h-[58px] flex items-end justify-center gap-1.5">
                     {[
                       { t: "LM", h: 30, n: 2, c: "g" as const },
-                      { t: "MR", h: 44, n: 1, c: "y" as const, top: true },
+                      { t: "MR", h: 44, n: 1, c: "r" as const, top: true },
                       { t: "AS", h: 22, n: 3, c: "g" as const },
                     ].map((p) => (
                       <span key={p.t} className="flex flex-col items-center gap-1">
@@ -159,7 +195,7 @@ export function RealtyDashboard() {
                   </div>
                   <span className="mt-1.5 flex items-center justify-between rounded-md bg-[#F4F6FB] px-1.5 py-1 text-[6.5px] font-semibold text-[#33415C]">
                     {tx("Vas 1.º en captaciones", "You're 1st in listings")}
-                    <span className="text-[#16A34A]">▲ 1</span>
+                    <span className="inline-flex items-center gap-0.5 text-[#16A34A]"><Up />1</span>
                   </span>
                 </div>
 
@@ -171,8 +207,8 @@ export function RealtyDashboard() {
                   </span>
                   <div className="mt-1.5 flex flex-col">
                     {[
-                      { h: "10:30", t: tx("Visita · Ponzano 41", "Viewing · Ponzano 41"), s: "Laura Gómez", tag: tx("Visita", "Viewing"), c: "bg-[#E8EEFB] text-[#003DA5]" },
-                      { h: "12:00", t: tx("Firma de encargo", "Listing signing"), s: "Pza. de Olavide 7", tag: tx("Encargo", "Listing"), c: "bg-[#E7F6EC] text-[#15803D]" },
+                      { h: "10:30", t: tx("Visita · Los Leones 1240", "Viewing · Los Leones 1240"), s: "Laura Gómez", tag: tx("Visita", "Viewing"), c: "bg-[#E8EEFB] text-[#003DA5]" },
+                      { h: "12:00", t: tx("Firma de captación", "Listing signing"), s: "Av. Italia 1450", tag: tx("Captación", "Listing"), c: "bg-[#E7F6EC] text-[#15803D]" },
                       { h: "17:00", t: tx("Café con Carmen", "Coffee with Carmen"), s: tx("Embajadora A+", "A+ ambassador"), tag: tx("Café", "Coffee"), c: "bg-[#FDECEE] text-[#DC1C2E]" },
                     ].map((r) => (
                       <span key={r.h} className="flex items-center gap-2 border-b border-[#EEF1F6] last:border-0 py-[5px]">
@@ -191,7 +227,7 @@ export function RealtyDashboard() {
                 <div className="rounded-[10px] bg-white border border-[#E6EAF2] p-2.5 flex flex-col">
                   <span className="text-[6.5px] font-bold tracking-[0.12em] text-[#6B7690]">{tx("CONTACTOS ACTIVOS", "ACTIVE CONTACTS")}</span>
                   <span className="mt-1 text-[20px] font-bold leading-none tracking-[-0.03em]">248</span>
-                  <span className="mt-1 text-[6.5px] font-semibold text-[#16A34A]">▲ {tx("12 este mes", "12 this month")}</span>
+                  <span className="mt-1 inline-flex items-center gap-0.5 text-[6.5px] font-semibold text-[#16A34A]"><Up />{tx("12 este mes", "12 this month")}</span>
                   <svg viewBox="0 0 100 34" className="mt-auto w-full h-[34px]" fill="none">
                     <path className="rw-draw" pathLength={100} d="M0 28 L14 25 L26 27 L40 19 L54 21 L68 13 L82 15 L100 5" stroke="#003DA5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -210,7 +246,7 @@ export function RealtyDashboard() {
           </span>
         </div>
         <div className="rw-s rw-s3 absolute left-[8px] bottom-[22px] w-[186px] rounded-[10px] bg-white px-2.5 py-2 flex items-center gap-2 shadow-[0_14px_30px_-8px_rgba(0,10,40,0.55)]">
-          <span className="grid place-items-center w-5 h-5 rounded-full bg-[#25D366] text-white text-[8px] font-bold">W</span>
+          <span className="grid place-items-center w-5 h-5 rounded-full bg-[#25D366] text-white"><Ico n="chat" className="w-[11px] h-[11px]" /></span>
           <span className="leading-tight">
             <span className="block text-[8px] font-semibold text-[#0F1B3D]">{tx("Nuevo lead por WhatsApp", "New lead via WhatsApp")}</span>
             <span className="block text-[7px] text-[#6B7690]">{tx("Asignado a Marta · de guardia", "Assigned to Marta · on duty")}</span>
@@ -248,18 +284,18 @@ export function MAI() {
         </div>
         <div className="px-3 pt-2 flex flex-col gap-1.5">
           <span className="rw-s rw-s1 self-end max-w-[78%] rounded-[10px] rounded-br-[3px] bg-[#003DA5] px-2.5 py-1.5 text-[8.5px] font-medium text-white">
-            {tx("Creá el ACM de Ponzano 41 con tres comparables", "Build the CMA for Ponzano 41 with three comps")}
+            {tx("Crea el ACM de Los Leones 1240 con tres comparables", "Build the CMA for Los Leones 1240 with three comps")}
           </span>
           <span className="rw-s rw-s2 self-start inline-flex items-center gap-1 rounded-full border border-[#E6EAF2] px-2 py-[2px] text-[7.5px] text-[#33415C]">
             {tx("Realty · Crear ACM", "Realty · Create CMA")} <Ck className="text-[#16A34A]" />
           </span>
           <span className="rw-s rw-s3 self-start max-w-[86%] rounded-[10px] rounded-bl-[3px] bg-[#F1F3F8] px-2.5 py-1.5 text-[8.5px] leading-snug text-[#0F1B3D]">
-            {tx("Listo: 412.000 € con 3 comparables. El PDF ya está en la ficha.", "Done: €412,000 with 3 comps. The PDF is on the listing.")}
+            {tx("Listo: UF 8.650 con 3 comparables. El PDF ya está en la ficha.", "Done: UF 8,650 with 3 comps. The PDF is on the listing.")}
           </span>
           <span className="rw-s rw-s4 flex items-center gap-2 rounded-[10px] border border-[#E6EAF2] px-2 py-1.5">
             <span className="grid place-items-center w-6 h-6 rounded-md bg-[#DC1C2E] text-[6.5px] font-bold text-white">PDF</span>
             <span className="flex-1 leading-tight">
-              <span className="block text-[8.5px] font-semibold">{tx("ACM · Ponzano 41", "CMA · Ponzano 41")}</span>
+              <span className="block text-[8.5px] font-semibold">{tx("ACM · Los Leones 1240", "CMA · Los Leones 1240")}</span>
               <span className="block text-[7px] text-[#6B7690]">{tx("3 comparables · lista para enviar", "3 comps · ready to send")}</span>
             </span>
             <span className="rounded-md bg-[#003DA5] px-2 py-1 text-[7.5px] font-semibold text-white">{tx("Abrir", "Open")}</span>
@@ -274,9 +310,9 @@ export function MAI() {
 export function MMatch() {
   const tx = useTx();
   const rows = [
-    { n: tx("Ático en Lavapiés", "Lavapiés penthouse"), s: tx("2 hab · 74 m²", "2 bed · 74 m²"), p: 71 },
-    { n: tx("Piso en Arapiles", "Arapiles flat"), s: tx("3 hab · 92 m²", "3 bed · 92 m²"), p: 88, sent: true },
-    { n: tx("Piso en Chamberí", "Chamberí flat"), s: tx("3 hab · 98 m²", "3 bed · 98 m²"), p: 96, sent: true },
+    { n: tx("Depto. en Ñuñoa", "Ñuñoa apartment"), s: tx("2 dorm. · 74 m²", "2 bed · 74 m²"), p: 71 },
+    { n: tx("Depto. en Las Condes", "Las Condes apartment"), s: tx("3 dorm. · 92 m²", "3 bed · 92 m²"), p: 88, sent: true },
+    { n: tx("Depto. en Providencia", "Providencia apartment"), s: tx("3 dorm. · 98 m²", "3 bed · 98 m²"), p: 96, sent: true },
   ];
   return (
     <Fit w={W} h={H}>
@@ -285,13 +321,13 @@ export function MMatch() {
           <Av t="LG" c="r" s={20} />
           <span className="leading-tight">
             <span className="block text-[9px] font-semibold">Laura G.</span>
-            <span className="block text-[7.5px] text-[#6B7690]">{tx("3 hab · Chamberí · hasta 420.000 €", "3 bed · Chamberí · up to €420,000")}</span>
+            <span className="block text-[7.5px] text-[#6B7690]">{tx("3 dorm. · Providencia · hasta UF 9.000", "3 bed · Providencia · up to UF 9,000")}</span>
           </span>
         </div>
         <div className="mt-2 flex flex-col gap-1.5">
           {rows.map((r, i) => (
             <div key={r.p} className={`rw-s rw-s${i + 1} flex items-center gap-2 rounded-[9px] border px-2 py-1 ${r.p === 96 ? "border-[#003DA5]/40 bg-[#F3F6FD]" : "border-[#EEF1F6]"}`}>
-              <span className="w-7 h-6 rounded-[5px] bg-[linear-gradient(135deg,#c9d6ee,#8fa6d4)]" />
+              <span className="grid place-items-center w-7 h-6 rounded-[5px] bg-[#E8EEFB] text-[#003DA5]"><Ico n="home" className="w-3 h-3" /></span>
               <span className="flex-1 leading-tight">
                 <span className="block text-[8.5px] font-semibold">{r.n}</span>
                 <span className="block text-[7px] text-[#6B7690]">{r.s}</span>
@@ -318,7 +354,7 @@ export function MLeads() {
   const tx = useTx();
   const team = [
     { t: "LM", n: "Luis M.", s: tx("Mañana", "Morning"), c: "g" as const },
-    { t: "MR", n: "Marta R.", s: tx("De guardia ahora", "On duty now"), c: "b" as const, on: true },
+    { t: "MR", n: "Marta R.", s: tx("De guardia ahora", "On duty now"), c: "r" as const, on: true },
     { t: "AS", n: "Ana S.", s: tx("Tarde", "Afternoon"), c: "g" as const },
   ];
   return (
@@ -349,10 +385,10 @@ export function MLeads() {
         </div>
       </Panel>
       <div className="rw-drop absolute left-[22px] right-[22px] top-[8px] rounded-[10px] bg-white px-2.5 py-1.5 flex items-center gap-2 shadow-[0_14px_30px_-8px_rgba(0,10,40,0.55)]">
-        <span className="grid place-items-center w-5 h-5 rounded-md bg-[#003DA5] text-[6px] font-bold text-white">WEB</span>
+        <span className="grid place-items-center w-5 h-5 rounded-md bg-[#003DA5] text-white"><Ico n="globe" className="w-3 h-3" /></span>
         <span className="flex-1 leading-tight">
           <span className="block text-[7px] text-[#6B7690]">{tx("Nuevo lead · web de la oficina", "New lead · office website")}</span>
-          <span className="block text-[8.5px] font-semibold">{tx("“Quiero visitar el piso de Ponzano 41”", "“I'd like to see the Ponzano 41 flat”")}</span>
+          <span className="block text-[8.5px] font-semibold">{tx("“Quiero visitar el depto. de Los Leones 1240”", "“I'd like to see the Los Leones 1240 apartment”")}</span>
         </span>
         <span className="text-[6.5px] text-[#98A2B8]">{tx("ahora", "now")}</span>
       </div>
@@ -366,14 +402,14 @@ function RankRow({ cls, t, n, k, c, me }: { cls: string; t: string; n: string; k
   return (
     <div className={`${cls} absolute inset-x-0 h-[34px] flex items-center gap-2 rounded-[9px] px-2 ${me ? "border border-[#003DA5]/50 bg-[#F3F6FD]" : ""}`}>
       <Av t={t} c={c} s={20} />
-      <span className="w-[62px] leading-tight">
+      <span className="w-[78px] leading-tight">
         <span className="block text-[8.5px] font-semibold">{n}</span>
         <span className="block text-[6.5px] text-[#6B7690]">{tx("Captaciones", "Listings")}</span>
       </span>
       <span className="relative flex-1 h-[4px] rounded-full bg-[#EEF1F6]">
         <span className="absolute inset-y-0 left-0 rounded-full bg-[#003DA5]" style={{ width: `${(k / 18) * 100}%` }} />
       </span>
-      {me && <span className="rw-s rw-s3 rounded-full bg-[#16A34A] px-1 text-[6.5px] font-bold text-white">▲1</span>}
+      {me && <span className="rw-s rw-s3 inline-flex items-center gap-0.5 rounded-full bg-[#16A34A] px-1 text-[6.5px] font-bold text-white"><Up />1</span>}
       <span className="w-5 text-right text-[11px] font-bold tabular-nums">{k}</span>
     </div>
   );
@@ -395,9 +431,9 @@ export function MRanking() {
             {[1, 2, 3].map((p) => <span key={p} className="h-[34px] flex items-center">{p}</span>)}
           </div>
           <div className="relative flex-1 h-[114px]">
-            <RankRow cls="top-0" t="MR" n="Marta R." k={18} c="y" />
-            <RankRow cls="rw-down top-[40px]" t="LM" n="Luis M." k={15} c="g" />
-            <RankRow cls="rw-up top-[80px]" t={tx("TÚ", "YOU")} n="Ana S." k={16} c="b" me />
+            <RankRow cls="rw-down top-0" t="LM" n="Luis M." k={17} c="g" />
+            <RankRow cls="rw-up top-[40px]" t="MR" n={tx("Marta R. (tú)", "Marta R. (you)")} k={18} c="r" me />
+            <RankRow cls="top-[80px]" t="AS" n="Ana S." k={15} c="g" />
           </div>
         </div>
       </Panel>
@@ -418,7 +454,7 @@ export function MReport() {
       <Panel className="left-[24px] right-[24px] top-[10px] bottom-[-8px] overflow-hidden px-3.5 pt-3">
         <div className="absolute inset-x-0 top-0 h-[3px] flex"><span className="flex-[3] bg-[#003DA5]" /><span className="flex-1 bg-[#DC1C2E]" /></div>
         <span className="block text-[7px] font-bold tracking-[0.12em] text-[#003DA5]">{tx("INFORME DE GESTIÓN · N.º 4", "MANAGEMENT REPORT · NO. 4")}</span>
-        <span className="mt-1 block text-[11px] font-bold">Ponzano 41, 3.º B</span>
+        <span className="mt-1 block text-[11px] font-bold">{tx("Los Leones 1240, depto. 52", "Los Leones 1240, apt. 52")}</span>
         <span className="block text-[7.5px] text-[#6B7690]">{tx("Quincena del 1 al 15 de octubre", "Fortnight Oct 1 – 15")}</span>
         <div className="mt-2.5 flex flex-col gap-2">
           {ch.map((c, i) => (
@@ -450,12 +486,12 @@ export function MContract() {
   const f = [
     [tx("Vendedor", "Seller"), "Carmen López"],
     [tx("Comprador", "Buyer"), "Laura Gómez"],
-    [tx("Propiedad", "Property"), "Ponzano 41, 3.º B"],
-    [tx("Precio", "Price"), tx("412.000 €", "€412,000")],
+    [tx("Propiedad", "Property"), tx("Los Leones 1240, d. 52", "Los Leones 1240, apt. 52")],
+    [tx("Precio", "Price"), tx("UF 8.650", "UF 8,650")],
   ];
   const lines: ReactNode[] = tx("es", "en") === "es"
-    ? [<>Comparecen, de una parte, <Hl>Carmen López</Hl>,</>, <>en calidad de vendedora, y de otra,</>, <><Hl>Laura Gómez</Hl>, en calidad de compradora,</>, <>respecto del inmueble en <Hl>Ponzano 41, 3.º B</Hl>,</>, <>por un precio de <Hl>412.000 €</Hl>.</>]
-    : [<>Appearing, on one side, <Hl>Carmen López</Hl>,</>, <>as seller, and on the other,</>, <><Hl>Laura Gómez</Hl>, as buyer,</>, <>regarding the property at <Hl>Ponzano 41, 3.º B</Hl>,</>, <>for a price of <Hl>€412,000</Hl>.</>];
+    ? [<>Comparecen, de una parte, <Hl>Carmen López</Hl>,</>, <>en calidad de vendedora, y de otra,</>, <><Hl>Laura Gómez</Hl>, en calidad de compradora,</>, <>respecto del inmueble en <Hl>Los Leones 1240</Hl>,</>, <>por un precio de <Hl>UF 8.650</Hl>.</>]
+    : [<>Appearing, on one side, <Hl>Carmen López</Hl>,</>, <>as seller, and on the other,</>, <><Hl>Laura Gómez</Hl>, as buyer,</>, <>regarding the property at <Hl>Los Leones 1240</Hl>,</>, <>for a price of <Hl>UF 8,650</Hl>.</>];
   return (
     <Fit w={W} h={H}>
       <Panel className="left-[10px] top-[14px] bottom-[14px] w-[104px] px-2 py-2">
@@ -473,13 +509,13 @@ export function MContract() {
         <div className="flex items-center justify-between">
           <span className="text-[8.5px] font-bold">{tx("Contrato de compraventa", "Purchase agreement")}</span>
           <span className="relative h-[13px] w-[64px]">
-            <span className="rw-early absolute inset-0 grid place-items-center rounded-full bg-[#FDF3E2] text-[6.5px] font-semibold text-[#B45309]">{tx("Redactando…", "Drafting…")}</span>
-            <span className="rw-s rw-s5 absolute inset-0 grid place-items-center rounded-full bg-[#E7F6EC] text-[6.5px] font-semibold text-[#15803D]">{tx("Listo ✓", "Ready ✓")}</span>
+            <span className="rw-early absolute inset-0 grid place-items-center rounded-full bg-[#FDF3E2] text-[6.5px] font-semibold text-[#B45309]">{tx("Redactando...", "Drafting...")}</span>
+            <span className="rw-s rw-s5 absolute inset-0 grid place-items-center rounded-full bg-[#E7F6EC] text-[6.5px] font-semibold text-[#15803D]"><span className="inline-flex items-center gap-0.5">{tx("Listo", "Ready")}<Ck className="w-2 h-2" /></span></span>
           </span>
         </div>
         <div className="mt-1.5 flex flex-col gap-[2px] font-serif text-[7.5px] leading-[1.35] text-[#33415C]">
           {lines.map((l, i) => (
-            <span key={i} className="rw-wipe whitespace-nowrap" style={v(i)}>{l}</span>
+            <span key={i} className={`rw-w rw-w${i + 1} whitespace-nowrap`}>{l}</span>
           ))}
         </div>
         <div className="mt-1.5 flex gap-2 text-[6px] font-bold tracking-[0.14em] text-[#98A2B8]">
@@ -506,7 +542,7 @@ export function MSign() {
           <span className="text-[10px] font-bold">{tx("Hoja de visita", "Viewing sheet")}</span>
           <span className="rw-s rw-s4 rounded-full bg-[#E7F6EC] px-2 py-[2px] text-[7px] font-semibold text-[#15803D]">{tx("Firmado", "Signed")}</span>
         </div>
-        <span className="mt-0.5 block text-[7.5px] text-[#6B7690]">Ponzano 41, 3.º B · Laura G.</span>
+        <span className="mt-0.5 block text-[7.5px] text-[#6B7690]">Los Leones 1240 · Laura G.</span>
         <div className="mt-2 flex flex-col gap-1">
           {[90, 74, 82].map((w) => <span key={w} className="h-[4px] rounded-full bg-[#EEF1F6]" style={{ width: `${w}%` }} />)}
         </div>
@@ -519,7 +555,7 @@ export function MSign() {
       </Panel>
       <Toast className="rw-s rw-s4 left-1/2 -translate-x-1/2 bottom-[14px] whitespace-nowrap">
         <span className="flex items-center gap-1 text-[8.5px] font-semibold"><Ck className="text-[#4ADE80]" />{tx("Firmado digitalmente", "Digitally signed")}</span>
-        <span className="block mt-0.5 text-[7px] text-white/60">{tx("23 oct 2026 · 10:42", "Oct 23, 2026 · 10:42")}</span>
+        <span className="block mt-0.5 text-[7px] text-white/60">{tx("26 oct 2026 · 10:42", "Oct 26, 2026 · 10:42")}</span>
       </Toast>
     </Fit>
   );
@@ -551,7 +587,7 @@ export function MRecruit() {
           ))}
         </div>
         <span className="rw-s rw-s5 mt-2.5 flex items-center justify-center gap-1 text-[7.5px] font-semibold text-[#003DA5]">
-          ✦ {tx("Seguimiento con IA enviado a 12 candidatos", "AI follow-up sent to 12 candidates")}
+          <Sparkle className="w-2.5 h-2.5" />{tx("Seguimiento con IA enviado a 12 candidatos", "AI follow-up sent to 12 candidates")}
         </span>
       </Panel>
     </Fit>
@@ -562,7 +598,7 @@ export function MRecruit() {
 export function MDirection() {
   const tx = useTx();
   const k = [
-    [tx("Facturación", "Revenue"), tx("284.300 €", "€284,300")],
+    [tx("Facturación", "Revenue"), tx("$ 284,3 M", "CLP 284.3M")],
     [tx("Captaciones", "Listings"), "148"],
     [tx("Promesas", "Signed deals"), "61"],
   ];
