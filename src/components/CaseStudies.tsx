@@ -11,6 +11,7 @@ import { SynexCard, SynexDetail } from "@/components/SynexProject";
 import { FinanzasCard, FinanzasDetail } from "@/components/FinanzasProject";
 import { FuturaCard, FuturaDetail } from "@/components/FuturaProject";
 import { SmileFastCard, SmileFastDetail } from "@/components/SmileFastProject";
+import { RealtyCard, RealtyDetail } from "@/components/RealtyProject";
 
 const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
 
@@ -82,6 +83,7 @@ export function CaseStudies() {
   const [finOpen, setFinOpen] = useState(false);
   const [fuOpen, setFuOpen] = useState(false);
   const [sfOpen, setSfOpen] = useState(false);
+  const [rwOpen, setRwOpen] = useState(false);
 
 
   const data = STUDIES.map((s) => ({
@@ -108,6 +110,7 @@ export function CaseStudies() {
         style={{ scrollbarWidth: "none" }}
       >
         <FuturaCard onOpen={() => setFuOpen(true)} />
+        <RealtyCard onOpen={() => setRwOpen(true)} />
         <SmileFastCard onOpen={() => setSfOpen(true)} />
         <SynexCard onOpen={() => setSynexOpen(true)} />
         <FinanzasCard onOpen={() => setFinOpen(true)} />
@@ -154,6 +157,10 @@ export function CaseStudies() {
 
       <Modal open={fuOpen} onClose={() => setFuOpen(false)} className="max-w-3xl">
         {fuOpen && <FuturaDetail />}
+      </Modal>
+
+      <Modal open={rwOpen} onClose={() => setRwOpen(false)} className="max-w-3xl">
+        {rwOpen && <RealtyDetail />}
       </Modal>
 
       <Modal open={sfOpen} onClose={() => setSfOpen(false)} className="max-w-3xl">

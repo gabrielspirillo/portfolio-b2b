@@ -89,3 +89,17 @@ export function FlagES({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+export const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
+
+/* "In collaboration with [logo] Brandboost AI" */
+export function CollabWith({ label }: { label: string }) {
+  return (
+    <>
+      {label}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={BRANDBOOST_LOGO} alt="" className="h-3.5 w-auto brightness-0 invert opacity-90" />
+      <span className="font-semibold text-white/90">Brandboost AI</span>
+    </>
+  );
+}
