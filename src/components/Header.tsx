@@ -79,11 +79,14 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             onMouseEnter={playEarcon}
-            className="group glass-ember relative overflow-hidden hidden sm:inline-flex items-center gap-2 h-10 pl-4 pr-3 rounded-full text-[13px] font-semibold"
+            className="group glass-ember relative overflow-hidden hidden sm:inline-flex items-center gap-2 h-10 pl-4 pr-3 rounded-full text-[13px] font-semibold transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-px active:scale-[0.98]"
           >
-            <span className="absolute inset-0 rounded-full bg-carbon-950 scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-[2]" />
+            <span aria-hidden="true" className="absolute inset-0 rounded-full z-[2] pointer-events-none transition-colors duration-500 group-hover:bg-white/[0.07]" />
+            <span aria-hidden="true" className="absolute inset-0 rounded-full overflow-hidden z-[3] pointer-events-none">
+              <span className="absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full duration-0 group-hover:translate-x-[400%] group-hover:duration-[1000ms] transition-transform ease-[cubic-bezier(0.45,0,0.2,1)]" />
+            </span>
             <span className="relative z-10">{t("nav_cta")}</span>
-            <svg viewBox="0 0 24 24" fill="none" className="relative z-10 w-4 h-4 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180"><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" className="relative z-10 w-4 h-4 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-90"><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
           </a>
           <button
             className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-white/80 hover:bg-white/[0.06]"
