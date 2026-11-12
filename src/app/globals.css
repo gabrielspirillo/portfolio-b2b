@@ -113,14 +113,49 @@ html.lite .glass {
     rgba(14, 14, 15, 0.82);
 }
 .glass-ember {
+  /* Crystal ember: dense orange tint (keeps white text legible) over a live
+     blur, a diagonal sheen, a soft top reflection and thick glass edges. */
   background:
-    radial-gradient(110% 130% at 0% 0%, rgba(255, 190, 150, 0.32) 0%, rgba(255, 190, 150, 0) 50%),
-    linear-gradient(155deg, #ff7a45 0%, #ff5a1f 48%, #e8450f 100%);
+    linear-gradient(115deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.1) 38%, rgba(255, 255, 255, 0) 47%),
+    radial-gradient(110% 120% at 0% 0%, rgba(255, 205, 172, 0.36) 0%, rgba(255, 205, 172, 0) 50%),
+    linear-gradient(155deg, rgba(255, 130, 80, 0.9) 0%, rgba(255, 94, 34, 0.86) 50%, rgba(228, 68, 16, 0.9) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 228, 210, 0.5),
-    inset 0 -1px 0 rgba(120, 30, 5, 0.4),
-    0 24px 48px -24px rgba(255, 80, 20, 0.55);
+    inset 0 1px 0 rgba(255, 242, 232, 0.8),
+    inset 0 0 0 1px rgba(255, 214, 190, 0.12),
+    inset 0 22px 40px -22px rgba(255, 238, 226, 0.4),
+    inset 0 -16px 32px -16px rgba(105, 22, 0, 0.5),
+    0 24px 48px -24px rgba(255, 80, 20, 0.6);
   color: #fff;
+}
+/* Glossy reflection under the content (z -1 inside the isolated surface) */
+.glass-ember::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(85% 55% at 22% -8%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%);
+}
+html.lite .glass-ember {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* The ember band (ticker): its earlier translucent recipe, plus the gloss */
+.ember-band {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(255, 196, 160, 0.35) 0%, rgba(255, 196, 160, 0) 45%),
+    linear-gradient(160deg, rgba(255, 112, 56, 0.92) 0%, rgba(229, 65, 15, 0.86) 55%, rgba(184, 50, 16, 0.9) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 228, 210, 0.55),
+    inset 0 -1px 0 rgba(120, 30, 5, 0.4),
+    inset 0 14px 28px -14px rgba(255, 236, 222, 0.35),
+    0 24px 48px -24px rgba(255, 80, 20, 0.55);
 }
 .glass::before,
 .glass-blur::before,

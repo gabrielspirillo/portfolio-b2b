@@ -9,7 +9,7 @@ export function EmberTicker() {
 
   return (
     <div aria-hidden="true" data-anim className="relative w-full py-12 md:py-16 overflow-x-clip">
-      <div className="glass-ember w-[110%] -ml-[5%] -rotate-2 rounded-none overflow-hidden py-5 md:py-7">
+      <div className="ember-band w-[110%] -ml-[5%] -rotate-2 rounded-none overflow-hidden py-5 md:py-7">
         <div className="relative z-10 ticker-track flex w-max">
           {[...items, ...items, ...items, ...items].map((item, i) => (
             <span key={i} className="flex items-center shrink-0 pr-10 md:pr-14 text-2xl md:text-4xl font-bold tracking-[-0.04em] text-white whitespace-nowrap">
