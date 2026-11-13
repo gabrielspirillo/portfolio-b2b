@@ -778,3 +778,141 @@ html.lite .line-drift { animation: none; }
   .rw-ring { stroke-dashoffset: 28 !important; }
   .rw-up { transform: translateY(-40px) !important; } .rw-down { transform: translateY(40px) !important; }
 }
+
+/* ---- Service detail: animated scenes (8 s loop) + staged entrance ---- */
+.sd-up { animation: sd-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--d, 0) * 1ms); }
+@keyframes sd-up { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+.sd-word { display: inline-block; animation: sd-word 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--d, 0) * 1ms); }
+@keyframes sd-word { from { opacity: 0; transform: translateY(0.45em); } to { opacity: 1; transform: none; } }
+.sd-line { transform: scaleX(0); animation: sd-line 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--d, 0) * 1ms); }
+@keyframes sd-line { to { transform: scaleX(1); } }
+.sd-k { opacity: 0; animation-duration: 8s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); --from: translateY(8px); }
+.sd-in2 { animation-name: sd-in2; }
+@keyframes sd-in2 { 0%, 2% { opacity: 0; transform: var(--from); } 8%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in4 { animation-name: sd-in4; }
+@keyframes sd-in4 { 0%, 4% { opacity: 0; transform: var(--from); } 10%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in6 { animation-name: sd-in6; }
+@keyframes sd-in6 { 0%, 6% { opacity: 0; transform: var(--from); } 12%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in8 { animation-name: sd-in8; }
+@keyframes sd-in8 { 0%, 8% { opacity: 0; transform: var(--from); } 14%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in10 { animation-name: sd-in10; }
+@keyframes sd-in10 { 0%, 10% { opacity: 0; transform: var(--from); } 16%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in12 { animation-name: sd-in12; }
+@keyframes sd-in12 { 0%, 12% { opacity: 0; transform: var(--from); } 18%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in14 { animation-name: sd-in14; }
+@keyframes sd-in14 { 0%, 14% { opacity: 0; transform: var(--from); } 20%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in16 { animation-name: sd-in16; }
+@keyframes sd-in16 { 0%, 16% { opacity: 0; transform: var(--from); } 22%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in18 { animation-name: sd-in18; }
+@keyframes sd-in18 { 0%, 18% { opacity: 0; transform: var(--from); } 24%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in20 { animation-name: sd-in20; }
+@keyframes sd-in20 { 0%, 20% { opacity: 0; transform: var(--from); } 26%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in22 { animation-name: sd-in22; }
+@keyframes sd-in22 { 0%, 22% { opacity: 0; transform: var(--from); } 28%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in24 { animation-name: sd-in24; }
+@keyframes sd-in24 { 0%, 24% { opacity: 0; transform: var(--from); } 30%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in26 { animation-name: sd-in26; }
+@keyframes sd-in26 { 0%, 26% { opacity: 0; transform: var(--from); } 32%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in28 { animation-name: sd-in28; }
+@keyframes sd-in28 { 0%, 28% { opacity: 0; transform: var(--from); } 34%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in30 { animation-name: sd-in30; }
+@keyframes sd-in30 { 0%, 30% { opacity: 0; transform: var(--from); } 36%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in32 { animation-name: sd-in32; }
+@keyframes sd-in32 { 0%, 32% { opacity: 0; transform: var(--from); } 38%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in34 { animation-name: sd-in34; }
+@keyframes sd-in34 { 0%, 34% { opacity: 0; transform: var(--from); } 40%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in36 { animation-name: sd-in36; }
+@keyframes sd-in36 { 0%, 36% { opacity: 0; transform: var(--from); } 42%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in38 { animation-name: sd-in38; }
+@keyframes sd-in38 { 0%, 38% { opacity: 0; transform: var(--from); } 44%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in40 { animation-name: sd-in40; }
+@keyframes sd-in40 { 0%, 40% { opacity: 0; transform: var(--from); } 46%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in42 { animation-name: sd-in42; }
+@keyframes sd-in42 { 0%, 42% { opacity: 0; transform: var(--from); } 48%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in44 { animation-name: sd-in44; }
+@keyframes sd-in44 { 0%, 44% { opacity: 0; transform: var(--from); } 50%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in46 { animation-name: sd-in46; }
+@keyframes sd-in46 { 0%, 46% { opacity: 0; transform: var(--from); } 52%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in48 { animation-name: sd-in48; }
+@keyframes sd-in48 { 0%, 48% { opacity: 0; transform: var(--from); } 54%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in50 { animation-name: sd-in50; }
+@keyframes sd-in50 { 0%, 50% { opacity: 0; transform: var(--from); } 56%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in52 { animation-name: sd-in52; }
+@keyframes sd-in52 { 0%, 52% { opacity: 0; transform: var(--from); } 58%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in54 { animation-name: sd-in54; }
+@keyframes sd-in54 { 0%, 54% { opacity: 0; transform: var(--from); } 60%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in56 { animation-name: sd-in56; }
+@keyframes sd-in56 { 0%, 56% { opacity: 0; transform: var(--from); } 62%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in58 { animation-name: sd-in58; }
+@keyframes sd-in58 { 0%, 58% { opacity: 0; transform: var(--from); } 64%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in60 { animation-name: sd-in60; }
+@keyframes sd-in60 { 0%, 60% { opacity: 0; transform: var(--from); } 66%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in62 { animation-name: sd-in62; }
+@keyframes sd-in62 { 0%, 62% { opacity: 0; transform: var(--from); } 68%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in64 { animation-name: sd-in64; }
+@keyframes sd-in64 { 0%, 64% { opacity: 0; transform: var(--from); } 70%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in66 { animation-name: sd-in66; }
+@keyframes sd-in66 { 0%, 66% { opacity: 0; transform: var(--from); } 72%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in68 { animation-name: sd-in68; }
+@keyframes sd-in68 { 0%, 68% { opacity: 0; transform: var(--from); } 74%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in70 { animation-name: sd-in70; }
+@keyframes sd-in70 { 0%, 70% { opacity: 0; transform: var(--from); } 76%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in72 { animation-name: sd-in72; }
+@keyframes sd-in72 { 0%, 72% { opacity: 0; transform: var(--from); } 78%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in74 { animation-name: sd-in74; }
+@keyframes sd-in74 { 0%, 74% { opacity: 0; transform: var(--from); } 80%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in76 { animation-name: sd-in76; }
+@keyframes sd-in76 { 0%, 76% { opacity: 0; transform: var(--from); } 82%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in78 { animation-name: sd-in78; }
+@keyframes sd-in78 { 0%, 78% { opacity: 0; transform: var(--from); } 84%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in80 { animation-name: sd-in80; }
+@keyframes sd-in80 { 0%, 80% { opacity: 0; transform: var(--from); } 86%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in82 { animation-name: sd-in82; }
+@keyframes sd-in82 { 0%, 82% { opacity: 0; transform: var(--from); } 88%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-in84 { animation-name: sd-in84; }
+@keyframes sd-in84 { 0%, 84% { opacity: 0; transform: var(--from); } 90%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: none; } }
+.sd-ring { stroke-dasharray: 100; stroke-dashoffset: 100; animation-duration: 8s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+.sd-r30 { animation-name: sd-r30; }
+@keyframes sd-r30 { 0%, 30% { stroke-dashoffset: 100; opacity: 1; } 46%, 90% { stroke-dashoffset: 1; opacity: 1; } 96% { stroke-dashoffset: 1; opacity: 0; } 100% { stroke-dashoffset: 100; opacity: 0; } }
+.sd-r36 { animation-name: sd-r36; }
+@keyframes sd-r36 { 0%, 36% { stroke-dashoffset: 100; opacity: 1; } 52%, 90% { stroke-dashoffset: 1; opacity: 1; } 96% { stroke-dashoffset: 1; opacity: 0; } 100% { stroke-dashoffset: 100; opacity: 0; } }
+.sd-r42 { animation-name: sd-r42; }
+@keyframes sd-r42 { 0%, 42% { stroke-dashoffset: 100; opacity: 1; } 58%, 90% { stroke-dashoffset: 1; opacity: 1; } 96% { stroke-dashoffset: 1; opacity: 0; } 100% { stroke-dashoffset: 100; opacity: 0; } }
+.sd-ripple { opacity: 0; animation: sd-ripple 8s ease-out infinite; }
+@keyframes sd-ripple { 0%, 55% { opacity: 0; transform: scale(1); } 56% { opacity: 0.9; transform: scale(1); } 66%, 100% { opacity: 0; transform: scale(1.7); } }
+.sd-cursor-web { animation: sd-cursor-web 8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes sd-cursor-web { 0%, 38% { opacity: 0; transform: translate(330px, 300px); } 42% { opacity: 1; transform: translate(320px, 290px); } 54% { transform: translate(74px, 170px); } 56% { transform: translate(74px, 170px) scale(0.82); } 58%, 88% { opacity: 1; transform: translate(74px, 170px); } 94%, 100% { opacity: 0; transform: translate(74px, 170px); } }
+.sd-screens { animation: sd-screens 8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes sd-screens { 0% { opacity: 0; transform: none; } 3%, 30% { opacity: 1; transform: none; } 35%, 60% { transform: translateX(-33.3333%); } 65%, 90% { opacity: 1; transform: translateX(-66.6667%); } 96%, 100% { opacity: 0; transform: translateX(-66.6667%); } }
+.sd-tap1, .sd-tap2 { opacity: 0; animation-duration: 8s; animation-iteration-count: infinite; animation-timing-function: ease-out; }
+.sd-tap1 { animation-name: sd-tap1; } .sd-tap2 { animation-name: sd-tap2; }
+@keyframes sd-tap1 { 0%, 22% { opacity: 0; transform: scale(0.5); } 25% { opacity: 0.9; } 31%, 100% { opacity: 0; transform: scale(1.5); } }
+@keyframes sd-tap2 { 0%, 54% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 57% { opacity: 0.9; } 63%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); } }
+.sd-fps { transform-origin: bottom; animation: sd-fps 0.9s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.11s); }
+@keyframes sd-fps { from { transform: scaleY(0.9); background: rgba(255, 255, 255, 0.25); } to { transform: scaleY(1); background: rgba(255, 122, 69, 0.75); } }
+.sd-packet { offset-rotate: 0deg; animation: sd-packet 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite; animation-delay: calc(var(--i) * 0.53s); }
+@keyframes sd-packet { 0% { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+.sd-live { animation: sd-live 1.6s ease-in-out infinite; }
+@keyframes sd-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.sd-pick { animation: sd-pick 8s ease infinite; }
+@keyframes sd-pick { 0%, 6% { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0); } 12%, 88% { box-shadow: 0 0 0 2px #0a0a0a, 0 0 0 4px #FF5A1F; } 96%, 100% { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0); } }
+.sd-guide { opacity: 0; animation: sd-guide 8s ease infinite; }
+@keyframes sd-guide { 0%, 52% { opacity: 0; } 55% { opacity: 0.9; } 64%, 100% { opacity: 0; } }
+.sd-drag { opacity: 0; animation: sd-drag 8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes sd-drag { 0%, 40% { opacity: 0; transform: translate(420px, 180px); } 43% { opacity: 1; transform: translate(410px, 172px); } 55% { transform: translate(213px, 244px); } 57%, 90% { opacity: 1; transform: translate(213px, 244px); } 96%, 100% { opacity: 0; transform: translate(213px, 244px); } }
+.sd-before { animation: sd-before 8s ease infinite; }
+@keyframes sd-before { 0%, 2% { opacity: 0; } 6%, 32% { opacity: 1; transform: none; } 38%, 100% { opacity: 0; transform: scaleY(1.4); } }
+.sd-after { opacity: 0; animation: sd-after 8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+@keyframes sd-after { 0%, 34% { opacity: 0; transform: scaleY(0.55); } 42%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+.sd-playhead { animation: sd-playhead 8s linear infinite; }
+@keyframes sd-playhead { from { transform: translateX(0); } to { transform: translateX(486px); } }
+.sd-eq { animation: sd-eq var(--dur, 0.9s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.13s); }
+@keyframes sd-eq { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
+.sd-meter { animation: sd-meter 0.5s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.2s); }
+@keyframes sd-meter { from { transform: scaleY(0.88); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) {
+  [class*="sd-"] { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+  .sd-ring { stroke-dashoffset: 1 !important; }
+  .sd-before, .sd-ripple, .sd-tap1, .sd-tap2, .sd-guide, .sd-packet { opacity: 0 !important; }
+  .sd-drag { transform: translate(213px, 244px) !important; }
+}

@@ -6,6 +6,7 @@ import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Modal } from "@/components/ui/Modal";
+import { ServiceDetail } from "@/components/ServiceDetail";
 import { WebMotion, MobileMotion, AutomationMotion, DesignMotion, SoundMotion } from "@/components/ServiceMotion";
 
 const ICONS: ReactNode[] = [
@@ -86,16 +87,8 @@ export function ServicesGrid() {
         </div>
       </div>
 
-      <Modal open={active !== null} onClose={() => setActive(null)} className="max-w-2xl">
-        {active !== null && (
-          <>
-            <span className="text-[13px] font-medium text-white/50">
-              <span className="text-ember-500 font-semibold">{"//"}</span> {t("services_eyebrow")}
-            </span>
-            <h3 className="mt-3 mb-8 pr-12 text-3xl md:text-4xl font-semibold tracking-[-0.035em] text-white">{services[active].title}</h3>
-            <div className="detail-dark text-sm md:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: services[active].detail }} />
-          </>
-        )}
+      <Modal open={active !== null} onClose={() => setActive(null)} className="max-w-3xl">
+        {active !== null && <ServiceDetail key={active} i={active} title={services[active].title} eyebrow={t("services_eyebrow")} />}
       </Modal>
     </section>
   );
