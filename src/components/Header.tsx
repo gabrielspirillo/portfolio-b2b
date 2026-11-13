@@ -51,8 +51,8 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-3 md:top-4 inset-x-0 z-50 px-3 md:px-6">
-      <div className="glass-blur mx-auto max-w-5xl h-14 rounded-full pl-5 pr-2 flex items-center justify-between">
+    <header className="fixed top-3 md:top-4 inset-x-0 z-50 px-3 md:px-6 pointer-events-none">
+      <div className="glass-blur pointer-events-auto mx-auto max-w-5xl h-14 rounded-full pl-5 pr-2 flex items-center justify-between">
         <a href="#about" onClick={playEarcon} className="relative z-10 flex items-center gap-2 text-[15px] font-semibold tracking-tight text-white">
           <span className="text-ember-500">{"//"}</span> Gabriel Pirillo
         </a>
@@ -106,7 +106,7 @@ export function Header() {
 
       {/* Mobile sheet */}
       <div
-        className={`md:hidden glass-blur mx-auto max-w-5xl mt-2 rounded-3xl p-3 origin-top transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+        className={`md:hidden glass-blur mx-auto max-w-5xl mt-2 rounded-3xl p-3 origin-top transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         <div className="relative z-10 flex flex-col">
           {navItems.map((item) => (
