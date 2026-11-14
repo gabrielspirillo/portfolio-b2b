@@ -28,12 +28,10 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
     const done = () => onCloseRef.current();
     if (!panelRef.current || !backdropRef.current) return done();
     // Drop the blur first: a blurred layer must never animate
-    gsap.killTweensOf(focusRef.current);
-    gsap.set(focusRef.current, { opacity: 0 });
     gsap
       .timeline({ onComplete: done })
       .to(panelRef.current, { y: 16, scale: 0.97, opacity: 0, duration: 0.28, ease: "power2.in" }, 0)
-      .to(backdropRef.current, { opacity: 0, duration: 0.3, ease: "power1.in" }, 0);
+      .to([backdropRef.current, focusRef.current], { opacity: 0, duration: 0.3, ease: "power1.in" }, 0);
   }, []);
 
   useEffect(() => {
@@ -49,10 +47,10 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
     gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" });
     // The page behind is blurred only once the panel has landed and the page
     // holds still, so the blur is computed once instead of on every frame.
-    gsap.set(focusRef.current, { opacity: 0 });
+    // The page behind blurs at once (a still page: the blur is not animated)
+    gsap.set(focusRef.current, { opacity: 1 });
     gsap.fromTo(panelRef.current, { y: 28, scale: 0.96, opacity: 0 }, {
       y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out",
-      onComplete: () => { if (!closing.current) gsap.to(focusRef.current, { opacity: 1, duration: 0.18, ease: "none" }); },
     });
     // Loops inside the dialog only run while visible in its scroll area
     const scroller = scrollRef.current;
