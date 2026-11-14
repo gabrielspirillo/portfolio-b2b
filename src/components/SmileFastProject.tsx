@@ -5,6 +5,7 @@ import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Tag, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
 import { BeforeAfter, MSim, MVita, MLead, MLive, FunnelCompare } from "@/components/project/smile-motions";
+import { SmileBrand } from "@/components/project/brand-board";
 
 const VALUES = [
   { k: "sim", M: MSim },
@@ -97,6 +98,8 @@ export function SmileFastDetail() {
         <h4 className="mt-2 mb-5 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] text-white">{t("sf_funnel_title")}</h4>
         <FunnelCompare t={t} />
       </div>
+
+      <SmileBrand />
 
       <p className="mt-8 text-base leading-relaxed text-white/65">
         <span className="text-ember-500 font-semibold mr-2">{"//"}</span>

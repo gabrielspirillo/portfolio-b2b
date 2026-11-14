@@ -5,6 +5,7 @@ import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Tag, FlagES, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
 import { MAgenda, MVoice, MWhatsApp, MRecord, MTasks, MDashboard } from "@/components/project/futura-motions";
+import { FuturaBrand } from "@/components/project/brand-board";
 
 const VALUES = [
   { k: "voz", M: MVoice },
@@ -92,6 +93,8 @@ export function FuturaDetail() {
           <ValueCard key={k} Motion={M} title={t(`fu_v_${k}_title`)} desc={t(`fu_v_${k}_desc`)} benefit={t(`fu_v_${k}_benefit`)} />
         ))}
       </ul>
+
+      <FuturaBrand />
 
       <p className="mt-8 text-base leading-relaxed text-white/65">
         <span className="text-ember-500 font-semibold mr-2">{"//"}</span>

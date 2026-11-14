@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { SynexAvatar } from "@/components/synex-avatar/SynexAvatar";
 import { Tag, SynexLogo, CaseCover, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
 import { MAudience, MStreak, MPoints, MVitals, MJourney } from "@/components/project/motions";
+import { SynexBrand } from "@/components/project/brand-board";
 
 const VALUES = [
   { k: "expediente", M: MAudience },
@@ -114,6 +115,8 @@ export function SynexDetail() {
           <ValueCard key={k} Motion={M} title={t(`synex_v_${k}_title`)} desc={t(`synex_v_${k}_desc`)} benefit={t(`synex_v_${k}_benefit`)} wide={i === VALUES.length - 1} />
         ))}
       </ul>
+
+      <SynexBrand />
 
       <p className="mt-8 text-base leading-relaxed text-white/65">
         <span className="text-ember-500 font-semibold mr-2">{"//"}</span>

@@ -6,6 +6,7 @@ import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Tag, CaseIntro, StatPair, CardFooterLink, CollabWith } from "@/components/project/kit";
 import { RealtyDashboard, MAI, MMatch, MLeads, MRanking, MReport, MContract, MSign, MRecruit, MDirection, MDays } from "@/components/project/realty-motions";
+import { RealtyBrand } from "@/components/project/brand-board";
 
 const VALUES = [
   { k: "ia", M: MAI },
@@ -148,6 +149,8 @@ export function RealtyDetail() {
           ))}
         </div>
       </div>
+
+      <RealtyBrand />
 
       <p className="mt-8 text-base leading-relaxed text-white/65">
         <span className="text-ember-500 font-semibold mr-2">{"//"}</span>
