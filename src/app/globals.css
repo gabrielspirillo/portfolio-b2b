@@ -1068,10 +1068,46 @@ html.modal-open .ring-spin { animation-play-state: paused !important; }
 @keyframes fdh-toast { 0%, 34% { opacity: 0; transform: translateY(8px) scale(0.97); } 42%, 88% { opacity: 1; transform: none; } 95%, 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .fdh-a { opacity: 0 !important; animation: none !important; } .fdh-b, .fdh-toast { opacity: 1 !important; animation: none !important; transform: none !important; } }
 
-/* Dialog backdrop: a dense veil (no live blur: it halved the frame rate while
-   opening). Darker at the edges so the page's orange blocks behind the
-   header and the bottom don't read as shapes. */
+/* Dialog backdrop: a veil that fades in with the panel (cheap), plus a focus
+   layer that blurs the page once the panel has landed and the page behind
+   holds still; it is removed before closing so a blur never animates. */
 .modal-backdrop {
-  background:
-    radial-gradient(120% 90% at 50% 50%, rgba(4, 4, 4, 0.86) 40%, rgba(4, 4, 4, 0.97) 100%);
+  background: radial-gradient(120% 90% at 50% 50%, rgba(4, 4, 4, 0.55) 30%, rgba(4, 4, 4, 0.85) 100%);
+}
+.modal-focus {
+  background: rgba(4, 4, 4, 0.2);
+  -webkit-backdrop-filter: blur(16px) saturate(115%);
+  backdrop-filter: blur(16px) saturate(115%);
+}
+html.lite .modal-focus {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.modal-panel { box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.04); }
+
+/* Skill scenes: automation pipeline segments + sound mix */
+.sd-seg, .sd-dot { animation-duration: 8s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+.sd-seg { transform: scaleX(0); }
+.sd-dot { left: 0; opacity: 0; }
+.sd-seg1 { animation-name: sd-seg1; } .sd-seg2 { animation-name: sd-seg2; } .sd-seg3 { animation-name: sd-seg3; }
+.sd-dot1 { animation-name: sd-dot1; } .sd-dot2 { animation-name: sd-dot2; } .sd-dot3 { animation-name: sd-dot3; }
+@keyframes sd-seg1 { 0%, 10% { transform: scaleX(0); opacity: 1; } 24%, 90% { transform: scaleX(1); opacity: 1; } 96%, 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes sd-seg2 { 0%, 28% { transform: scaleX(0); opacity: 1; } 42%, 90% { transform: scaleX(1); opacity: 1; } 96%, 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes sd-seg3 { 0%, 46% { transform: scaleX(0); opacity: 1; } 60%, 90% { transform: scaleX(1); opacity: 1; } 96%, 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes sd-dot1 { 0%, 10% { left: 0; opacity: 0; } 11% { opacity: 1; } 23% { left: 100%; opacity: 1; } 25%, 100% { left: 100%; opacity: 0; } }
+@keyframes sd-dot2 { 0%, 28% { left: 0; opacity: 0; } 29% { opacity: 1; } 41% { left: 100%; opacity: 1; } 43%, 100% { left: 100%; opacity: 0; } }
+@keyframes sd-dot3 { 0%, 46% { left: 0; opacity: 0; } 47% { opacity: 1; } 59% { left: 100%; opacity: 1; } 61%, 100% { left: 100%; opacity: 0; } }
+.sd-head { animation: sd-head 8s linear infinite; }
+@keyframes sd-head { from { transform: translateX(0); } to { transform: translateX(258px); } }
+.sd-fader { animation: sd-fader 8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes sd-fader { 0%, 14% { top: var(--a); } 44%, 90% { top: var(--b); } 100% { top: var(--a); } }
+.sd-vu { animation: sd-vu 0.42s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.17s); }
+@keyframes sd-vu { from { transform: scaleY(0.38); } to { transform: scaleY(0.72); } }
+.sd-lufs-a { animation: sd-lufs-a 8s ease infinite; }
+@keyframes sd-lufs-a { 0%, 56% { opacity: 1; } 60%, 94% { opacity: 0; } 100% { opacity: 1; } }
+.sd-lufs-b { opacity: 0; animation: sd-lufs-b 8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+@keyframes sd-lufs-b { 0%, 58% { opacity: 0; transform: translateY(4px); } 64%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .sd-seg { transform: none !important; } .sd-dot, .sd-lufs-a { opacity: 0 !important; } .sd-lufs-b { opacity: 1 !important; }
+  .sd-fader { top: var(--b) !important; }
 }

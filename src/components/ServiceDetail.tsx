@@ -13,8 +13,8 @@ const TOOLS = [
   ["React", "Next.js", "Astro", "Node.js", "TypeScript", "PostgreSQL"],
   ["React Native", "Swift", "Kotlin", "Expo", "Supabase"],
   ["n8n", "Python", "OpenAI", "WhatsApp API", "Twilio"],
-  ["Figma", "Design systems", "Branding", "Motion"],
-  ["Ableton Live", "Web Audio API", "Mastering", "Sound design"],
+  ["Figma"],
+  ["Ableton Live", "Web Audio API"],
 ];
 
 type V = CSSProperties & Record<`--${string}`, string | number>;
@@ -185,19 +185,12 @@ function SceneMobile() {
         </div>
       </div>
 
-      <K at={6} from="translateX(-12px)" className="absolute left-[40px] top-[70px] flex flex-col gap-2.5">
+      <K at={6} from="translateX(-12px)" className="absolute left-[40px] top-[118px] flex flex-col gap-2.5">
         {["App Store", "Google Play"].map((s) => (
           <span key={s} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-semibold text-white/85">
             <span className="w-1.5 h-1.5 rounded-full bg-ember-500" />{s}
           </span>
         ))}
-      </K>
-      <K at={14} from="translateX(-12px)" className="absolute left-[40px] top-[170px] w-[130px]">
-        <Mono>{tx("Fluidez", "Smoothness")}</Mono>
-        <div className="mt-2 flex items-end gap-[3px] h-8">
-          {Array.from({ length: 16 }, (_, i) => <span key={i} className="sd-fps w-[5px] rounded-sm bg-white/25" style={css({ height: 24 + ((i * 7) % 5), "--i": i })} />)}
-        </div>
-        <span className="mt-1 block text-[18px] font-bold text-white">60 fps</span>
       </K>
       <div className="absolute right-[34px] top-[86px] flex flex-col gap-2.5 w-[150px]">
         {[
@@ -214,61 +207,69 @@ function SceneMobile() {
   );
 }
 
-/* ---------------- 3. Automation: a message runs the whole pipeline ---------------- */
-const NODE_X = [24, 160, 296, 432];
+/* ---------------- 3. Automation: one message runs the pipeline, step by step ---------------- */
+const NODE_X = [20, 158, 296, 434];
+const NODE_W = 106;
 function SceneAuto() {
   const tx = useTx();
   const nodes = [
-    { t: "WhatsApp", s: tx("Mensaje entrante", "Incoming message"), d: "M4 12a8 8 0 1 1 3.3 6.5L4 20l1.3-3.6A8 8 0 0 1 4 12z" },
-    { t: tx("Agente IA", "AI agent"), s: tx("Califica el lead", "Qualifies the lead"), d: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" },
-    { t: "CRM", s: tx("Crea el contacto", "Creates the contact"), d: "M5 6c0-1.7 3.1-3 7-3s7 1.3 7 3-3.1 3-7 3-7-1.3-7-3zm0 0v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3" },
-    { t: tx("Equipo", "Team"), s: tx("Avisa al vendedor", "Pings the rep"), d: "M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0" },
+    { t: "WhatsApp", s: tx("Llega la consulta", "Inquiry arrives"), d: "M4 12a8 8 0 1 1 3.3 6.5L4 20l1.3-3.6A8 8 0 0 1 4 12z" },
+    { t: tx("Agente IA", "AI agent"), s: tx("Entiende y responde", "Understands, replies"), d: "M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z" },
+    { t: "CRM", s: tx("Guarda el contacto", "Saves the contact"), d: "M5 6c0-1.7 3.1-3 7-3s7 1.3 7 3-3.1 3-7 3-7-1.3-7-3zm0 0v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3" },
+    { t: tx("Equipo", "Team"), s: tx("Recibe el aviso", "Gets notified"), d: "M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0" },
   ];
+  // node i lights up at ON[i] % of the 8 s loop; the log line appears right after
+  const ON = [6, 24, 42, 60];
   const logs = [
-    [22, tx("Mensaje recibido · WhatsApp", "Message received · WhatsApp")],
-    [36, tx("Lead calificado por IA · score 87", "Lead qualified by AI · score 87")],
-    [50, tx("Contacto creado en el CRM", "Contact created in the CRM")],
-    [64, tx("Aviso enviado al vendedor", "Rep notified")],
+    tx("“Hola, ¿tienen turno el jueves?”", "“Hi, any slot on Thursday?”"),
+    tx("Respondió con 2 horarios y reservó el jueves 15:00", "Replied with 2 times and booked Thursday 3:00 pm"),
+    tx("Contacto y reserva guardados en el CRM", "Contact and booking saved in the CRM"),
+    tx("Aviso a recepción: nueva reserva confirmada", "Front desk notified: new booking confirmed"),
   ];
   return (
     <Fit w={560} h={320}>
-      <K at={2} from="translateY(-6px)" className="absolute left-6 top-5 flex items-center gap-2">
+      <div className="absolute left-5 top-5 flex items-center gap-2">
         <span className="sd-live w-2 h-2 rounded-full bg-ember-500" /><Mono className="text-white/55">{tx("Flujo activo · 24/7", "Live workflow · 24/7")}</Mono>
+      </div>
+      <K at={72} from="scale(0.92)" className="absolute right-5 top-[14px] inline-flex items-center gap-1.5 rounded-full border border-ember-500/40 bg-ember-500/10 px-3 py-1 text-[11px] font-semibold text-ember-400">
+        <Ck /> {tx("Sin intervención manual", "No manual work")}
       </K>
-      <K at={74} from="scale(0.9)" className="absolute right-6 top-4 rounded-full border border-ember-500/40 bg-ember-500/10 px-3 py-1 text-[11px] font-semibold text-ember-400">
-        {tx("−90% trabajo manual", "−90% manual work")}
-      </K>
-      <svg viewBox="0 0 560 320" className="absolute inset-0 w-full h-full" fill="none">
-        {[0, 1, 2].map((i) => (
-          <path key={i} d={`M${NODE_X[i] + 104} 92 C ${NODE_X[i] + 120} 92, ${NODE_X[i + 1] - 16} 92, ${NODE_X[i + 1]} 92`} stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" strokeDasharray="3 4" />
-        ))}
-      </svg>
-      {[0, 1, 2].map((i) => (
-        <span key={i} className="sd-packet absolute left-0 top-0 w-2 h-2 -ml-1 -mt-1 rounded-full bg-ember-400 shadow-[0_0_10px_3px_rgba(255,90,31,0.7)]" style={css({ offsetPath: `path('M${NODE_X[i] + 104} 92 L ${NODE_X[i + 1]} 92')`, "--i": i })} />
-      ))}
+
+      {/* Connectors: a track that fills, segment by segment */}
+      {[0, 1, 2].map((i) => {
+        const x = NODE_X[i] + NODE_W;
+        const w = NODE_X[i + 1] - x;
+        return (
+          <span key={i} className="absolute top-[91px] h-[2px] rounded-full bg-white/[0.1]" style={{ left: x, width: w }}>
+            <span className={`sd-seg sd-seg${i + 1} absolute inset-0 rounded-full bg-ember-500 origin-left`} />
+            <span className={`sd-dot sd-dot${i + 1} absolute top-1/2 -mt-[4px] -ml-[4px] w-2 h-2 rounded-full bg-ember-300 shadow-[0_0_10px_3px_rgba(255,90,31,0.7)]`} />
+          </span>
+        );
+      })}
+
       {nodes.map((n, i) => (
-        <K key={n.t} at={4 + i * 4} from="translateY(10px)" className="absolute top-[60px] w-[104px] h-[64px] rounded-2xl border border-white/10 bg-[#121214] px-3 py-2.5" style={{ left: NODE_X[i] }}>
-          <span className={`sd-k sd-in${20 + i * 14} absolute inset-0 rounded-2xl border border-ember-500/70 shadow-[0_0_24px_-4px_rgba(255,90,31,0.6)]`} style={css({ "--from": "scale(1.04)" })} />
-          <span className="flex items-center gap-2">
+        <div key={n.t} className="absolute top-[60px] h-[64px] rounded-2xl border border-white/10 bg-[#121214] px-3 py-2.5" style={{ left: NODE_X[i], width: NODE_W }}>
+          <span className={`sd-k sd-in${ON[i]} absolute inset-0 rounded-2xl border border-ember-500/80 bg-ember-500/[0.06] shadow-[0_0_24px_-6px_rgba(255,90,31,0.7)]`} style={css({ "--from": "scale(1.04)" })} />
+          <span className="relative flex items-center gap-2">
             <svg viewBox="0 0 24 24" className="w-4 h-4 text-ember-400" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round"><path d={n.d} /></svg>
             <span className="text-[11px] font-semibold text-white">{n.t}</span>
           </span>
-          <span className="mt-1.5 block text-[9px] leading-tight text-white/45">{n.s}</span>
-        </K>
+          <span className="relative mt-1.5 block text-[9px] leading-tight text-white/50">{n.s}</span>
+        </div>
       ))}
-      <K at={16} from="translateY(10px)" className="absolute left-6 right-6 top-[150px] bottom-5 rounded-2xl border border-white/[0.07] bg-black/40 px-4 py-3 font-mono">
+
+      <div className="absolute left-5 right-5 top-[146px] bottom-5 rounded-2xl border border-white/[0.07] bg-black/40 px-4 py-3">
         <Mono>{tx("Registro", "Log")}</Mono>
-        <div className="mt-2 flex flex-col gap-1.5">
-          {logs.map(([a, l], i) => (
-            <K key={l as string} at={a as number} from="translateX(-8px)" className={`flex items-center gap-2 text-[11px] ${i === 3 ? "text-ember-400" : "text-white/70"}`}>
-              <span className="text-white/30">{`09:41:${String(2 + i * 3).padStart(2, "0")}`}</span>
-              <span>›</span>
-              {l}
-              {i === 3 && <Ck />}
+        <div className="mt-2.5 flex flex-col gap-2">
+          {logs.map((l, i) => (
+            <K key={i} at={ON[i] + 2} from="translateX(-8px)" className={`flex items-center gap-2.5 text-[11px] ${i === 3 ? "text-ember-400" : "text-white/75"}`}>
+              <span className="font-mono text-white/30 tabular-nums">{`09:41:${String(2 + i * 2).padStart(2, "0")}`}</span>
+              <span className="w-[72px] shrink-0 font-semibold text-white/90">{nodes[i].t}</span>
+              <span className="truncate">{l}</span>
             </K>
           ))}
         </div>
-      </K>
+      </div>
     </Fit>
   );
 }
@@ -331,67 +332,72 @@ function SceneDesign() {
   );
 }
 
-/* ---------------- 5. Sound: raw take → mixed and mastered ---------------- */
-const WAVE = Array.from({ length: 72 }, (_, i) => 0.25 + 0.75 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21 + 1)));
+/* ---------------- 5. Sound: the mix gets balanced, then mastered ---------------- */
+const TRACKS = [
+  { n: "Kick", clips: [[0, 100]], c: "bg-ember-500/80", start: 82, end: 60 },
+  { n: "Bass", clips: [[0, 46], [52, 100]], c: "bg-ember-400/70", start: 30, end: 56 },
+  { n: "Synth", clips: [[12, 70], [76, 100]], c: "bg-white/35", start: 88, end: 48 },
+  { n: "Voz", clips: [[26, 62], [70, 96]], c: "bg-white/60", start: 22, end: 66 },
+];
 function SceneSound() {
   const tx = useTx();
   return (
     <Fit w={560} h={320}>
-      <div className="absolute left-6 right-6 top-6 h-[96px] rounded-2xl border border-white/[0.07] bg-black/40 overflow-hidden">
-        <span className="absolute left-3 top-2"><Mono>{tx("Pista · voz + beat", "Track · vocal + beat")}</Mono></span>
-        <div className="sd-before absolute inset-x-3 top-6 bottom-2 flex items-center gap-[2px]">
-          {WAVE.map((h, i) => <span key={i} className="flex-1 rounded-full bg-white/25" style={{ height: `${h * 40}%` }} />)}
-        </div>
-        <div className="sd-after absolute inset-x-3 top-6 bottom-2 flex items-center gap-[2px]">
-          {WAVE.map((h, i) => <span key={i} className="flex-1 rounded-full bg-gradient-to-b from-ember-400 to-ember-600" style={{ height: `${55 + h * 35}%` }} />)}
-        </div>
-        <span className="sd-playhead absolute top-5 bottom-1 left-3 w-px bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-      </div>
-
-      <div className="absolute left-6 top-[136px] flex gap-2">
-        {[
-          [14, "EQ"],
-          [24, tx("Compresor", "Compressor")],
-          [34, tx("Limitador", "Limiter")],
-        ].map(([a, l]) => (
-          <span key={l as string} className="relative flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-white/75">
-            <span className="relative w-2 h-2 rounded-full bg-white/20">
-              <K at={a as number} from="scale(0)" className="absolute inset-0 rounded-full bg-ember-500 shadow-[0_0_8px_rgba(255,90,31,0.9)]" />
-            </span>
-            {l}
+      {/* Arrangement */}
+      <div className="absolute left-5 top-5 bottom-5 w-[326px] rounded-2xl border border-white/[0.07] bg-black/40 overflow-hidden">
+        <div className="h-9 flex items-center gap-3 px-3.5 border-b border-white/[0.06]">
+          <span className="grid place-items-center w-5 h-5 rounded-full bg-ember-500">
+            <svg viewBox="0 0 10 10" className="w-2 h-2 ml-[1px]"><path d="M2 1.2l6.2 3.8L2 8.8z" fill="#fff" /></svg>
           </span>
-        ))}
-      </div>
-
-      <div className="absolute left-6 top-[186px] w-[290px] h-[110px] rounded-2xl border border-white/[0.07] bg-black/40 px-3 pt-2">
-        <Mono>{tx("Espectro", "Spectrum")}</Mono>
-        <div className="absolute left-3 right-3 bottom-3 top-7 flex items-end gap-[3px]">
-          {Array.from({ length: 30 }, (_, i) => (
-            <span
-              key={i}
-              className="sd-eq flex-1 rounded-t-sm origin-bottom bg-gradient-to-t from-ember-600 to-ember-400"
-              style={css({ height: `${30 + 65 * Math.exp(-((i - 7) ** 2) / 60) + 10 * Math.sin(i)}%`, "--dur": `${0.7 + ((i * 37) % 9) / 10}s`, "--i": i })}
-            />
+          <span className="font-mono text-[11px] text-white/80 tabular-nums">124 BPM</span>
+          <span className="font-mono text-[11px] text-white/40">4/4</span>
+        </div>
+        <div className="absolute left-0 right-0 top-9 bottom-0">
+          {TRACKS.map((t, i) => (
+            <div key={t.n} className="absolute left-0 right-0 flex items-center border-b border-white/[0.05]" style={{ top: i * 61, height: 61 }}>
+              <span className="w-[54px] shrink-0 pl-3.5 text-[10px] font-semibold text-white/65">{t.n === "Voz" ? tx("Voz", "Vocal") : t.n}</span>
+              <span className="relative flex-1 h-[34px] mr-3">
+                {t.clips.map(([a, b]) => (
+                  <span key={a} className={`absolute inset-y-0 rounded-[5px] ${t.c}`} style={{ left: `${a}%`, width: `${b - a - 1}%` }}>
+                    <span className="absolute inset-x-1.5 top-1/2 h-px bg-black/30" />
+                  </span>
+                ))}
+              </span>
+            </div>
           ))}
+          <span className="sd-head absolute top-0 bottom-0 left-[54px] w-px bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
         </div>
       </div>
 
-      <div className="absolute right-6 top-[136px] w-[200px] h-[160px] rounded-2xl border border-white/[0.07] bg-black/40 px-4 pt-3">
-        <Mono>{tx("Loudness", "Loudness")}</Mono>
-        <div className="absolute left-4 bottom-4 top-9 flex gap-2">
-          {[0, 1].map((c) => (
-            <span key={c} className="relative w-3 h-full rounded-full bg-white/[0.06] overflow-hidden">
-              <span className="sd-meter absolute inset-x-0 bottom-0 h-[78%] rounded-full bg-gradient-to-t from-ember-600 via-ember-500 to-ember-300 origin-bottom" style={css({ "--i": c })} />
+      {/* Mixer: faders move from unbalanced to balanced */}
+      <div className="absolute right-5 top-5 bottom-5 w-[190px] rounded-2xl border border-white/[0.07] bg-black/40 px-4 pt-3 pb-3 flex flex-col">
+        <Mono>{tx("Mezclador", "Mixer")}</Mono>
+        <div className="mt-3 flex-1 flex justify-between">
+          {TRACKS.map((t, i) => (
+            <div key={t.n} className="flex flex-col items-center gap-2">
+              <div className="relative w-[26px] flex-1 flex justify-center">
+                <span className="absolute inset-y-0 w-[3px] rounded-full bg-white/[0.08]" />
+                <span className="absolute bottom-0 right-0 w-[3px] h-full rounded-full overflow-hidden bg-white/[0.04]">
+                  <span className="sd-vu absolute inset-x-0 bottom-0 h-full origin-bottom bg-gradient-to-t from-ember-600 to-ember-300" style={css({ "--i": i })} />
+                </span>
+                <span
+                  className="sd-fader absolute left-1/2 -ml-[11px] w-[22px] h-[10px] rounded-[3px] bg-white shadow-[0_2px_6px_rgba(0,0,0,0.6)]"
+                  style={css({ "--a": `${100 - t.start}%`, "--b": `${100 - t.end}%`, top: `${100 - t.start}%` })}
+                />
+              </div>
+              <span className="text-[9px] font-semibold text-white/55">{t.n === "Voz" ? tx("Voz", "Vox") : t.n}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 pt-3 border-t border-white/[0.07]">
+          <div className="flex items-baseline justify-between whitespace-nowrap">
+            <span className="text-[10px] text-white/45">Master</span>
+            <span className="relative font-mono text-[14px] font-bold tabular-nums">
+              <span className="sd-lufs-a text-white/55">−21 LUFS</span>
+              <span className="sd-lufs-b absolute right-0 top-0 text-white">−14 LUFS</span>
             </span>
-          ))}
-          <span className="absolute -left-1 -right-1 top-[22%] border-t border-dashed border-white/40" />
-        </div>
-        <div className="absolute left-[64px] top-10 flex flex-col">
-          <K at={44} from="translateY(6px)" className="text-[24px] font-bold leading-none tracking-[-0.03em] text-white">−14 LUFS</K>
-          <K at={50} from="translateY(6px)" className="mt-1 text-[10px] text-white/45">{tx("Objetivo streaming", "Streaming target")}</K>
-          <K at={66} from="scale(0.9)" className="mt-4 self-start inline-flex items-center gap-1.5 rounded-full border border-ember-500/40 bg-ember-500/10 px-2.5 py-1 text-[10px] font-semibold text-ember-400">
-            <Ck /> {tx("Master listo", "Master ready")}
-          </K>
+          </div>
+          <span className="sd-lufs-b mt-1.5 flex items-center gap-1 text-[10px] font-semibold text-ember-400"><Ck className="w-2.5 h-2.5" />{tx("Listo para streaming", "Streaming ready")}</span>
         </div>
       </div>
     </Fit>

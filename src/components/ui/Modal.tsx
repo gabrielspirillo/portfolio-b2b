@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { useLanguage } from "@/lib/i18n";
 
@@ -13,6 +14,7 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
   const { t } = useLanguage();
   const backdropRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const focusRef = useRef<HTMLDivElement>(null);
   const closing = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
@@ -25,6 +27,9 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
     closing.current = true;
     const done = () => onCloseRef.current();
     if (!panelRef.current || !backdropRef.current) return done();
+    // Drop the blur first: a blurred layer must never animate
+    gsap.killTweensOf(focusRef.current);
+    gsap.set(focusRef.current, { opacity: 0 });
     gsap
       .timeline({ onComplete: done })
       .to(panelRef.current, { y: 16, scale: 0.97, opacity: 0, duration: 0.28, ease: "power2.in" }, 0)
@@ -39,8 +44,16 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
     // Pause decorative page motion behind the dialog: the blurred backdrop
     // would otherwise be re-rendered every frame
     root.classList.add("modal-open");
+    const videos = Array.from(document.querySelectorAll<HTMLVideoElement>("main video")).filter((v) => !v.paused);
+    videos.forEach((v) => v.pause());
     gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" });
-    gsap.fromTo(panelRef.current, { y: 28, scale: 0.96, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" });
+    // The page behind is blurred only once the panel has landed and the page
+    // holds still, so the blur is computed once instead of on every frame.
+    gsap.set(focusRef.current, { opacity: 0 });
+    gsap.fromTo(panelRef.current, { y: 28, scale: 0.96, opacity: 0 }, {
+      y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out",
+      onComplete: () => { if (!closing.current) gsap.to(focusRef.current, { opacity: 1, duration: 0.18, ease: "none" }); },
+    });
     // Loops inside the dialog only run while visible in its scroll area
     const scroller = scrollRef.current;
     const io = new IntersectionObserver(
@@ -60,15 +73,17 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
       cancelAnimationFrame(raf);
       root.style.overflow = "";
       root.classList.remove("modal-open");
+      videos.forEach((v) => v.play().catch(() => {}));
       window.removeEventListener("keydown", onKey);
     };
   }, [open, requestClose]);
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 overscroll-contain" role="dialog" aria-modal="true">
       <div ref={backdropRef} className="modal-backdrop absolute inset-0" style={{ opacity: 0 }} onClick={requestClose} />
+      <div ref={focusRef} className="modal-focus absolute inset-0 pointer-events-none" style={{ opacity: 0 }} />
       <div ref={panelRef} className={`glass-blur modal-panel relative w-full max-h-[90vh] rounded-[28px] will-change-transform ${className}`} style={{ opacity: 0 }}>
         <button
           onClick={requestClose}
@@ -79,6 +94,7 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
         </button>
         <div ref={scrollRef} className="relative z-10 max-h-[90vh] overflow-y-auto overscroll-contain p-6 md:p-10">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

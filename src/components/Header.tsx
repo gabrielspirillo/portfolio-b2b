@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAudio } from "@/lib/audio";
 import { useLanguage } from "@/lib/i18n";
 
@@ -45,6 +45,13 @@ export function Header() {
     { key: "nav_contact", href: "#contact" },
   ];
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
+
   const close = () => {
     playEarcon();
     setIsOpen(false);
@@ -52,6 +59,12 @@ export function Header() {
 
   return (
     <header className="fixed top-3 md:top-4 inset-x-0 z-50 px-3 md:px-6 pointer-events-none">
+      {/* Tap anywhere outside the open menu to close it */}
+      <div
+        aria-hidden="true"
+        onClick={() => setIsOpen(false)}
+        className={`md:hidden fixed inset-0 -z-10 bg-black/45 transition-opacity duration-300 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      />
       <div className="glass-blur pointer-events-auto mx-auto max-w-5xl h-14 rounded-full pl-5 pr-2 flex items-center justify-between">
         <a href="#about" onClick={playEarcon} className="relative z-10 flex items-center gap-2 text-[15px] font-semibold tracking-tight text-white">
           <span className="text-ember-500">{"//"}</span> Gabriel Pirillo

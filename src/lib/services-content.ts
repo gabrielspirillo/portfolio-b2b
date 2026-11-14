@@ -1,186 +1,96 @@
 export const SERVICE_CONTENT = {
-  "es": [
+  es: [
     {
-      "intro": "Más que escribir código, construyo plataformas diseñadas para escalar tu negocio. Desarrollo ecosistemas web rápidos, seguros y optimizados para convertir visitantes en clientes.",
-      "items": [
-        [
-          "Landing Pages de Alta Conversión",
-          "Diseños enfocados en guiar al usuario hacia la acción (ventas o leads)."
-        ],
-        [
-          "Plataformas E-Commerce a Medida",
-          "Tiendas online rápidas, seguras y sin las limitaciones de las plantillas tradicionales."
-        ],
-        [
-          "Aplicaciones Web (SaaS) y Portales B2B",
-          "Sistemas complejos con bases de datos robustas y paneles de administración a medida."
-        ]
+      intro: "Hago sitios y plataformas web **rápidos, seguros y fáciles de usar**, pensados para que quien entra termine comprando, reservando o dejando sus datos.",
+      items: [
+        ["Landing pages", "Una página clara, con un objetivo: que el visitante compre o te deje sus datos."],
+        ["Tiendas online a medida", "E-commerce rápido y sin los límites de una plantilla: catálogo, pagos y envíos como los necesitás."],
+        ["Plataformas y portales B2B", "Sistemas con base de datos, usuarios y panel de administración propios, como un CRM o un portal de clientes."],
       ],
-      "approach": "A diferencia del desarrollador tradicional, mi base en estrategia de ventas me permite alinear la arquitectura tecnológica con tus objetivos financieros. Cada decisión técnica apunta a mejorar el SEO, reducir los tiempos de carga y lograr una experiencia de usuario clara."
+      approach: "Vengo de liderar equipos de ventas, así que cada decisión técnica la tomo pensando en el negocio: que la web cargue rápido, se posicione en Google y lleve al usuario directo a la acción.",
     },
     {
-      "intro": "Diseño y programo aplicaciones móviles a medida para **iOS (Apple) y Android**. Te ayudo a llevar tu negocio directamente al bolsillo de tus clientes con apps rápidas, seguras y muy fáciles de usar.",
-      "items": [
-        [
-          "Presencia en ambas tiendas",
-          "Uso tecnologías como React Native, Swift y Kotlin para que tu app funcione bien en App Store y Google Play."
-        ],
-        [
-          "Rendimiento y Fluidez",
-          "Me enfoco en el manejo eficiente de los recursos. Me aseguro de que la experiencia sea instantánea para evitar el abandono del usuario."
-        ],
-        [
-          "Conexión con tu Negocio",
-          "Integro la aplicación con tus bases de datos, pasarelas de pago o sistemas actuales (APIs y CRMs) de forma sincronizada."
-        ]
+      intro: "Diseño y programo apps para **iOS y Android** que tus clientes usan todos los días: rápidas, simples y conectadas con tu negocio.",
+      items: [
+        ["En App Store y Google Play", "Con React Native, Swift o Kotlin, según lo que necesite el proyecto. Me ocupo también de la publicación en ambas tiendas."],
+        ["Pagos y notificaciones", "Cobros dentro de la app y avisos push para que el usuario vuelva: pedidos, turnos, recordatorios."],
+        ["Conectada a tus sistemas", "La app lee y escribe en tu CRM, tu base de datos o tus herramientas actuales, sin cargar nada dos veces."],
       ],
-      "approach": "Entiendo que una aplicación no es solo código; es una herramienta clave de ventas y fidelización. Aplico mi experiencia comercial y en diseño visual (UI/UX) para asegurar que cada pantalla y cada botón guíen intuitivamente a tu usuario hacia la acción que tu negocio necesita."
+      approach: "Una app es una herramienta de venta y de fidelización. Diseño cada pantalla para que el usuario entienda qué hacer sin pensarlo y llegue a la acción que le importa a tu negocio.",
     },
     {
-      "intro": "Automatizo las tareas manuales y repetitivas de tu empresa utilizando Inteligencia Artificial y flujos de trabajo inteligentes. Conecto tus herramientas para reducir el trabajo manual en un 90%, permitiendo que tu equipo se enfoque en lo que realmente importa: vender y crecer.",
-      "items": [
-        [
-          "Agentes Conversacionales con IA",
-          "Asistentes inteligentes en WhatsApp y Redes que gestionan conversaciones reales, resuelven consultas y califican prospectos 24/7."
-        ],
-        [
-          "Orquestación de Sistemas",
-          "Sincronización en piloto automático con n8n y Python de tus CRMs, bases de datos y pasarelas de pago."
-        ],
-        [
-          "Asistentes de Back-Office",
-          "Agentes autónomos que procesan documentos, clasifican información o extraen datos estratégicos de la web sin error."
-        ]
+      intro: "Automatizo las tareas repetitivas de tu empresa con **agentes de IA y flujos en n8n**: responder consultas, cargar datos, avisar al equipo. Tu equipo deja de hacer trabajo manual y se enfoca en vender.",
+      items: [
+        ["Agentes de IA en WhatsApp", "Responden consultas reales, califican al cliente y agendan, las 24 horas. Si hace falta, derivan a una persona."],
+        ["Sistemas conectados", "Tu CRM, tu agenda, tus planillas y tus pagos se actualizan solos, con n8n y Python."],
+        ["Tareas de oficina", "Leer documentos, ordenar información y armar reportes sin que nadie tenga que copiar y pegar."],
       ],
-      "approach": "Mi experiencia liderando equipos de ventas me enseñó que la IA no consiste solo en usar tecnología de moda, sino en generar rentabilidad. Diseño cada agente y cada flujo con un objetivo de negocio claro: acelerar tu ciclo de ventas, dar un soporte más rápido y bajar tus costos operativos."
+      approach: "La IA tiene que dejar plata o tiempo, no ser un adorno. Cada automatización arranca de un proceso concreto de tu negocio y se mide: cuántas horas libera y cuántas ventas no se pierden.",
     },
     {
-      "intro": "Diseño interfaces y piezas visuales que captan la atención y generan confianza instantánea. Traduzco la identidad de tu marca en experiencias estéticas de nivel premium, asegurando que cada detalle visual esté pensado para enamorar a tu cliente y facilitar la venta.",
-      "items": [
-        [
-          "Diseño de Interfaces (UI/UX)",
-          "Diseño pantallas limpias y lógicas que guían al usuario sin esfuerzo hacia la compra o el contacto, optimizando el recorrido visual."
-        ],
-        [
-          "Identidad Visual y Branding",
-          "Creación del alma de tu empresa: logotipos, paletas de colores y tipografías que te posicionan como líder en tu sector."
-        ],
-        [
-          "Piezas Gráficas de Alto Impacto",
-          "Contenido publicitario, flyers, carruseles y presentaciones corporativas que superan a tu competencia en cada punto de contacto."
-        ]
+      intro: "Diseño interfaces y piezas gráficas que **se entienden a la primera** y hacen que una marca se vea profesional en cada pantalla.",
+      items: [
+        ["Interfaces (UI/UX)", "Pantallas claras para webs y apps, donde el usuario encuentra lo que busca y sabe qué hacer después."],
+        ["Identidad visual", "Logo, colores, tipografías y reglas de uso, para que la marca se vea igual en todos lados."],
+        ["Piezas gráficas", "Publicaciones, carruseles, flyers y presentaciones con la misma identidad."],
       ],
-      "approach": "Un diseño visualmente increíble no sirve de nada si confunde al usuario o si los programadores no pueden construirlo. Como también soy desarrollador Full Stack y tengo experiencia en ventas, mis diseños no son simples dibujos; son ecosistemas visuales estratégicos, 100% listos para programarse y optimizados para la conversión comercial."
+      approach: "Como también programo, cada diseño sale listo para construirse: sin pantallas imposibles ni detalles que después se pierden en el desarrollo.",
     },
     {
-      "intro": "Elevo la calidad de tus proyectos musicales y audiovisuales con sonido de nivel estudio. Ya sea que necesites pulir una canción para plataformas de streaming o diseñar la experiencia sonora de una aplicación, cuido cada detalle para que suene profesional.",
-      "items": [
-        [
-          "Mezcla y Mastering de Canciones",
-          "Llevo tus pistas musicales al estándar de la industria utilizando Ableton Live. Sonido potente y balanceado para Spotify o la pista de baile."
-        ],
-        [
-          "Postproducción de Audio para Video",
-          "Limpieza y optimización para publicidad, YouTube o corporativos. Voces nítidas e impacto sonoro profesional."
-        ],
-        [
-          "Audio UX para Sitios y Apps (Earcons)",
-          "Diseño de micro-interacciones acústicas integradas en el código, sumando una capa táctil y premium a tu interfaz."
-        ]
+      intro: "Mezclo y masterizo música y sonido para video, y diseño el **sonido de interfaces**: que una canción suene bien en Spotify y en un club, y que una app suene cuidada.",
+      items: [
+        ["Mezcla y mastering", "Con Ableton Live llevo tus pistas a volumen y balance profesional, listas para streaming o para la pista."],
+        ["Audio para video", "Limpieza de voces y ruido, música y efectos para publicidad, YouTube o videos de empresa."],
+        ["Sonido de interfaz", "Sonidos cortos para botones y acciones de webs y apps, programados con la Web Audio API para que respondan sin demora."],
       ],
-      "approach": "Combino mi sensibilidad como productor musical activo con la lógica de un desarrollador de software. Esto me permite entender exactamente qué necesita un track para sonar enorme en un club, o cómo programar sonido en una web mediante la Web Audio API para que cargue rápido y sin latencia."
-    }
+      approach: "Produzco música y además programo. Por eso sé qué necesita un tema para sonar bien en un club, y cómo integrar sonido en una web sin que la haga más pesada.",
+    },
   ],
-  "en": [
+  en: [
     {
-      "intro": "Beyond writing code, I build platforms designed to scale your business. I develop fast, secure, and optimized web ecosystems to convert visitors into clients.",
-      "items": [
-        [
-          "High-Conversion Landing Pages",
-          "Designs focused on guiding users toward action (sales or leads)."
-        ],
-        [
-          "Custom E-Commerce Platforms",
-          "Fast, secure online stores without the limitations of traditional templates."
-        ],
-        [
-          "Web Applications (SaaS) & B2B Portals",
-          "Complex systems with robust databases and custom administration panels."
-        ]
+      intro: "I build websites and web platforms that are **fast, secure and easy to use**, designed so visitors end up buying, booking or leaving their details.",
+      items: [
+        ["Landing pages", "One clear page with one goal: the visitor buys or leaves their details."],
+        ["Custom online stores", "Fast e-commerce without template limits: catalog, payments and shipping the way you need them."],
+        ["B2B platforms and portals", "Systems with their own database, users and admin panel, such as a CRM or a client portal."],
       ],
-      "approach": "Unlike the traditional developer, my background in sales strategy allows me to align tech architecture with your financial goals. Every technical decision aims to improve SEO, cut load times and deliver a clear user experience."
+      approach: "I come from leading sales teams, so every technical decision is made with the business in mind: a site that loads fast, ranks on Google and takes users straight to the action.",
     },
     {
-      "intro": "I design and program custom mobile applications for **iOS (Apple) and Android**. I help you take your business directly to your customers' pockets with fast, secure, and easy-to-use apps.",
-      "items": [
-        [
-          "Presence in both stores",
-          "I use technologies like React Native, Swift, and Kotlin so your app works well on the App Store and Google Play."
-        ],
-        [
-          "Performance and Fluidity",
-          "I focus on efficient resource management. I ensure the experience is instantaneous to prevent user churn."
-        ],
-        [
-          "Business Connection",
-          "I integrate the application with your databases, payment gateways, or current systems (APIs and CRMs) synchronously."
-        ]
+      intro: "I design and build **iOS and Android** apps your customers use every day: fast, simple and connected to your business.",
+      items: [
+        ["On the App Store and Google Play", "With React Native, Swift or Kotlin, depending on the project. I also handle publishing on both stores."],
+        ["Payments and notifications", "In-app payments and push notifications that bring users back: orders, bookings, reminders."],
+        ["Connected to your systems", "The app reads and writes to your CRM, database or current tools, so nothing is entered twice."],
       ],
-      "approach": "I understand that an application is not just code; it is a key tool for sales and loyalty. I apply my commercial and visual design (UI/UX) experience to ensure that every screen and every button intuitively guides your user toward the action your business needs."
+      approach: "An app is a sales and loyalty tool. I design every screen so users know what to do without thinking and reach the action that matters to your business.",
     },
     {
-      "intro": "I automate manual and repetitive tasks for your company using Artificial Intelligence and intelligent workflows. I connect your tools to reduce manual work by 90%, allowing your team to focus on what really matters: selling and growing.",
-      "items": [
-        [
-          "Conversational AI Agents",
-          "Intelligent assistants on WhatsApp and Social Media that manage real conversations, resolve inquiries, and qualify leads 24/7."
-        ],
-        [
-          "Systems Orchestration",
-          "Autopilot synchronization with n8n and Python of your CRMs, databases, and payment gateways."
-        ],
-        [
-          "Back-Office Assistants",
-          "Autonomous agents that process documents, classify information, or extract strategic data from the web error-free."
-        ]
+      intro: "I automate your company's repetitive work with **AI agents and n8n workflows**: answering inquiries, entering data, notifying the team. Your team stops doing manual work and focuses on selling.",
+      items: [
+        ["AI agents on WhatsApp", "They answer real inquiries, qualify the customer and book, 24/7. When needed, they hand over to a person."],
+        ["Connected systems", "Your CRM, calendar, spreadsheets and payments update themselves, with n8n and Python."],
+        ["Back-office tasks", "Reading documents, sorting information and building reports with no copy-and-paste."],
       ],
-      "approach": "My experience leading sales teams taught me that AI is not just about using trendy technology, but about generating profitability. I design every agent and every flow with a clear business goal: accelerate your sales cycle, guarantee impeccable support, and drastically reduce your operating costs."
+      approach: "AI has to save money or time, not just look good. Every automation starts from a concrete process in your business and is measured: hours freed and sales no longer lost.",
     },
     {
-      "intro": "I design interfaces and visual pieces that capture attention and build instant trust. I translate your brand identity into premium aesthetic experiences, ensuring every visual detail is designed to engage your customers and facilitate sales.",
-      "items": [
-        [
-          "Interface Design (UI/UX)",
-          "I design clean and logical screens that effortlessly guide the user toward purchase or contact, optimizing the visual journey."
-        ],
-        [
-          "Visual Identity & Branding",
-          "Creating the soul of your company: logos, color palettes, and typography that position you as a leader in your sector."
-        ],
-        [
-          "High-Impact Graphic Collateral",
-          "Advertising content, flyers, carousels, and corporate presentations that outperform your competition at every touchpoint."
-        ]
+      intro: "I design interfaces and graphics that are **clear at first sight** and make a brand look professional on every screen.",
+      items: [
+        ["Interfaces (UI/UX)", "Clear screens for websites and apps, where users find what they need and know what to do next."],
+        ["Visual identity", "Logo, colors, typefaces and usage rules, so the brand looks the same everywhere."],
+        ["Graphic pieces", "Posts, carousels, flyers and presentations with the same identity."],
       ],
-      "approach": "Visual design alone is useless if it confuses the user or if developers can't build it. As a Full Stack developer with sales experience, my designs are not just drawings; they are strategic visual ecosystems, 100% ready for code and optimized for commercial conversion."
+      approach: "Because I also code, every design is ready to build: no impossible screens and no details lost during development.",
     },
     {
-      "intro": "I elevate the quality of your musical and audiovisual projects with studio-level sound. Whether you need to polish a song for streaming platforms or design the sound experience of an app, I take care of every detail so it sounds professional.",
-      "items": [
-        [
-          "Song Mixing & Mastering",
-          "I bring your musical tracks to industry standards using Ableton Live. Powerful, balanced sound for Spotify or the dance floor."
-        ],
-        [
-          "Audio Post-production for Video",
-          "Cleaning and optimization for ads, YouTube, or corporate videos. Sharp voices and professional sonic impact."
-        ],
-        [
-          "Audio UX for Sites & Apps (Earcons)",
-          "Designing acoustic micro-interactions integrated into the code, adding a tactile and premium layer to your interface."
-        ]
+      intro: "I mix and master music and sound for video, and design **interface sound**: a song that sounds right on Spotify and in a club, and an app that sounds polished.",
+      items: [
+        ["Mixing and mastering", "In Ableton Live I bring your tracks to professional loudness and balance, ready for streaming or the dance floor."],
+        ["Audio for video", "Voice and noise cleanup, music and effects for ads, YouTube or company videos."],
+        ["Interface sound", "Short sounds for buttons and actions in websites and apps, built with the Web Audio API so they respond instantly."],
       ],
-      "approach": "I combine my sensitivity as an active music producer with the logic of a software developer. This allows me to understand exactly what a track needs to sound massive in a club, or how to program sound in a web environment using the Web Audio API for fast loading and zero latency."
-    }
-  ]
+      approach: "I produce music and I also code. So I know what a track needs to sound right in a club, and how to add sound to a website without making it heavier.",
+    },
+  ],
 } as const;
