@@ -1046,8 +1046,8 @@ html.lite .line-drift { animation: none; }
 
 /* SYNEX: warm black, molten orange, dark liquid glass */
 .glass-blur.modal-panel.th-synex {
-  background-color: #0a0806;
-  background-image: radial-gradient(620px 420px at 100% 0%, rgba(255, 61, 20, 0.16), transparent 70%), radial-gradient(640px 480px at 0% 100%, rgba(255, 106, 31, 0.1), transparent 70%);
+  background-color: #0b0807;
+  background-image: radial-gradient(120% 60% at 50% 40%, rgba(255, 90, 31, 0.07), transparent 70%);
 }
 .th-synex .glass-ember, .sx-molten { position: relative; color: #fff; background: radial-gradient(120% 90% at 20% -20%, rgba(255, 220, 190, 0.38), transparent 55%), linear-gradient(145deg, rgba(255, 138, 60, 0.95) 0%, rgba(255, 61, 20, 0.92) 52%, rgba(207, 20, 32, 0.95) 100%); border: 1px solid rgba(255, 200, 170, 0.4); box-shadow: inset 0 1px 0 rgba(255, 236, 222, 0.75), inset 0 -10px 20px -12px rgba(90, 10, 0, 0.55), 0 16px 36px -14px rgba(255, 61, 20, 0.6); }
 .sx-glass { position: relative; background: radial-gradient(110% 70% at 15% 0%, rgba(255, 154, 60, 0.1), transparent 55%), linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015)), #120d0a; border: 1px solid rgba(255, 170, 120, 0.14); box-shadow: inset 0 1px 0 rgba(255, 230, 210, 0.14), 0 18px 40px -24px rgba(0, 0, 0, 0.9); }
@@ -1067,3 +1067,11 @@ html.modal-open .ring-spin { animation-play-state: paused !important; }
 .fdh-toast { opacity: 0; animation: fdh-toast 8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
 @keyframes fdh-toast { 0%, 34% { opacity: 0; transform: translateY(8px) scale(0.97); } 42%, 88% { opacity: 1; transform: none; } 95%, 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .fdh-a { opacity: 0 !important; animation: none !important; } .fdh-b, .fdh-toast { opacity: 1 !important; animation: none !important; transform: none !important; } }
+
+/* Dialog backdrop: a dense veil (no live blur: it halved the frame rate while
+   opening). Darker at the edges so the page's orange blocks behind the
+   header and the bottom don't read as shapes. */
+.modal-backdrop {
+  background:
+    radial-gradient(120% 90% at 50% 50%, rgba(4, 4, 4, 0.86) 40%, rgba(4, 4, 4, 0.97) 100%);
+}

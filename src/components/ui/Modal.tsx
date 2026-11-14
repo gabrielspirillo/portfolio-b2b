@@ -68,7 +68,7 @@ export function Modal({ open, onClose, className = "", children }: { open: boole
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 overscroll-contain" role="dialog" aria-modal="true">
-      <div ref={backdropRef} className="absolute inset-0 bg-black/85" style={{ opacity: 0 }} onClick={requestClose} />
+      <div ref={backdropRef} className="modal-backdrop absolute inset-0" style={{ opacity: 0 }} onClick={requestClose} />
       <div ref={panelRef} className={`glass-blur modal-panel relative w-full max-h-[90vh] rounded-[28px] will-change-transform ${className}`} style={{ opacity: 0 }}>
         <button
           onClick={requestClose}
