@@ -3,7 +3,6 @@
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { useTx } from "@/lib/i18n";
 import { archivo, publicSans } from "@/lib/brand-fonts";
-import { BeforeAfter } from "@/components/project/smile-motions";
 
 /* Brand board: each client's design system shown in its OWN look
    (logo, palette, type, components, tokens). Cells rise in when scrolled
@@ -159,6 +158,74 @@ function Header({ title, note, light = false, accent = "#37766a", ink = "#161a19
 }
 
 /* ---------------------------------------------------------------- FUTURA */
+/* The dashboard's main block, "Hoy": next appointments on a timeline and the
+   assistant clearing what needs attention, live. Names without surnames. */
+function FuturaToday() {
+  const tx = useTx();
+  const slots = [
+    { h: "15:00", n: "Carla H.", s: tx("Visita recurrente", "Recurring visit") },
+    { h: "15:30", n: "Manuel L.", s: tx("Primera visita", "First visit") },
+    { h: "16:00", n: "Olivia F.", s: tx("Desde lista de espera", "From the waitlist") },
+    { h: "16:30", n: "Saúl C.", s: tx("Revisión", "Check-up") },
+  ];
+  const att: [string, string, string][] = [
+    ["20", "14", tx("sin confirmar · hoy y mañana", "unconfirmed · today and tomorrow")],
+    ["19", "12", tx("esperan a una persona en WhatsApp", "waiting for a person on WhatsApp")],
+    ["0", "2", tx("huecos ofrecidos a la lista de espera", "slots offered to the waitlist")],
+  ];
+  return (
+    <div className="fl-hero rounded-[22px] overflow-hidden grid md:grid-cols-[1.55fr_1fr]">
+      <div className="relative z-10 p-4 sm:p-5">
+        <span className="block text-[10px] font-semibold tracking-[0.18em] uppercase text-white/55">{tx("Hoy", "Today")}</span>
+        <span className="mt-1 block text-[18px] font-bold tracking-[-0.02em] text-white">{tx("Miércoles, 11 de noviembre", "Wednesday, November 11")}</span>
+        <span className="block text-[12px] text-white/55">{tx("10 citas · siguiente a las 15:00", "10 appointments · next at 3:00 pm")}</span>
+        <div className="relative mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {slots.map((x, i) => (
+            <div key={x.h} className={`sd-k sd-in${4 + i * 4} relative rounded-[14px] px-2.5 py-2 ${i === 0 ? "bg-white text-[#161a19] shadow-[0_10px_24px_-10px_rgba(0,0,0,0.5)]" : "bg-white/[0.08] border border-white/15 text-white"}`} style={{ ["--from" as string]: "translateY(10px)" }}>
+              <span className="flex items-center justify-between">
+                <span className="text-[12px] font-bold tabular-nums">{x.h}</span>
+                <span className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-[#479183]" : "bg-white/40"}`} />
+              </span>
+              <span className="mt-1 block text-[11px] font-semibold truncate">{x.n}</span>
+              <span className={`block text-[9px] ${i === 0 ? "text-[#6a706e]" : "text-white/50"}`}>{x.s}</span>
+              {i === 0 && (
+                <span className="relative mt-1.5 block h-[16px]">
+                  <span className="fdh-a absolute left-0 rounded-full bg-[#ddf3ea] px-1.5 py-[1px] text-[8px] font-bold text-[#37766a]">{tx("SIGUIENTE", "NEXT")}</span>
+                  <span className="fdh-b absolute left-0 rounded-full bg-[#dcf7ec] px-1.5 py-[1px] text-[8px] font-bold text-[#10b981]">{tx("CONFIRMADA", "CONFIRMED")}</span>
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="fdh-toast mt-3 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1.5 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.5)]">
+          <span className="grid place-items-center w-4 h-4 rounded-full bg-[#25D366] text-white">
+            <svg viewBox="0 0 12 12" className="w-2.5 h-2.5" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </span>
+          <span className="text-[11px] font-semibold text-[#161a19]">{tx("Carla confirmó por WhatsApp", "Carla confirmed on WhatsApp")}</span>
+        </div>
+      </div>
+      <div className="relative z-10 m-2 md:ml-0 rounded-[18px] bg-white/[0.92] p-4">
+        <span className="block text-[10px] font-semibold tracking-[0.18em] uppercase text-[#6a706e]">{tx("Requiere atención", "Needs attention")}</span>
+        <div className="mt-3 flex flex-col gap-2.5">
+          {att.map(([a, b, l]) => (
+            <div key={l} className="flex items-center gap-3">
+              <span className="relative w-9 h-7 shrink-0 text-[20px] font-bold tabular-nums text-[#161a19]">
+                <span className="fdh-a absolute left-0 top-0 leading-7">{a}</span>
+                <span className="fdh-b absolute left-0 top-0 leading-7 text-[#479183]">{b}</span>
+              </span>
+              <span className="text-[11px] leading-snug text-[#6a706e]">{l}</span>
+            </div>
+          ))}
+        </div>
+        <span className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-[#37766a]">
+          <span className="bb-live w-1.5 h-1.5 rounded-full bg-[#479183]" /> {tx("El asistente lo está resolviendo", "The assistant is handling it")}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+
 export function FuturaBrand() {
   const tx = useTx();
   const t: Theme = { bg: "#f7f8f8", surface: "#ffffff", ink: "#161a19", sub: "#6a706e", line: "#e6e9e9", radius: 22 };
@@ -200,9 +267,10 @@ export function FuturaBrand() {
         sample={
           <div>
             <span className="block text-[20px] font-bold tracking-[-0.02em]">{tx("Agenda de hoy", "Today's schedule")}</span>
-            <span className="block text-[13px] text-[#6a706e]">{tx("12 citas · 2 huecos recuperados", "12 appointments · 2 slots recovered")}</span>
+            <span className="block text-[13px] text-[#6a706e]">{tx("10 citas · 2 huecos recuperados", "10 appointments · 2 slots recovered")}</span>
           </div>
         }
+        showcase={<FuturaToday />}
         ui={
           <>
             <div className="flex flex-wrap gap-2">
@@ -249,11 +317,6 @@ export function SynexBrand() {
           // eslint-disable-next-line @next/next/no-img-element
           <img src="/synex-logo.png" alt="SYNEX" className="h-6 sm:h-7 w-auto drop-shadow-[0_0_24px_rgba(255,106,31,0.35)]" />
         }
-        secondBg="#0a0806"
-        second={
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src="/synex/poster.webp" alt={tx("Póster de SYNEX", "SYNEX poster")} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-[50%_35%]" />
-        }
         palette={[
           { n: "Flame", hex: "#FF3D14", big: true },
           { n: "Ember", hex: "#FF6A1F" },
@@ -267,7 +330,7 @@ export function SynexBrand() {
         sample={
           <div>
             <span className="block text-[20px] font-bold tracking-[-0.02em]">{tx("Esta noche · Club", "Tonight · Club")}</span>
-            <span className="block font-mono text-[13px] text-[#b3aaa2] tabular-nums">23:30 → 06:00 · 2.340 pts</span>
+            <span className="block font-mono text-[13px] text-[#b3aaa2] tabular-nums">23:30 → 06:00</span>
           </div>
         }
         ui={
@@ -276,7 +339,7 @@ export function SynexBrand() {
             <div className="sx-glass rounded-[20px] px-4 py-3">
               <div className="flex items-baseline justify-between">
                 <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#b3aaa2]">{tx("Racha", "Streak")}</span>
-                <span className="font-mono text-[11px] text-[#ff9a3c]">+100 pts</span>
+                <span className="font-mono text-[11px] text-[#ff9a3c]">+100 PSY DOSIS</span>
               </div>
               <div className="mt-1 flex items-end gap-2">
                 <span className="text-[30px] font-bold leading-none tracking-[-0.04em]">5</span>
@@ -332,7 +395,6 @@ export function RealtyBrand() {
           { n: tx("Tinta", "Ink"), hex: "#0D1B3E" },
           { n: "Sky", hex: "#EEF4FF" },
         ]}
-        strip={{ label: "", css: "linear-gradient(90deg, #eaf7f1 0 25%, #f3f1fc 25% 50%, #fbf7ef 50% 75%, #fdf0f1 75% 100%)" }}
         display={{ fontFamily: "var(--font-archivo)", fontWeight: 800, fontStretch: "125%", color: "#0d1b3e" }}
         displayLabel={tx("Archivo (ancha) para titulares · Public Sans para textos", "Archivo (wide) for headlines · Public Sans for text")}
         sample={
@@ -442,8 +504,6 @@ export function SmileBrand() {
           // eslint-disable-next-line @next/next/no-img-element
           <img src="/smilefast/logo.png" alt="Smile Fast" className="h-9 sm:h-10 w-auto" />
         }
-        secondBg="#9fb3c6"
-        second={<BeforeAfter className="absolute inset-0" />}
         palette={[
           { n: tx("Tinta", "Ink"), hex: "#181818", big: true },
           { n: tx("Salvia", "Sage"), hex: "#9AA3A0" },
@@ -452,7 +512,7 @@ export function SmileBrand() {
           { n: tx("Lienzo", "Canvas"), hex: "#FFFFFF" },
         ]}
         display={{ fontWeight: 700, color: "#181818" }}
-        displayLabel={tx("Grotesca de alto contraste · monoespaciada para estados", "High-contrast grotesque · monospace for states")}
+        displayLabel={tx("Títulos en negrita con la palabra clave en gris salvia", "Bold headings with the key word in sage gray")}
         sample={
           <span className="block text-[21px] font-bold leading-tight tracking-[-0.025em]">
             {tx("Comienza tu ", "Start your ")}<span className="text-[#9aa3a0]">{tx("transformación", "transformation")}</span>
@@ -484,8 +544,8 @@ export function SmileBrand() {
             {/* Widget header + upload */}
             <div className="rounded-[22px] bg-white border border-[#ebeeed] px-4 py-3.5">
               <div className="flex items-center gap-2.5">
-                <span className="grid place-items-center w-8 h-8 rounded-full bg-[#181818]"><span className="w-3 h-3 rounded-full border-2 border-white" /></span>
-                <span className="text-[14px] font-semibold text-[#181818]">Smile Fast</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/smilefast/logo.png" alt="Smile Fast" className="h-[22px] w-auto brightness-0" />
                 <span className="ml-auto flex items-center gap-1.5 font-mono text-[9px] tracking-[0.25em] text-[#9aa3a0]"><span className="w-1.5 h-1.5 rounded-full bg-[#c4cac8]" />ONLINE</span>
               </div>
               <div className="mt-3 h-[92px] rounded-[18px] border border-dashed border-[#c9cfcd] bg-[#f5f8f7] grid place-items-center">
@@ -499,16 +559,15 @@ export function SmileBrand() {
             <div className="rounded-[22px] bg-white border border-[#ebeeed] px-4 py-3.5">
               <div className="flex items-baseline justify-between">
                 <span className="font-mono text-[9px] tracking-[0.25em] text-[#9aa3a0]">{tx("TONO VITA", "VITA SHADE")}</span>
-                <span className="text-[11px] font-semibold text-[#181818]">A1 → BL2</span>
+                <span className="text-[11px] font-semibold text-[#181818]">A1</span>
               </div>
               <div className="mt-3 flex gap-1.5">
-                {["#f7f3ea", "#f3eddd", "#efe6cf", "#ebdfc2", "#e5d6b1", "#ddcb9f"].map((c, i) => (
-                  <span key={c} className={`flex-1 h-14 rounded-b-[14px] rounded-t-[6px] border ${i === 1 ? "border-[#181818] shadow-[0_0_0_2px_rgba(24,24,24,0.12)]" : "border-[#ebeeed]"}`} style={{ background: c }} />
+                {[["B1", "#f7f3ea"], ["A1", "#f3eddd"], ["B2", "#efe6cf"], ["A2", "#ebdfc2"], ["A3", "#e5d6b1"], ["A3.5", "#ddcb9f"]].map(([n, c], i) => (
+                  <span key={n} className="flex-1 flex flex-col items-center gap-1.5">
+                    <span className={`w-full h-14 rounded-b-[14px] rounded-t-[6px] border ${i === 1 ? "border-[#181818] shadow-[0_0_0_2px_rgba(24,24,24,0.12)]" : "border-[#ebeeed]"}`} style={{ background: c }} />
+                    <span className={`font-mono text-[9px] ${i === 1 ? "font-semibold text-[#181818]" : "text-[#9aa3a0]"}`}>{n}</span>
+                  </span>
                 ))}
-              </div>
-              <div className="mt-3 flex items-center justify-between rounded-full bg-[#f5f8f7] px-3 py-1.5">
-                <span className="text-[11px] text-[#6e7472]">{tx("Proporción áurea", "Golden ratio")}</span>
-                <span className="font-mono text-[11px] font-semibold text-[#181818]">1.618</span>
               </div>
             </div>
           </div>

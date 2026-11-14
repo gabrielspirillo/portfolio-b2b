@@ -504,8 +504,12 @@ html.lite .glass-ember {
 }
 
 /* Pause decorative motion while its section is off-screen ([data-anim]) */
-[data-anim][data-paused="true"] *,
-[data-anim][data-paused="true"] {
+[data-anim][data-paused="true"] :not([role="dialog"], [role="dialog"] *),
+[data-anim][data-paused="true"]:not([role="dialog"] *) {
+  animation-play-state: paused !important;
+}
+/* Inside a dialog only its own visibility counts */
+[role="dialog"] [data-anim][data-paused="true"] * {
   animation-play-state: paused !important;
 }
 
@@ -1055,3 +1059,11 @@ html.lite .line-drift { animation: none; }
 html.modal-open .line-flow,
 html.modal-open .line-drift,
 html.modal-open .ring-spin { animation-play-state: paused !important; }
+/* FUTURA "Hoy" block: before → after the assistant acts (8 s loop) */
+.fdh-a { animation: fdh-a 8s ease infinite; }
+.fdh-b { opacity: 0; animation: fdh-b 8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+@keyframes fdh-a { 0%, 44% { opacity: 1; transform: none; } 50%, 92% { opacity: 0; transform: translateY(-6px); } 98%, 100% { opacity: 1; transform: none; } }
+@keyframes fdh-b { 0%, 46% { opacity: 0; transform: translateY(6px); } 54%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+.fdh-toast { opacity: 0; animation: fdh-toast 8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+@keyframes fdh-toast { 0%, 34% { opacity: 0; transform: translateY(8px) scale(0.97); } 42%, 88% { opacity: 1; transform: none; } 95%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .fdh-a { opacity: 0 !important; animation: none !important; } .fdh-b, .fdh-toast { opacity: 1 !important; animation: none !important; transform: none !important; } }
