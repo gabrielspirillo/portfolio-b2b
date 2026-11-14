@@ -151,7 +151,7 @@ export function CaseStudies() {
         ))}
       </div>
 
-      <Modal open={synexOpen} onClose={() => setSynexOpen(false)} className="max-w-3xl">
+      <Modal open={synexOpen} onClose={() => setSynexOpen(false)} className="max-w-3xl th-synex">
         {synexOpen && <SynexDetail />}
       </Modal>
 
@@ -159,11 +159,11 @@ export function CaseStudies() {
         {fuOpen && <FuturaDetail />}
       </Modal>
 
-      <Modal open={rwOpen} onClose={() => setRwOpen(false)} className="max-w-3xl">
+      <Modal open={rwOpen} onClose={() => setRwOpen(false)} className="max-w-3xl th-remax">
         {rwOpen && <RealtyDetail />}
       </Modal>
 
-      <Modal open={sfOpen} onClose={() => setSfOpen(false)} className="max-w-3xl">
+      <Modal open={sfOpen} onClose={() => setSfOpen(false)} className="max-w-3xl th-smile">
         {sfOpen && <SmileFastDetail />}
       </Modal>
 

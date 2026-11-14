@@ -6,7 +6,7 @@ import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
 import { Button } from "@/components/ui/Button";
 import { SynexAvatar } from "@/components/synex-avatar/SynexAvatar";
-import { Tag, SynexLogo, CaseCover, CaseIntro, StatPair, ValueCard, CardFooterLink } from "@/components/project/kit";
+import { Tag, SynexLogo, CaseCover, CaseIntro, StatPair, ValueCard, CardFooterLink, Later } from "@/components/project/kit";
 import { MAudience, MStreak, MPoints, MVitals, MJourney } from "@/components/project/motions";
 import { SynexBrand } from "@/components/project/brand-board";
 
@@ -105,11 +105,12 @@ export function SynexDetail() {
       <CaseIntro eyebrow={t("synex_tag")} title={t("synex_title")} desc={t("synex_desc")} />
       <StatPair a={["2/3", t("synex_stat_1")]} b={["100%", t("synex_stat_2")]} />
 
-      <div className="mt-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] px-5 py-4">
+      <div className="sx-glass mt-6 rounded-[22px] px-5 py-4">
         <span className="block text-[15px] font-semibold text-white">{t("synex_syn_title")}</span>
         <span className="mt-1 block text-[13px] leading-relaxed text-white/55">{rich(t("synex_syn_desc"))}</span>
       </div>
 
+      <Later>
       <ul className="mt-3 grid sm:grid-cols-2 gap-3">
         {VALUES.map(({ k, M }, i) => (
           <ValueCard key={k} Motion={M} title={t(`synex_v_${k}_title`)} desc={t(`synex_v_${k}_desc`)} benefit={t(`synex_v_${k}_benefit`)} wide={i === VALUES.length - 1} />
@@ -129,6 +130,7 @@ export function SynexDetail() {
         </div>
         <Button href="https://synex-music.com" target="_blank" rel="noopener noreferrer">{t("synex_cta")}</Button>
       </div>
+      </Later>
     </>
   );
 }

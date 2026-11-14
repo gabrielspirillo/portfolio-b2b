@@ -1,10 +1,10 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
-import { Tag, CaseIntro, StatPair, CardFooterLink, CollabWith } from "@/components/project/kit";
+import { Tag, CardFooterLink, CollabWith, Later } from "@/components/project/kit";
 import { RealtyDashboard, MAI, MMatch, MLeads, MRanking, MReport, MContract, MSign, MRecruit, MDirection, MDays } from "@/components/project/realty-motions";
 import { RealtyBrand } from "@/components/project/brand-board";
 
@@ -43,17 +43,20 @@ function Lockup({ size = "sm" }: { size?: "sm" | "lg" }) {
   );
 }
 
-function FeatureCard({ Motion, title, desc, benefit }: { Motion: () => ReactNode; title: string; desc: string; benefit: string }) {
+const INK = "font-semibold text-[#0d1b3e]";
+const up = (d: number) => ({ ["--d" as string]: d }) as CSSProperties;
+
+function FeatureCard({ Motion, title, desc, benefit, d }: { Motion: () => ReactNode; title: string; desc: string; benefit: string; d: number }) {
   return (
-    <li className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-2 flex flex-col">
-      <div className="pm-stage relative aspect-[16/10] rounded-xl overflow-hidden bg-[radial-gradient(120%_120%_at_15%_0%,#1a5fe0_0%,#003DA5_45%,#00266f_100%)]">
+    <li className="sd-up rx-navy rounded-[22px] p-2 flex flex-col" style={up(d)}>
+      <div className="pm-stage relative aspect-[16/10] rounded-[16px] overflow-hidden bg-[radial-gradient(120%_120%_at_15%_0%,#1a5fe0_0%,#003DA5_45%,#00266f_100%)]">
         <Motion />
       </div>
       <div className="px-3 pt-4 pb-3 flex-1 flex flex-col">
         <span className="block text-[15px] font-semibold text-white">{title}</span>
-        <span className="mt-1.5 block text-[13px] leading-relaxed text-white/55 flex-1">{rich(desc)}</span>
-        <span className="mt-3 self-start inline-flex items-center gap-1.5 rounded-full bg-ember-500/12 border border-ember-500/25 px-2.5 py-1 text-[11px] font-semibold text-ember-400">
-          <span className="w-1 h-1 rounded-full bg-ember-500" />
+        <span className="mt-1.5 block text-[13px] leading-relaxed text-white/65 flex-1">{rich(desc)}</span>
+        <span className="mt-3 self-start inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#dc1c2e]" />
           {benefit}
         </span>
       </div>
@@ -98,52 +101,78 @@ export function RealtyDetail() {
   const { t } = useLanguage();
   return (
     <>
-      <div className="pm-stage relative aspect-[16/10] rounded-[22px] overflow-hidden border border-white/10">
-        <RealtyDashboard />
+      <div className="sd-up rx-panel rounded-[24px] p-2" style={up(60)}>
+        <div className="pm-stage relative aspect-[16/10] rounded-[18px] overflow-hidden">
+          <RealtyDashboard />
+        </div>
       </div>
-      <div className="mt-5"><Lockup size="lg" /></div>
+      <div className="sd-up mt-6 flex items-center gap-4" style={up(140)}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/realty/remax.svg" alt="REMAX" className="h-[20px] w-auto" />
+        <span className="text-xl font-light text-[#0d1b3e]/30">×</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/realty/realty-logo.png" alt="Realty by Brandboost" className="h-10 w-auto" />
+      </div>
 
-      <CaseIntro eyebrow={<CollabWith label={t("rw_collab")} />} title={t("rw_title")} desc={t("rw_desc")} />
-      <StatPair a={["95%", t("rw_stat_1")]} b={["5", t("rw_stat_2")]} />
+      <div className="mt-6">
+        <span className="sd-up inline-flex flex-wrap items-center gap-1.5 text-[13px] font-semibold text-[#003da5]" style={up(200)}>
+          <span>{"//"}</span> <CollabWith label={t("rw_collab")} dark />
+        </span>
+        <h3 className="sd-up mt-2 pr-12 text-3xl md:text-[2.4rem] leading-[1.05] font-bold tracking-[-0.035em] text-[#0d1b3e]" style={up(260)}>{t("rw_title")}</h3>
+        <p className="sd-up mt-4 text-base md:text-lg leading-relaxed text-[#5a6680]" style={up(320)}>{rich(t("rw_desc"), INK)}</p>
+      </div>
 
-      <figure className="mt-3 rounded-2xl border border-white/[0.07] bg-white/[0.03] px-5 py-5">
-        <blockquote className="text-[15px] md:text-base leading-relaxed text-white/85">
-          <span className="text-ember-500 font-semibold mr-1.5">&ldquo;</span>
+      <div className="mt-7 grid grid-cols-2 gap-3">
+        <div className="sd-up rx-blue rounded-[22px] px-5 py-5" style={up(400)}>
+          <span className="block text-4xl font-bold tracking-[-0.05em] leading-none">95%</span>
+          <span className="mt-2 block text-[13px] font-semibold text-white/85">{t("rw_stat_1")}</span>
+        </div>
+        <div className="sd-up rx-panel rounded-[22px] px-5 py-5" style={up(460)}>
+          <span className="block text-4xl font-bold tracking-[-0.05em] leading-none text-[#0d1b3e]">5</span>
+          <span className="mt-2 block text-[13px] text-[#5a6680]">{t("rw_stat_2")}</span>
+        </div>
+      </div>
+
+      <figure className="sd-up rx-panel relative mt-3 rounded-[22px] pl-6 pr-5 py-5 overflow-hidden" style={up(520)}>
+        <span className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-[#dc1c2e]" />
+        <blockquote className="text-[15px] md:text-base leading-relaxed text-[#0d1b3e]">
+          <span className="text-[#dc1c2e] font-bold mr-1.5">&ldquo;</span>
           {t("rw_quote")}&rdquo;
         </blockquote>
-        <figcaption className="mt-3 text-[12px] font-medium text-white/45">{t("rw_quote_by")}</figcaption>
+        <figcaption className="mt-3 text-[12px] font-semibold text-[#5a6680]">{t("rw_quote_by")}</figcaption>
       </figure>
 
-      <div className="mt-8">
-        <span className="text-[13px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {t("rw_goals_eyebrow")}</span>
-        <h4 className="mt-2 mb-5 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] text-white">{t("rw_goals_title")}</h4>
+      <div className="mt-9">
+        <span className="text-[13px] font-semibold text-[#003da5]">{"//"} {t("rw_goals_eyebrow")}</span>
+        <h4 className="mt-2 mb-5 text-2xl md:text-[1.7rem] font-bold tracking-[-0.03em] text-[#0d1b3e]">{t("rw_goals_title")}</h4>
         <div className="grid sm:grid-cols-3 gap-3">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4">
-              <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-white/40">
-                <span className="text-ember-500 mr-1.5">{String(n).padStart(2, "0")}</span>
+            <div key={n} className={`sd-up rounded-[22px] p-4 ${n === 2 ? "rx-blue" : "rx-panel"}`} style={up(560 + n * 60)}>
+              <span className={`text-[11px] font-semibold tracking-[0.14em] uppercase ${n === 2 ? "text-white/70" : "text-[#5a6680]"}`}>
+                <span className={`mr-1.5 ${n === 2 ? "text-white" : "text-[#dc1c2e]"}`}>{String(n).padStart(2, "0")}</span>
                 {t(`rw_g_${n}_tag`)}
               </span>
-              <span className="mt-2.5 block text-[15px] font-semibold leading-snug text-white">{t(`rw_g_${n}_title`)}</span>
-              <span className="mt-1.5 block text-[13px] leading-relaxed text-white/55">{t(`rw_g_${n}_desc`)}</span>
+              <span className={`mt-2.5 block text-[15px] font-bold leading-snug ${n === 2 ? "text-white" : "text-[#0d1b3e]"}`}>{t(`rw_g_${n}_title`)}</span>
+              <span className={`mt-1.5 block text-[13px] leading-relaxed ${n === 2 ? "text-white/75" : "text-[#5a6680]"}`}>{t(`rw_g_${n}_desc`)}</span>
             </div>
           ))}
         </div>
       </div>
 
+      <Later>
       <ul className="mt-6 grid sm:grid-cols-2 gap-3">
-        {VALUES.map(({ k, M }) => (
-          <FeatureCard key={k} Motion={M} title={t(`rw_v_${k}_title`)} desc={t(`rw_v_${k}_desc`)} benefit={t(`rw_v_${k}_benefit`)} />
+        {VALUES.map(({ k, M }, i) => (
+          <FeatureCard key={k} Motion={M} title={t(`rw_v_${k}_title`)} desc={t(`rw_v_${k}_desc`)} benefit={t(`rw_v_${k}_benefit`)} d={760 + i * 60} />
         ))}
       </ul>
 
-      <div className="mt-8">
-        <span className="text-[13px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {t("rw_int_eyebrow")}</span>
-        <h4 className="mt-2 mb-4 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] text-white">{t("rw_int_title")}</h4>
+      <div className="mt-9">
+        <span className="text-[13px] font-semibold text-[#003da5]">{"//"} {t("rw_int_eyebrow")}</span>
+        <h4 className="mt-2 mb-4 text-2xl md:text-[1.7rem] font-bold tracking-[-0.03em] text-[#0d1b3e]">{t("rw_int_title")}</h4>
         <div className="flex flex-wrap gap-2">
           {INTEGRATIONS.map((n) => (
-            <span key={n} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12px] font-medium text-white/75">
-              <span className="w-1.5 h-1.5 rounded-full bg-ember-500" />
+            <span key={n} className="rx-glassbtn inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[12px] font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#003da5]" />
               {n}
             </span>
           ))}
@@ -152,14 +181,17 @@ export function RealtyDetail() {
 
       <RealtyBrand />
 
-      <p className="mt-8 text-base leading-relaxed text-white/65">
-        <span className="text-ember-500 font-semibold mr-2">{"//"}</span>
-        {rich(t("rw_result"))}
+      <p className="mt-8 text-base leading-relaxed text-[#5a6680]">
+        <span className="text-[#dc1c2e] font-bold mr-2">{"//"}</span>
+        {rich(t("rw_result"), INK)}
       </p>
 
       <div className="mt-8 flex flex-wrap gap-1.5">
-        {t("rw_tags").split(", ").map((tag) => <Tag key={tag}>{tag}</Tag>)}
+        {t("rw_tags").split(", ").map((tag) => (
+          <span key={tag} className="rx-glassbtn rounded-full px-2.5 py-1 text-[11px] font-medium">{tag}</span>
+        ))}
       </div>
+      </Later>
     </>
   );
 }

@@ -4,7 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { useAudio } from "@/lib/audio";
 import { rich } from "@/lib/rich";
 import { useLanguage } from "@/lib/i18n";
-import { Tag, FlagES, CardFooterLink } from "@/components/project/kit";
+import { Tag, FlagES, CardFooterLink, Later } from "@/components/project/kit";
 import { MAgenda, MVoice, MWhatsApp, MRecord, MTasks, MDashboard } from "@/components/project/futura-motions";
 import { FuturaBrand } from "@/components/project/brand-board";
 
@@ -68,15 +68,15 @@ const up = (d: number) => ({ ["--d" as string]: d }) as CSSProperties;
 
 function AuroraValue({ Motion, title, desc, benefit, d }: { Motion: () => ReactNode; title: string; desc: string; benefit: string; d: number }) {
   return (
-    <li className="sd-up fl-panel rounded-[22px] p-2 flex flex-col" style={up(d)}>
-      <div className="fl-stage pm-stage relative h-36 rounded-[16px] overflow-hidden border border-white/80">
+    <li className="sd-up fl-hero rounded-[22px] p-2 flex flex-col" style={up(d)}>
+      <div className="fl-stage pm-stage relative z-10 h-36 rounded-[16px] overflow-hidden border border-white/70">
         <Motion />
       </div>
-      <div className="px-3 pt-4 pb-3 flex-1 flex flex-col">
-        <span className="block text-[15px] font-semibold text-[#161a19]">{title}</span>
-        <span className="mt-1.5 block text-[13px] leading-relaxed text-[#6a706e] flex-1">{rich(desc, RICH)}</span>
-        <span className="fl-soft mt-3 self-start inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold">
-          <span className="w-1 h-1 rounded-full bg-[#479183]" />
+      <div className="relative z-10 px-3 pt-4 pb-3 flex-1 flex flex-col">
+        <span className="block text-[15px] font-semibold text-white">{title}</span>
+        <span className="mt-1.5 block text-[13px] leading-relaxed text-white/65 flex-1">{rich(desc, "font-semibold text-white")}</span>
+        <span className="mt-3 self-start inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-[#bbe7d6] shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
+          <span className="w-1 h-1 rounded-full bg-[#91d7bd]" />
           {benefit}
         </span>
       </div>
@@ -134,6 +134,7 @@ export function FuturaDetail() {
         ))}
       </div>
 
+      <Later>
       <ul className="mt-6 grid sm:grid-cols-2 gap-3">
         {VALUES.map(({ k, M }, i) => (
           <AuroraValue key={k} Motion={M} title={t(`fu_v_${k}_title`)} desc={t(`fu_v_${k}_desc`)} benefit={t(`fu_v_${k}_benefit`)} d={700 + i * 70} />
@@ -154,6 +155,7 @@ export function FuturaDetail() {
           ))}
         </div>
       </div>
+      </Later>
     </>
   );
 }

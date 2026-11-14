@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { rich } from "@/lib/rich";
 
 export function Tag({ children }: { children: ReactNode }) {
@@ -53,7 +53,7 @@ export function StatPair({ a, b }: { a: [string, string]; b: [string, string] })
 /* Value proposition: motion widget + title + description (+ benefit) */
 export function ValueCard({ Motion, title, desc, benefit, wide = false }: { Motion: () => ReactNode; title: string; desc: string; benefit?: string; wide?: boolean }) {
   return (
-    <li className={`rounded-2xl border border-white/[0.07] bg-white/[0.03] p-2 flex flex-col ${wide ? "sm:col-span-2" : ""}`}>
+    <li className={`vc rounded-2xl border border-white/[0.07] bg-white/[0.03] p-2 flex flex-col ${wide ? "sm:col-span-2" : ""}`}>
       <div className="pm-stage sx-stage relative h-36 rounded-xl overflow-hidden border border-white/[0.06] bg-[linear-gradient(180deg,#121010_0%,#0b0a0a_100%)]">
         <Motion />
       </div>
@@ -93,13 +93,24 @@ export function FlagES({ className = "" }: { className?: string }) {
 export const BRANDBOOST_LOGO = "https://res.cloudinary.com/dcnik6ovx/image/upload/v1775668501/Brandboost_AI_2_mm6lwr_kda9lz.png";
 
 /* "In collaboration with [logo] Brandboost AI" */
-export function CollabWith({ label }: { label: string }) {
+export function CollabWith({ label, dark = false }: { label: string; dark?: boolean }) {
   return (
     <>
       {label}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={BRANDBOOST_LOGO} alt="" className="h-3.5 w-auto brightness-0 invert opacity-90" />
-      <span className="font-semibold text-white/90">Brandboost AI</span>
+      <img src={BRANDBOOST_LOGO} alt="" className={`h-3.5 w-auto brightness-0 ${dark ? "" : "invert opacity-90"}`} />
+      <span className={`font-semibold ${dark ? "text-[#0d1b3e]" : "text-white/90"}`}>Brandboost AI</span>
     </>
   );
+}
+
+/* Mounts its content once the dialog's opening animation is done, so the
+   open stays smooth; below-the-fold content is not visible before that. */
+export function Later({ children, delay = 520, minH = 600 }: { children: ReactNode; delay?: number; minH?: number }) {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const id = setTimeout(() => setOn(true), delay);
+    return () => clearTimeout(id);
+  }, [delay]);
+  return on ? <>{children}</> : <div style={{ minHeight: minH }} />;
 }

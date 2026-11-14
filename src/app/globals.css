@@ -781,7 +781,7 @@ html.lite .line-drift { animation: none; }
 
 /* ---- Service detail: animated scenes (8 s loop) + staged entrance ---- */
 .sd-up { animation: sd-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--d, 0) * 1ms); }
-@keyframes sd-up { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes sd-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .sd-word { display: inline-block; animation: sd-word 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--d, 0) * 1ms); }
 @keyframes sd-word { from { opacity: 0; transform: translateY(0.45em); } to { opacity: 1; transform: none; } }
 .sd-line { transform: scaleX(0); animation: sd-line 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--d, 0) * 1ms); }
@@ -927,8 +927,6 @@ html.lite .line-drift { animation: none; }
 .bb .bb-swatch:hover { flex-grow: 2.6; }
 .bb .bb-strip { transform: scaleX(0); transform-origin: left; transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.75s; }
 .bb[data-in="true"] .bb-strip { transform: none; }
-.bb-aa { animation: bb-weight 3.6s ease-in-out infinite alternate; }
-@keyframes bb-weight { from { font-weight: 300; } to { font-weight: 800; } }
 .bb-press { animation: bb-press 4s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
 @keyframes bb-press { 0%, 68%, 80%, 100% { transform: none; } 72% { transform: scale(0.95); } }
 .bb-caret { animation: bb-caret 1.1s steps(2, start) infinite; }
@@ -949,7 +947,7 @@ html.lite .line-drift { animation: none; }
 }
 
 /* ---- FUTURA "Aurora" (the client app's own liquid glass), used in its case ---- */
-.glass-blur.fl-modal {
+.glass-blur.modal-panel.fl-modal {
   color: #161a19;
   background-color: #eef3f1;
   background-image:
@@ -999,3 +997,61 @@ html.lite .line-drift { animation: none; }
   background-color: #f1f6f4;
   background-image: radial-gradient(260px 180px at 0% 0%, rgba(84, 190, 156, 0.22), transparent 70%), radial-gradient(240px 180px at 100% 100%, rgba(150, 214, 190, 0.3), transparent 70%);
 }
+
+/* ---- Dialog performance: no live blur inside or behind dialogs ---- */
+.modal-panel,
+[role="dialog"] .glass,
+[role="dialog"] .glass-blur,
+[role="dialog"] .glass-ember {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.glass-blur.modal-panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 40%, rgba(255, 255, 255, 0.02) 100%), #111112;
+}
+
+/* ---- Brand-themed case dialogs ---- */
+/* REMAX: light canvas, blue/red, white liquid glass */
+.glass-blur.modal-panel.th-remax {
+  color: #0d1b3e;
+  background-color: #f2f5fb;
+  background-image: radial-gradient(620px 420px at 0% 0%, rgba(0, 61, 165, 0.12), transparent 70%), radial-gradient(560px 400px at 100% 10%, rgba(220, 28, 46, 0.07), transparent 70%), radial-gradient(640px 480px at 50% 100%, rgba(45, 106, 227, 0.1), transparent 70%);
+  box-shadow: inset 0 1px 0 #fff, 0 40px 90px -30px rgba(0, 30, 90, 0.6);
+}
+.glass-blur.modal-panel.th-remax::before { background: linear-gradient(140deg, #fff, rgba(255, 255, 255, 0.4) 40%, rgba(255, 255, 255, 0.8)); }
+.glass-blur.modal-panel.th-remax::after { background: radial-gradient(90% 40% at 15% 0%, rgba(255, 255, 255, 0.6), transparent 60%); }
+.rx-panel { background: linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7)); border: 1px solid #fff; box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(13, 27, 62, 0.04), 0 16px 34px -20px rgba(13, 27, 62, 0.35); }
+.rx-blue { position: relative; color: #fff; background: radial-gradient(120% 90% at 20% -20%, rgba(255, 255, 255, 0.22), transparent 55%), linear-gradient(150deg, #1a56c4 0%, #003da5 55%, #002c78 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -10px 20px -12px rgba(0, 10, 40, 0.5), 0 18px 40px -20px rgba(0, 44, 120, 0.7); }
+.rx-navy { position: relative; color: #fff; background: radial-gradient(110% 70% at 15% 0%, rgba(255, 255, 255, 0.1), transparent 55%), linear-gradient(160deg, #13265a 0%, #0d1b3e 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 18px 40px -22px rgba(13, 27, 62, 0.8); }
+.rx-btn { color: #fff; background: radial-gradient(120% 90% at 30% -20%, rgba(255, 255, 255, 0.4), transparent 55%), linear-gradient(165deg, #1a56c4, #003da5); border: 1px solid rgba(255, 255, 255, 0.35); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -8px 16px -8px rgba(0, 20, 70, 0.4), 0 10px 24px -12px rgba(0, 61, 165, 0.7); }
+.rx-btn-red { color: #fff; background: radial-gradient(120% 90% at 30% -20%, rgba(255, 255, 255, 0.4), transparent 55%), linear-gradient(165deg, #ef3a4b, #dc1c2e 60%, #b8131f); border: 1px solid rgba(255, 255, 255, 0.35); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -8px 16px -8px rgba(80, 0, 10, 0.4), 0 10px 24px -12px rgba(220, 28, 46, 0.7); }
+.rx-glassbtn { color: #0d1b3e; background: radial-gradient(120% 90% at 30% -20%, #fff, transparent 55%), linear-gradient(165deg, rgba(255, 255, 255, 0.8), rgba(238, 244, 255, 0.6)); border: 1px solid #fff; box-shadow: inset 0 1px 0 #fff, inset 0 -6px 12px -8px rgba(0, 61, 165, 0.2), 0 8px 22px -14px rgba(0, 30, 90, 0.45); }
+.th-remax > button { color: #0d1b3e; background: rgba(255, 255, 255, 0.85); border-color: #fff; }
+
+/* Smile Fast: clinical white and black */
+.glass-blur.modal-panel.th-smile { color: #181818; background: linear-gradient(180deg, #ffffff 0%, #f5f8f7 100%); box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7); }
+.glass-blur.modal-panel.th-smile::before { background: linear-gradient(140deg, #fff, rgba(255, 255, 255, 0.5)); }
+.glass-blur.modal-panel.th-smile::after { display: none; }
+.sm-panel { background: #fff; border: 1px solid #ebeeed; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 14px 30px -22px rgba(0, 0, 0, 0.25); }
+.sm-ink { position: relative; color: #fff; background: radial-gradient(110% 70% at 15% 0%, rgba(255, 255, 255, 0.09), transparent 55%), #181818; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 18px 40px -22px rgba(0, 0, 0, 0.7); }
+.th-smile > button { color: #181818; background: #f5f8f7; border-color: #ebeeed; }
+.th-smile .glass-ember { background: radial-gradient(110% 70% at 15% 0%, rgba(255, 255, 255, 0.14), transparent 55%), #202020; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+.th-smile .glass-ember::before { background: linear-gradient(140deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05)); }
+.th-smile .glass-ember .text-ember-600 { color: #181818; }
+.th-smile .glass-ember .bg-ember-600 { background: #181818; }
+
+/* SYNEX: warm black, molten orange, dark liquid glass */
+.glass-blur.modal-panel.th-synex {
+  background-color: #0a0806;
+  background-image: radial-gradient(620px 420px at 100% 0%, rgba(255, 61, 20, 0.16), transparent 70%), radial-gradient(640px 480px at 0% 100%, rgba(255, 106, 31, 0.1), transparent 70%);
+}
+.th-synex .glass-ember, .sx-molten { position: relative; color: #fff; background: radial-gradient(120% 90% at 20% -20%, rgba(255, 220, 190, 0.38), transparent 55%), linear-gradient(145deg, rgba(255, 138, 60, 0.95) 0%, rgba(255, 61, 20, 0.92) 52%, rgba(207, 20, 32, 0.95) 100%); border: 1px solid rgba(255, 200, 170, 0.4); box-shadow: inset 0 1px 0 rgba(255, 236, 222, 0.75), inset 0 -10px 20px -12px rgba(90, 10, 0, 0.55), 0 16px 36px -14px rgba(255, 61, 20, 0.6); }
+.sx-glass { position: relative; background: radial-gradient(110% 70% at 15% 0%, rgba(255, 154, 60, 0.1), transparent 55%), linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015)), #120d0a; border: 1px solid rgba(255, 170, 120, 0.14); box-shadow: inset 0 1px 0 rgba(255, 230, 210, 0.14), 0 18px 40px -24px rgba(0, 0, 0, 0.9); }
+.th-synex .vc { background: radial-gradient(110% 70% at 15% 0%, rgba(255, 154, 60, 0.08), transparent 55%), linear-gradient(160deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012)), #120d0a; border-color: rgba(255, 170, 120, 0.14); box-shadow: inset 0 1px 0 rgba(255, 230, 210, 0.12); }
+.sx-streak { background: linear-gradient(145deg, #ff8a3c, #ff3d14 60%, #cf1420); box-shadow: 0 0 14px -2px rgba(255, 61, 20, 0.7), inset 0 1px 0 rgba(255, 230, 210, 0.6); }
+.th-smile .bg-ember-500 { background: #fff; color: #181818; box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.5); }
+.th-smile .border-ember-500 { border-color: #fff; box-shadow: 0 0 14px rgba(255, 255, 255, 0.45); }
+/* Behind an open dialog (85% black) the full-screen line repaint is invisible: hold it */
+html.modal-open .line-flow,
+html.modal-open .line-drift,
+html.modal-open .ring-spin { animation-play-state: paused !important; }

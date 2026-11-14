@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { useTx } from "@/lib/i18n";
-import { archivo, publicSans, signature } from "@/lib/brand-fonts";
+import { archivo, publicSans } from "@/lib/brand-fonts";
+import { BeforeAfter } from "@/components/project/smile-motions";
 
 /* Brand board: each client's design system shown in its OWN look
    (logo, palette, type, components, tokens). Cells rise in when scrolled
@@ -43,13 +44,15 @@ function Board({
   sample,
   ui,
   tokens,
+  showcase,
   className = "",
 }: {
   theme: Theme;
   logo: ReactNode;
   logoBg: string;
-  second: ReactNode;
+  second?: ReactNode;
   secondBg?: string;
+  showcase?: ReactNode;
   palette: Swatch[];
   strip?: { label: string; css: string };
   display: CSSProperties;
@@ -78,14 +81,16 @@ function Board({
     >
       <div className="grid gap-px">
         {/* Logo + secondary mark */}
-        <div className="grid sm:grid-cols-[1.3fr_1fr] gap-px">
+        <div className={`grid gap-px ${second ? "sm:grid-cols-[1.3fr_1fr]" : ""}`}>
           <Cell d={0} className="h-44 sm:h-52 grid place-items-center overflow-hidden" style={{ background: logoBg }}>
             <div className="bb-logo">{logo}</div>
             <span className="absolute left-4 bottom-3"><Cap color={light(logoBg) ? t.sub : "rgba(255,255,255,0.6)"}>{tx("Logotipo", "Logo")}</Cap></span>
           </Cell>
-          <Cell d={90} className="h-44 sm:h-52 grid place-items-center overflow-hidden" style={{ background: secondBg ?? t.surface }}>
-            {second}
-          </Cell>
+          {second && (
+            <Cell d={90} className="h-44 sm:h-52 grid place-items-center overflow-hidden" style={{ background: secondBg ?? t.surface }}>
+              {second}
+            </Cell>
+          )}
         </div>
 
         {/* Palette */}
@@ -115,7 +120,7 @@ function Board({
           <Cell d={270} className="p-4 sm:p-5 min-h-[200px] flex flex-col" style={{ background: t.surface }}>
             <Cap color={t.sub}>{tx("Tipografía", "Typography")}</Cap>
             <div className="mt-2 flex items-end gap-4">
-              <span className="bb-aa text-[76px] sm:text-[88px] leading-[0.9] tracking-[-0.04em]" style={display}>Aa</span>
+              <span className="text-[76px] sm:text-[88px] leading-[0.9] tracking-[-0.04em]" style={display}>Aa</span>
               <span className="pb-2 text-[11px] leading-snug" style={{ color: t.sub }}>{displayLabel}</span>
             </div>
             <div className="mt-auto pt-4">{sample}</div>
@@ -125,6 +130,12 @@ function Board({
             <div className="mt-3 flex-1 flex flex-col justify-center gap-2.5">{ui}</div>
           </Cell>
         </div>
+
+        {showcase && (
+          <Cell d={420} className="p-4 sm:p-5" style={{ background: t.bg }}>
+            {showcase}
+          </Cell>
+        )}
 
         {tokens && (
           <Cell d={450} className="p-4 sm:p-5" style={{ background: t.bg }}>
@@ -136,13 +147,13 @@ function Board({
   );
 }
 
-function Header({ title, note, light = false }: { title: ReactNode; note: string; light?: boolean }) {
+function Header({ title, note, light = false, accent = "#37766a", ink = "#161a19", sub = "#6a706e" }: { title: ReactNode; note: string; light?: boolean; accent?: string; ink?: string; sub?: string }) {
   const tx = useTx();
   return (
     <>
-      <span className={`text-[13px] font-medium ${light ? "text-[#37766a] font-semibold" : "text-ember-400"}`}><span className="font-semibold">{"//"}</span> {tx("Identidad visual", "Visual identity")}</span>
-      <h4 className={`mt-2 pr-12 md:pr-0 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] ${light ? "text-[#161a19]" : "text-white"}`}>{title}</h4>
-      <p className={`mt-3 text-[15px] leading-relaxed ${light ? "text-[#6a706e]" : "text-white/60"}`}>{note}</p>
+      <span className={`text-[13px] ${light ? "font-semibold" : "font-medium text-ember-400"}`} style={light ? { color: accent } : undefined}><span className="font-semibold">{"//"}</span> {tx("Identidad visual", "Visual identity")}</span>
+      <h4 className={`mt-2 pr-12 md:pr-0 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] ${light ? "" : "text-white"}`} style={light ? { color: ink } : undefined}>{title}</h4>
+      <p className={`mt-3 text-[15px] leading-relaxed ${light ? "" : "text-white/60"}`} style={light ? { color: sub } : undefined}>{note}</p>
     </>
   );
 }
@@ -221,10 +232,11 @@ export function FuturaBrand() {
 export function SynexBrand() {
   const tx = useTx();
   const t: Theme = { bg: "#0a0806", surface: "#0f0b09", ink: "#ffffff", sub: "#8a8079", line: "#2a211b", radius: 22, font: '-apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter), sans-serif' };
+  const streak = [1, 1, 1, 1, 1, 0, 0];
   return (
     <div className="mt-10">
       <Header
-        title={<>{tx("Sistema de diseño", "Design system")} <span className="text-white/45">“Molten”</span></>}
+        title={<>{tx("Sistema de diseño", "Design system")} <span className="text-[#ff6a1f]">“Molten”</span></>}
         note={tx(
           "Negros cálidos y un naranja fundido sacados del flyer de la productora: la misma identidad vive en el póster, en la app de comunidad y en la de finanzas.",
           "Warm blacks and a molten orange taken from the promoter's flyer: one identity across the poster, the community app and the finance app.",
@@ -232,14 +244,10 @@ export function SynexBrand() {
       />
       <Board
         theme={t}
-        logoBg="#0a0806"
+        logoBg="radial-gradient(120% 120% at 50% 120%, rgba(255,61,20,0.28), transparent 60%), #0a0806"
         logo={
-          <span className="flex flex-col items-center gap-5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/synex/isotype-red.webp" alt="SYNEX" className="bb-float w-20 sm:w-24 h-auto drop-shadow-[0_0_30px_rgba(255,61,20,0.45)]" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/synex-logo.png" alt="" className="h-3.5 w-auto" />
-          </span>
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src="/synex-logo.png" alt="SYNEX" className="h-6 sm:h-7 w-auto drop-shadow-[0_0_24px_rgba(255,106,31,0.35)]" />
         }
         secondBg="#0a0806"
         second={
@@ -253,7 +261,7 @@ export function SynexBrand() {
           { n: "Card", hex: "#16110D" },
           { n: "Muted", hex: "#B3AAA2" },
         ]}
-        strip={{ label: tx("Gradiente molten · 145°", "Molten gradient · 145°"), css: "linear-gradient(90deg, #ff8a3c 0%, #ff3d14 52%, #cf1420 100%)" }}
+        strip={{ label: "", css: "linear-gradient(90deg, #ff8a3c 0%, #ff3d14 52%, #cf1420 100%)" }}
         display={{ fontWeight: 700, color: "#ffffff" }}
         displayLabel={tx("SF Pro Display · SF Mono para cifras", "SF Pro Display · SF Mono for figures")}
         sample={
@@ -264,21 +272,22 @@ export function SynexBrand() {
         }
         ui={
           <>
-            <span className="bb-press self-start rounded-full px-5 py-2.5 text-[12px] font-semibold text-white shadow-[0_0_30px_-6px_rgba(255,90,30,0.55)]" style={{ background: "linear-gradient(145deg,#ff8a3c 0%,#ff3d14 52%,#cf1420 100%)" }}>
-              {tx("Comprar entrada", "Get ticket")}
-            </span>
-            <div className="flex items-center gap-3 rounded-[22px] border border-[#2a211b] bg-[#16110d] px-3.5 py-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/synex/isotype.webp" alt="" className="w-7 h-auto opacity-80" />
-              <span className="flex-1 leading-tight">
-                <span className="block text-[12px] font-semibold">{tx("Nivel 3 · Resident", "Level 3 · Resident")}</span>
-                <span className="mt-1 block h-1.5 rounded-full bg-[#2a211b] overflow-hidden"><span className="bb-fill block h-full w-[68%] rounded-full bg-[#ff6a1f]" /></span>
-              </span>
-              <span className="font-mono text-[11px] text-[#ff9a3c]">68%</span>
+            <span className="bb-press sx-molten self-start rounded-full px-5 py-2.5 text-[12px] font-semibold">{tx("Comprar entrada", "Get ticket")}</span>
+            <div className="sx-glass rounded-[20px] px-4 py-3">
+              <div className="flex items-baseline justify-between">
+                <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#b3aaa2]">{tx("Racha", "Streak")}</span>
+                <span className="font-mono text-[11px] text-[#ff9a3c]">+100 pts</span>
+              </div>
+              <div className="mt-1 flex items-end gap-2">
+                <span className="text-[30px] font-bold leading-none tracking-[-0.04em]">5</span>
+                <span className="pb-1 text-[12px] text-[#b3aaa2]">{tx("fechas seguidas", "nights in a row")}</span>
+              </div>
+              <div className="mt-2.5 flex gap-1.5">
+                {streak.map((on, i) => (
+                  <span key={i} className={`h-2 flex-1 rounded-full ${on ? "sx-streak" : "bg-[#2a211b]"} ${i === 4 ? "bb-live" : ""}`} />
+                ))}
+              </div>
             </div>
-            <span className="self-start inline-flex items-center gap-1.5 rounded-full border border-[#ff3d14]/50 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-[#ff9a3c]">
-              <span className="bb-live w-1.5 h-1.5 rounded-full bg-[#ff3d14]" /> LIVE
-            </span>
           </>
         }
       />
@@ -289,33 +298,31 @@ export function SynexBrand() {
 /* ---------------------------------------------------------------- Realty (REMAX) */
 export function RealtyBrand() {
   const tx = useTx();
-  const t: Theme = { bg: "#ffffff", surface: "#ffffff", ink: "#0d1b3e", sub: "#5a6680", line: "#e3e8f2", radius: 14, font: "var(--font-public-sans), sans-serif" };
+  const t: Theme = { bg: "#f7f9fd", surface: "#ffffff", ink: "#0d1b3e", sub: "#5a6680", line: "#e3e8f2", radius: 14, font: "var(--font-public-sans), sans-serif" };
+  const spark = "M0 26 L12 22 L24 24 L36 16 L48 18 L60 10 L72 12 L90 3";
   return (
-    <div className={`mt-10 ${archivo.variable} ${publicSans.variable} ${signature.variable}`}>
+    <div className={`mt-10 ${archivo.variable} ${publicSans.variable}`}>
       <Header
+        light
+        accent="#003da5"
+        ink="#0d1b3e"
+        sub="#5a6680"
         title={tx("Sistema de diseño REMAX × Realty", "REMAX × Realty design system")}
         note={tx(
-          "Construido sobre el azul y el rojo de REMAX, con Archivo para titular y Public Sans para leer: la plataforma se siente parte de la franquicia, y una firma manuscrita le da el toque humano a cada documento.",
-          "Built on REMAX blue and red, with Archivo for headlines and Public Sans for reading: the platform feels part of the franchise, and a handwritten signature adds the human touch to every document.",
+          "Construido sobre el azul y el rojo de REMAX, con Archivo para titular y Public Sans para leer: la plataforma se siente parte de la franquicia, con tarjetas, estados e indicadores pensados para el día a día de una oficina.",
+          "Built on REMAX blue and red, with Archivo for headlines and Public Sans for reading: the platform feels part of the franchise, with cards, states and metrics designed for an office's daily work.",
         )}
       />
       <Board
         theme={t}
         logoBg="#ffffff"
         logo={
-          <span className="flex flex-col items-center gap-5">
+          <span className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/realty/realty-logo.png" alt="Realty by Brandboost" className="h-16 sm:h-20 w-auto" />
+            <span className="hidden sm:block w-px h-12 bg-[#e3e8f2]" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/realty/remax.svg" alt="REMAX" className="h-4 w-auto" />
-          </span>
-        }
-        secondBg="#003da5"
-        second={
-          <span className="flex flex-col items-center gap-2 text-white">
-            <span className="text-[13px] font-semibold tracking-[0.02em] text-white/70" style={{ fontFamily: "var(--font-archivo)" }}>{tx("Firma digital", "E-signature")}</span>
-            <span className="bb-wipe block text-[38px] sm:text-[52px] leading-none text-white whitespace-nowrap" style={{ fontFamily: "var(--font-signature)" }}>Carmen López</span>
-            <span className="h-px w-48 bg-white/40" />
+            <img src="/realty/remax.svg" alt="REMAX" className="h-5 sm:h-6 w-auto" />
           </span>
         }
         palette={[
@@ -325,9 +332,9 @@ export function RealtyBrand() {
           { n: tx("Tinta", "Ink"), hex: "#0D1B3E" },
           { n: "Sky", hex: "#EEF4FF" },
         ]}
-        strip={{ label: tx("Tonos de estado · menta, lavanda, arena, rosa", "Status tints · mint, lavender, sand, rose"), css: "linear-gradient(90deg, #eaf7f1 0 25%, #f3f1fc 25% 50%, #fbf7ef 50% 75%, #fdf0f1 75% 100%)" }}
+        strip={{ label: "", css: "linear-gradient(90deg, #eaf7f1 0 25%, #f3f1fc 25% 50%, #fbf7ef 50% 75%, #fdf0f1 75% 100%)" }}
         display={{ fontFamily: "var(--font-archivo)", fontWeight: 800, fontStretch: "125%", color: "#0d1b3e" }}
-        displayLabel={tx("Archivo (ancha) para titulares · Public Sans para textos · Mrs Saint Delafield para firmas", "Archivo (wide) for headlines · Public Sans for text · Mrs Saint Delafield for signatures")}
+        displayLabel={tx("Archivo (ancha) para titulares · Public Sans para textos", "Archivo (wide) for headlines · Public Sans for text")}
         sample={
           <div>
             <span className="block text-[20px] leading-tight tracking-[-0.01em]" style={{ fontFamily: "var(--font-archivo)", fontWeight: 800 }}>
@@ -339,23 +346,71 @@ export function RealtyBrand() {
         ui={
           <>
             <div className="flex flex-wrap gap-2">
-              <span className="bb-press rounded-[10px] bg-[#003da5] px-4 py-2 text-[12px] font-semibold text-white">{tx("Agendar visita", "Book viewing")}</span>
-              <span className="rounded-[10px] bg-[#dc1c2e] px-4 py-2 text-[12px] font-semibold text-white">{tx("Firmar", "Sign")}</span>
+              <span className="bb-press rx-btn rounded-full px-4 py-2 text-[12px] font-semibold">{tx("Agendar visita", "Book viewing")}</span>
+              <span className="rx-btn-red rounded-full px-4 py-2 text-[12px] font-semibold">{tx("Captar", "List it")}</span>
+              <span className="rx-glassbtn rounded-full px-4 py-2 text-[12px] font-semibold">{tx("Ver ficha", "View")}</span>
             </div>
-            <div className="flex items-center gap-2.5 rounded-[14px] border border-[#e3e8f2] bg-white px-3 py-2.5">
-              <span className="w-8 h-8 rounded-full bg-[#003da5] text-white grid place-items-center text-[11px] font-bold">MR</span>
-              <span className="flex-1 leading-tight">
-                <span className="block text-[12px] font-semibold">Marta R.</span>
-                <span className="block text-[11px] text-[#5a6680]">10:30 · Los Leones 1240</span>
-              </span>
-              <span className="rounded-full bg-[#eef4ff] px-2 py-0.5 text-[10px] font-semibold text-[#003da5]">{tx("Visita", "Viewing")}</span>
-            </div>
+            <span className="self-start flex rounded-full bg-[#eef4ff] p-1 text-[11px] font-semibold text-[#5a6680]">
+              <span className="rounded-full bg-white px-3 py-1 text-[#003da5] shadow-[0_2px_8px_-2px_rgba(0,61,165,0.35)]">{tx("Semanal", "Weekly")}</span>
+              <span className="px-3 py-1">{tx("Mensual", "Monthly")}</span>
+              <span className="px-3 py-1">{tx("Anual", "Yearly")}</span>
+            </span>
             <div className="flex gap-1.5">
               {[["#eaf7f1", "#137a52", tx("Realizado", "Done")], ["#fbf7ef", "#9a6a12", tx("Pendiente", "Pending")], ["#fdf0f1", "#b8131f", tx("Urgente", "Urgent")]].map(([b, c, l]) => (
                 <span key={l} className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold" style={{ background: b, color: c }}>{l}</span>
               ))}
             </div>
           </>
+        }
+        showcase={
+          <div className="grid sm:grid-cols-[1.15fr_1fr] gap-3">
+            {/* Listing card */}
+            <div className="rounded-[18px] bg-white border border-[#e3e8f2] overflow-hidden shadow-[0_18px_40px_-26px_rgba(13,27,62,0.45)]">
+              <div className="relative h-32 bg-[linear-gradient(150deg,#c9d8f5,#8fb0f2_55%,#5a86d8)]">
+                <svg viewBox="0 0 120 60" className="absolute inset-x-0 bottom-0 w-full h-24 text-white/70" fill="currentColor">
+                  <path d="M10 60V34l18-12 18 12v26zM52 60V22l26-16 26 16v38z" />
+                  <path d="M60 30h8v8h-8zM78 30h8v8h-8zM60 44h8v8h-8zM78 44h8v8h-8zM22 40h7v7h-7z" fill="#5a86d8" />
+                </svg>
+                <span className="absolute left-3 top-3 rounded-full bg-[#dc1c2e] px-2.5 py-1 text-[10px] font-bold text-white shadow-[0_6px_16px_-6px_rgba(220,28,46,0.8)]">{tx("En venta", "For sale")}</span>
+                <span className="absolute right-3 top-3 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold text-[#003da5]">96% match</span>
+              </div>
+              <div className="px-3.5 py-3">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-[17px] font-extrabold text-[#0d1b3e]" style={{ fontFamily: "var(--font-archivo)" }}>UF 8.650</span>
+                  <span className="text-[10px] font-semibold text-[#003da5]">{tx("Providencia", "Providencia")}</span>
+                </div>
+                <span className="mt-0.5 block text-[12px] text-[#5a6680]">{tx("3 dorm. · 2 baños · 98 m²", "3 bed · 2 bath · 98 m²")}</span>
+                <div className="mt-2.5 flex items-center gap-2 border-t border-[#eef1f6] pt-2.5">
+                  <span className="w-6 h-6 rounded-full bg-[#003da5] text-white grid place-items-center text-[9px] font-bold">MR</span>
+                  <span className="text-[11px] font-semibold text-[#0d1b3e]">Marta R.</span>
+                  <span className="ml-auto text-[10px] text-[#5a6680]">{tx("Agente", "Agent")}</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              {/* KPI with sparkline */}
+              <div className="rx-blue rounded-[18px] px-4 py-3.5">
+                <span className="block text-[10px] font-semibold tracking-[0.16em] uppercase text-white/70">{tx("Facturación vs meta", "Revenue vs goal")}</span>
+                <div className="mt-1 flex items-end justify-between">
+                  <span className="text-[26px] font-extrabold leading-none" style={{ fontFamily: "var(--font-archivo)" }}>72%</span>
+                  <svg viewBox="0 0 90 30" className="w-28 h-9" fill="none">
+                    <path className="rw-draw" pathLength={100} d={spark} stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              {/* Team leaderboard */}
+              <div className="rounded-[18px] bg-white border border-[#e3e8f2] px-4 py-3">
+                <span className="block text-[10px] font-semibold tracking-[0.16em] uppercase text-[#5a6680]">{tx("Ranking de la oficina", "Office ranking")}</span>
+                <div className="mt-2 flex items-center">
+                  {[["MR", "#003da5"], ["LM", "#dc1c2e"], ["AS", "#002c78"], ["CG", "#5a86d8"]].map(([n, c], i) => (
+                    <span key={n} className="w-8 h-8 -ml-2 first:ml-0 rounded-full border-2 border-white grid place-items-center text-[10px] font-bold text-white" style={{ background: c, zIndex: 4 - i }}>{n}</span>
+                  ))}
+                  <span className="ml-3 rounded-full bg-[#eaf7f1] px-2 py-0.5 text-[10px] font-bold text-[#137a52]">▲ 1</span>
+                  <span className="ml-auto text-[18px] font-extrabold text-[#0d1b3e]" style={{ fontFamily: "var(--font-archivo)" }}>18</span>
+                </div>
+              </div>
+            </div>
+          </div>
         }
       />
     </div>
@@ -365,10 +420,15 @@ export function RealtyBrand() {
 /* ---------------------------------------------------------------- Smile Fast */
 export function SmileBrand() {
   const tx = useTx();
-  const t: Theme = { bg: "#ffffff", surface: "#ffffff", ink: "#181818", sub: "#8a8f8d", line: "#ebeeed", radius: 999 };
+  const t: Theme = { bg: "#f5f8f7", surface: "#ffffff", ink: "#181818", sub: "#8a8f8d", line: "#ebeeed", radius: 999 };
+  const steps = [tx("Datos", "Details"), tx("Foto", "Photo"), tx("Análisis", "Analysis"), tx("Resultado", "Result")];
   return (
     <div className="mt-10">
       <Header
+        light
+        accent="#181818"
+        ink="#181818"
+        sub="#6e7472"
         title={tx("Sistema de diseño clínico y monocromo", "Clinical, monochrome design system")}
         note={tx(
           "Blanco, negro y un gris salvia: la protagonista es la sonrisa del paciente, y el widget se integra en la web de cualquier clínica sin competir con su marca.",
@@ -382,16 +442,8 @@ export function SmileBrand() {
           // eslint-disable-next-line @next/next/no-img-element
           <img src="/smilefast/logo.png" alt="Smile Fast" className="h-9 sm:h-10 w-auto" />
         }
-        secondBg="#f5f8f7"
-        second={
-          <span className="grid place-items-center">
-            <span className="relative grid place-items-center w-20 h-20 rounded-full bg-[#181818]">
-              <span className="w-8 h-8 rounded-full border-[3px] border-white" />
-              <span className="bb-pulse absolute inset-0 rounded-full border border-[#181818]/30" />
-            </span>
-            <span className="mt-3 font-mono text-[10px] tracking-[0.3em] text-[#8a8f8d] flex items-center gap-1.5"><span className="bb-live w-1.5 h-1.5 rounded-full bg-[#9aa3a0]" />ONLINE</span>
-          </span>
-        }
+        secondBg="#9fb3c6"
+        second={<BeforeAfter className="absolute inset-0" />}
         palette={[
           { n: tx("Tinta", "Ink"), hex: "#181818", big: true },
           { n: tx("Salvia", "Sage"), hex: "#9AA3A0" },
@@ -408,17 +460,58 @@ export function SmileBrand() {
         }
         ui={
           <>
-            <div className="flex items-center">
-              {[1, 2, 3, 4].map((n, i) => (
-                <span key={n} className="flex items-center flex-1 last:flex-none">
-                  <span className={`grid place-items-center w-7 h-7 rounded-full border text-[11px] ${i === 0 ? "border-[#181818] bg-[#181818] text-white" : "border-[#dfe3e2] text-[#8a8f8d]"}`}>{n}</span>
-                  {i < 3 && <span className="flex-1 h-px bg-[#dfe3e2] mx-1" />}
+            <div className="flex items-start">
+              {steps.map((l, i) => (
+                <span key={l} className="flex-1 flex flex-col items-center gap-1.5 relative">
+                  {i > 0 && <span className="absolute right-1/2 top-[13px] w-full h-px bg-[#dfe3e2] -z-0" />}
+                  <span className={`relative grid place-items-center w-7 h-7 rounded-full border text-[11px] ${i === 0 ? "border-[#181818] bg-white text-[#181818] shadow-[0_0_0_3px_rgba(24,24,24,0.08)]" : "border-[#dfe3e2] bg-white text-[#8a8f8d]"}`}>{i + 1}</span>
+                  <span className={`text-[10px] ${i === 0 ? "font-semibold text-[#181818]" : "text-[#8a8f8d]"}`}>{l}</span>
                 </span>
               ))}
             </div>
             <span className="rounded-full bg-[#f5f8f7] border border-[#ebeeed] px-4 py-2.5 text-[12px] text-[#181818]">María González<span className="bb-caret inline-block align-middle ml-0.5 w-px h-3.5 bg-[#181818]" /></span>
+            <span className="flex items-center gap-2 text-[12px] text-[#4a4f4d]">
+              <span className="grid place-items-center w-5 h-5 rounded-full bg-[#181818] text-white">
+                <svg viewBox="0 0 12 12" className="w-2.5 h-2.5" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </span>
+              {tx("Soy mayor de edad.", "I'm over 18.")}
+            </span>
             <span className="bb-press rounded-full bg-[#181818] py-2.5 text-center text-[12px] font-semibold text-white">{tx("Continuar", "Continue")}</span>
           </>
+        }
+        showcase={
+          <div className="grid sm:grid-cols-[1fr_1.2fr] gap-3">
+            {/* Widget header + upload */}
+            <div className="rounded-[22px] bg-white border border-[#ebeeed] px-4 py-3.5">
+              <div className="flex items-center gap-2.5">
+                <span className="grid place-items-center w-8 h-8 rounded-full bg-[#181818]"><span className="w-3 h-3 rounded-full border-2 border-white" /></span>
+                <span className="text-[14px] font-semibold text-[#181818]">Smile Fast</span>
+                <span className="ml-auto flex items-center gap-1.5 font-mono text-[9px] tracking-[0.25em] text-[#9aa3a0]"><span className="w-1.5 h-1.5 rounded-full bg-[#c4cac8]" />ONLINE</span>
+              </div>
+              <div className="mt-3 h-[92px] rounded-[18px] border border-dashed border-[#c9cfcd] bg-[#f5f8f7] grid place-items-center">
+                <span className="flex flex-col items-center gap-1.5 text-[11px] text-[#6e7472]">
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 text-[#181818]" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z" /><circle cx="12" cy="13" r="3.5" /></svg>
+                  {tx("Sube una foto sonriendo", "Upload a smiling photo")}
+                </span>
+              </div>
+            </div>
+            {/* VITA shade guide */}
+            <div className="rounded-[22px] bg-white border border-[#ebeeed] px-4 py-3.5">
+              <div className="flex items-baseline justify-between">
+                <span className="font-mono text-[9px] tracking-[0.25em] text-[#9aa3a0]">{tx("TONO VITA", "VITA SHADE")}</span>
+                <span className="text-[11px] font-semibold text-[#181818]">A1 → BL2</span>
+              </div>
+              <div className="mt-3 flex gap-1.5">
+                {["#f7f3ea", "#f3eddd", "#efe6cf", "#ebdfc2", "#e5d6b1", "#ddcb9f"].map((c, i) => (
+                  <span key={c} className={`flex-1 h-14 rounded-b-[14px] rounded-t-[6px] border ${i === 1 ? "border-[#181818] shadow-[0_0_0_2px_rgba(24,24,24,0.12)]" : "border-[#ebeeed]"}`} style={{ background: c }} />
+                ))}
+              </div>
+              <div className="mt-3 flex items-center justify-between rounded-full bg-[#f5f8f7] px-3 py-1.5">
+                <span className="text-[11px] text-[#6e7472]">{tx("Proporción áurea", "Golden ratio")}</span>
+                <span className="font-mono text-[11px] font-semibold text-[#181818]">1.618</span>
+              </div>
+            </div>
+          </div>
         }
       />
     </div>

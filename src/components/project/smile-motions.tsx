@@ -118,6 +118,7 @@ export function MLive() {
 
 // Funnel comparison, as on the product site: without vs with Smile Fast
 function Lane({ ok, steps, result, label }: { ok: boolean; steps: string[]; result: string; label: string }) {
+  const tx = useTx();
   return (
     <div className={`rounded-2xl px-5 py-5 md:px-6 grid md:grid-cols-[150px_1fr_150px] gap-5 md:gap-6 items-center ${ok ? "glass-ember" : "border border-white/10 bg-white/[0.03]"}`}>
       <div className="relative z-10 flex md:flex-col items-center md:items-start gap-3">
@@ -140,7 +141,7 @@ function Lane({ ok, steps, result, label }: { ok: boolean; steps: string[]; resu
         </div>
       </div>
       <div className={`relative z-10 md:border-l md:pl-5 ${ok ? "md:border-white/30" : "md:border-white/10"}`}>
-        <span className={`block text-[9px] font-semibold tracking-[0.18em] ${ok ? "text-white/80" : "text-white/40"}`}>RESULTADO</span>
+        <span className={`block text-[9px] font-semibold tracking-[0.18em] ${ok ? "text-white/80" : "text-white/40"}`}>{tx("RESULTADO", "RESULT")}</span>
         <span className={`mt-1 block text-[15px] font-semibold leading-tight ${ok ? "text-white" : "text-white/60"}`}>{result}</span>
       </div>
     </div>
