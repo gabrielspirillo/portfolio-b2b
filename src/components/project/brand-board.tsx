@@ -106,7 +106,6 @@ function Board({
           {strip && (
             <div className="mt-3">
               <div className="bb-strip h-2.5 rounded-full" style={{ background: strip.css }} />
-              <span className="mt-1.5 block text-[10px]" style={{ color: t.sub }}>{strip.label}</span>
             </div>
           )}
         </Cell>
@@ -137,27 +136,14 @@ function Board({
   );
 }
 
-function Header({ title, note }: { title: ReactNode; note: string }) {
+function Header({ title, note, light = false }: { title: ReactNode; note: string; light?: boolean }) {
   const tx = useTx();
   return (
     <>
-      <span className="text-[13px] font-medium text-ember-400"><span className="font-semibold">{"//"}</span> {tx("Identidad visual", "Visual identity")}</span>
-      <h4 className="mt-2 pr-12 md:pr-0 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] text-white">{title}</h4>
-      <p className="mt-3 text-[15px] leading-relaxed text-white/60">{note}</p>
+      <span className={`text-[13px] font-medium ${light ? "text-[#37766a] font-semibold" : "text-ember-400"}`}><span className="font-semibold">{"//"}</span> {tx("Identidad visual", "Visual identity")}</span>
+      <h4 className={`mt-2 pr-12 md:pr-0 text-2xl md:text-[1.7rem] font-semibold tracking-[-0.03em] ${light ? "text-[#161a19]" : "text-white"}`}>{title}</h4>
+      <p className={`mt-3 text-[15px] leading-relaxed ${light ? "text-[#6a706e]" : "text-white/60"}`}>{note}</p>
     </>
-  );
-}
-
-function Radii({ list, color, line, fill }: { list: [string, number][]; color: string; line: string; fill: string }) {
-  return (
-    <div className="flex flex-wrap items-end gap-3">
-      {list.map(([n, r]) => (
-        <span key={n} className="flex flex-col items-center gap-1.5">
-          <span className="w-12 h-12 border" style={{ borderRadius: r, borderColor: line, background: fill }} />
-          <span className="text-[10px] font-mono" style={{ color }}>{n}</span>
-        </span>
-      ))}
-    </div>
   );
 }
 
@@ -169,7 +155,8 @@ export function FuturaBrand() {
   return (
     <div className="mt-10">
       <Header
-        title={<>{tx("Sistema de diseño", "Design system")} <span className="text-white/45">“Aurora”</span></>}
+        light
+        title={<>{tx("Sistema de diseño", "Design system")} <span className="text-[#479183]">“Aurora”</span></>}
         note={tx(
           "Un verde clínico anclado en el color histórico del logo, superficies suaves y sombras difusas: una plataforma médica compleja que se siente liviana, calmada y confiable.",
           "A clinical green anchored in the logo's original color, soft surfaces and diffuse shadows: a complex medical platform that feels light, calm and trustworthy.",
@@ -208,8 +195,8 @@ export function FuturaBrand() {
         ui={
           <>
             <div className="flex flex-wrap gap-2">
-              <span className="bb-press rounded-full bg-[#479183] px-4 py-2 text-[12px] font-semibold text-white shadow-[0_10px_30px_-8px_rgba(71,145,131,0.45)]">{tx("Agendar cita", "Book appointment")}</span>
-              <span className="rounded-full border border-[#d5dad9] bg-white px-4 py-2 text-[12px] font-semibold text-[#161a19]">{tx("Ver ficha", "View record")}</span>
+              <span className="bb-press fl-primary rounded-full px-4 py-2 text-[12px] font-semibold">{tx("Agendar cita", "Book appointment")}</span>
+              <span className="fl-glassbtn rounded-full px-4 py-2 text-[12px] font-semibold">{tx("Ver ficha", "View record")}</span>
             </div>
             <div className="flex items-center gap-2.5 rounded-[22px] bg-white px-3 py-2.5 shadow-[0_1px_2px_rgba(22,26,25,0.04),0_8px_24px_-12px_rgba(22,26,25,0.18)] border border-[#eff1f1]">
               <span className="w-8 h-8 rounded-full bg-[#ddf3ea] text-[#37766a] grid place-items-center text-[11px] font-bold">CH</span>
@@ -224,25 +211,6 @@ export function FuturaBrand() {
               {tx("Buscar paciente", "Search patient")}<span className="bb-caret w-px h-3.5 bg-[#479183]" />
             </span>
           </>
-        }
-        tokens={
-          <div className="flex flex-wrap items-end justify-between gap-5">
-            <div>
-              <Cap color={t.sub}>{tx("Radios", "Radius")}</Cap>
-              <div className="mt-2"><Radii list={[["field 14", 14], ["card 22", 22], ["panel 26", 26], ["pill", 999]]} color={t.sub} line="#d5dad9" fill="#fbfcfc" /></div>
-            </div>
-            <div>
-              <Cap color={t.sub}>{tx("Elevación", "Elevation")}</Cap>
-              <div className="mt-2 flex gap-3">
-                {["0 1px 2px rgba(22,26,25,0.04),0 8px 24px -12px rgba(22,26,25,0.12)", "0 2px 4px rgba(22,26,25,0.04),0 18px 40px -18px rgba(22,26,25,0.2)", "0 10px 30px -8px rgba(71,145,131,0.45)"].map((s, i) => (
-                  <span key={i} className="flex flex-col items-center gap-1.5">
-                    <span className="w-12 h-12 rounded-[14px] bg-white" style={{ boxShadow: s }} />
-                    <span className="text-[10px] font-mono text-[#6a706e]">{["soft", "lifted", "glow"][i]}</span>
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
         }
       />
     </div>

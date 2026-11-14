@@ -155,7 +155,7 @@ export function CaseStudies() {
         {synexOpen && <SynexDetail />}
       </Modal>
 
-      <Modal open={fuOpen} onClose={() => setFuOpen(false)} className="max-w-3xl">
+      <Modal open={fuOpen} onClose={() => setFuOpen(false)} className="max-w-3xl fl-modal">
         {fuOpen && <FuturaDetail />}
       </Modal>
 
