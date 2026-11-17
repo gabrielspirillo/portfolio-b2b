@@ -14,8 +14,6 @@ export function HowIWork() {
         <SectionHeader eyebrow={t("process_eyebrow")} title={t("process_title")} />
 
         <ol className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* connecting hairline (desktop) */}
-          <span aria-hidden="true" className="hidden lg:block absolute left-8 right-8 top-[3.4rem] h-px bg-gradient-to-r from-ember-500/0 via-ember-500/40 to-ember-500/0" />
           {steps.map((s, i) => (
             <li key={s.n} className={`reveal ${i === 3 ? "glass-ember" : "glass"} rounded-[28px] p-6 md:p-7 flex flex-col`}>
               <div className="relative z-10 flex items-center justify-between">

@@ -523,8 +523,8 @@ export function SmileBrand() {
             <div className="flex items-start">
               {steps.map((l, i) => (
                 <span key={l} className="flex-1 flex flex-col items-center gap-1.5 relative">
-                  {i > 0 && <span className="absolute right-1/2 top-[13px] w-full h-px bg-[#dfe3e2] -z-0" />}
-                  <span className={`relative grid place-items-center w-7 h-7 rounded-full border text-[11px] ${i === 0 ? "border-[#181818] bg-white text-[#181818] shadow-[0_0_0_3px_rgba(24,24,24,0.08)]" : "border-[#dfe3e2] bg-white text-[#8a8f8d]"}`}>{i + 1}</span>
+                  {i > 0 && <span className="absolute right-1/2 top-[13px] w-full h-px bg-[#dfe3e2] z-0" />}
+                  <span className={`relative z-10 grid place-items-center w-7 h-7 rounded-full border text-[11px] ${i === 0 ? "border-[#181818] bg-white text-[#181818] shadow-[0_0_0_3px_rgba(24,24,24,0.08)]" : "border-[#dfe3e2] bg-white text-[#8a8f8d]"}`}>{i + 1}</span>
                   <span className={`text-[10px] ${i === 0 ? "font-semibold text-[#181818]" : "text-[#8a8f8d]"}`}>{l}</span>
                 </span>
               ))}
