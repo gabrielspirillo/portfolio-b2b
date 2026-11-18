@@ -11,9 +11,16 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const SITE = "https://gabrielpirillo.brandboost-ai.com";
+const TITLE = "Gabriel Pirillo | Full Stack Developer";
+const DESC = "De la idea a la app, en producción. Apps, plataformas web, mobile y automatización con IA para empresas.";
+
 export const metadata: Metadata = {
-  title: "Gabriel Pirillo | Full Stack Developer",
-  description: "De la idea a la app, en producción. Apps, plataformas web, mobile y automatización con IA para empresas.",
+  metadataBase: new URL(SITE),
+  title: TITLE,
+  description: DESC,
+  openGraph: { type: "website", url: SITE, siteName: "Gabriel Pirillo", title: TITLE, description: DESC, locale: "es_AR" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC },
 };
 
 export default function RootLayout({
